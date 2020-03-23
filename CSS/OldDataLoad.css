@@ -1,0 +1,92 @@
+.main{
+    margin-right: 5%;
+}
+.oper-box{
+    display: flex;
+    float: right;
+    margin: 2rem 0;
+}
+.oper-btn, #upload{
+    margin: 0 1rem;
+}
+@media(min-width: 750px){
+    .page-title{
+        display: inline;
+    }
+    .oper-box{
+        margin: 0;
+    }
+}
+@media(max-width: 750px){
+    .page-title{
+        display: block;
+    }
+    .oper-box{
+        margin: 2rem 0;
+    }
+}
+
+/* Tab */
+.tab-box{
+    width: 100%;
+    display: inline-block;
+    border-bottom: 2px solid #d7d7d7;
+}
+.a-tab{
+    color:  rgb(40,60,150);
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none !important;
+    font-size: 1.8rem;
+    line-height: 3.5rem;
+    padding: 0 5%;
+}
+.a-tab-active{
+    border-bottom: 2px solid rgb(40,60,150);
+    margin-bottom: -2px;
+}
+
+/* Table */
+.table-responsive{
+    overflow-x: auto;
+}
+.table>tbody>tr>td{
+    text-align: center;
+}
+th{
+    text-align: center;
+}
+.tr-selected{
+    background-color:  rgb(185, 195, 210);
+}
+.tr-selected:hover{
+    background-color:  rgb(212, 218, 228) !important;
+}
+.checkbox{
+    margin: 0 !important;
+    zoom: 1.2;
+    margin-right: -10px !important;
+}
+.act-btn{
+    margin-right: 2px;
+}
+
+/* 悬浮按钮 */
+.dangling-box{
+    position: fixed;
+    bottom: 3rem;
+    right: 2%;
+    display: block;
+    z-index: 101;
+    width: 55px;
+}
+.dangling-icon{
+    cursor: pointer;
+    margin: 0.5rem 0;
+    color: rgb(160, 160, 160);
+    zoom: 2.8;
+}
+.dangling-icon:hover{
+    color: rgb(196, 196, 196);
+}

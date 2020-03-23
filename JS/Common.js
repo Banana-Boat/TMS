@@ -3,6 +3,7 @@ $('#content').empty();
 //$('#content').load('../HTML/ToolEntityDisplay.html');
 //$('#content').load('../HTML/ToolDefinitionDisplay.html');
 //$('#content').load('../HTML/AdminToolDefinitionDisplay.html');
-$('#content').load('../HTML/UserManage.html');
+//$('#content').load('../HTML/UserManage.html');
 //$('#content').load('../HTML/PwResetApplicationManage.html');
 //$('#content').load('../HTML/UserInfoDisplay.html');
+//$('#content').load('../HTML/OldDataLoad.html');

@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>ApplicationReview</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../IMG/favicon.ico">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  </head>
+    <body> -->
+        <!--悬浮按钮-->
+        <div class="dangling-box">
+            <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="page-header">
+                <h2 class="page-title">申请审核</h2>
+                <!-- 操作框 -->
+                <div class="oper-box">
+                    <button class="btn btn-primary" id="bulkAccept">批量同意</button>
+                    <button class="btn btn-primary" id="bulkReject">批量拒绝</button>
+                </div>
+            </div>
+            <!-- 申请类别选择 -->
+            <div class="tab-box">
+                <a class="a-tab a-tab-active" id="OutTab" onclick="changeTab(this, 'Out');">出库</a>
+                <a class="a-tab" id="InTab" onclick="changeTab(this, 'In');">入库</a>
+                <a class="a-tab" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
+                <a class="a-tab" id="ScrapTab" onclick="changeTab(this, 'Scrap');">报废</a>
+            </div>
+            <!-- 申请表格展示 -->
+            <div class="table-box table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><input class="checkbox" id="selectAll" type="checkbox"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <link href="../CSS/ApplicationReview.css" rel="stylesheet" type="text/css">
+        <script src="../JS/ApplicationReview.js"></script>
+<!--     </body>
+</html> -->

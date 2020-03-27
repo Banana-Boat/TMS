@@ -1,0 +1,70 @@
+{
+    "Out":[
+        {
+            "OrderID": "0001",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0002",
+            "ApplicantID": "2019002",
+            "ApplicantName": "Yang Lei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0003",
+            "ApplicantID": "2019005",
+            "ApplicantName": "You Shang",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0004",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        }
+    ],
+    "In":[
+        {
+            "OrderID": "0001",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        }
+    ],
+    "Repair":[
+        {
+            "OrderID": "0001",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0002",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0003",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        }
+    ],
+    "Scrap":[
+        {
+            "OrderID": "0001",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "OrderID": "0002",
+            "ApplicantID": "2019001",
+            "ApplicantName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        }
+    ]
+}

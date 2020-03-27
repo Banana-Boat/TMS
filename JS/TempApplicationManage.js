@@ -12,13 +12,17 @@ function refreshTable(){
         dataType: 'JSON',
         url: '../TestData/TempApplicationList.json',  //后端Url，附加code参数
         success: function(result){
-            initData = result;
-            
-            $('#Workcell').val(initData['Workcell']);        //将申请人信息绑定至申请单
-            $('#ApplicantID').val(initData['ApplicantID']);
-            $('#ApplicantName').val(initData['ApplicantName']);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                initData = result;
+                
+                $('#Workcell').val(initData['Workcell']);        //将申请人信息绑定至申请单
+                $('#ApplicantID').val(initData['ApplicantID']);
+                $('#ApplicantName').val(initData['ApplicantName']);
 
-            displayTable(initData[displayType]);
+                displayTable(initData[displayType]);
+            }
         },
         error: function(){
             alert('获取信息失败，请稍后重试...');
@@ -44,13 +48,17 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/LinePMDict.json',  //后端Url，附加code参数
         success: function(result){
-            for(let p in result['Line']){            //将产线、故障字典绑定至下拉框
-                $('#LineID').append('<option value="' 
-                    + p + '">' + result['Line'][p] + '</option>');
-            }
-            for(let p in result['PMContent']){
-                $('#PMContentID').append('<option value="' 
-                    + p + '">' + result['PMContent'][p] + '</option>');
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                for(let p in result['Line']){            //将产线、故障字典绑定至下拉框
+                    $('#LineID').append('<option value="' 
+                        + p + '">' + result['Line'][p] + '</option>');
+                }
+                for(let p in result['PMContent']){
+                    $('#PMContentID').append('<option value="' 
+                        + p + '">' + result['PMContent'][p] + '</option>');
+                }
             }
         },
         error: function(){
@@ -104,7 +112,7 @@ function remove(e){
     var seqID = $(e).parent().parent().children().eq(2).text();
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': displayType});
-    /* $.ajax({
+    $.ajax({
         type: 'POST',
         dataType: 'JSON',
         contentType: 'application/json;charset=UTF-8',
@@ -113,9 +121,11 @@ function remove(e){
         success: function(result){
             if(result.Status == 'error'){
                 alert('操作失败，请稍后重试...');
+            }else{
+                alert('操作成功！');
             }
         } 
-    }); */
+    });
     displayTable(initData[displayType]);
 }
 //#endregion

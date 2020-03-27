@@ -22,12 +22,16 @@ function refleshData(){
         dataType: 'JSON',
         url: '../TestData/UserInfo.json',  //待改
         success: function(result){
-            $('#UserID').text(result.UserID);
-            $('#Name').text(result.Name);
-            $('#Email').text(result.Email);
-            $('#Privilege').text(result.Privilege);
-            $('#Workcell').text(result.Workcell);
-            $('#LastLogin').text(result.LastLogin);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                $('#UserID').text(result.UserID);
+                $('#Name').text(result.Name);
+                $('#Email').text(result.Email);
+                $('#Privilege').text(result.Privilege);
+                $('#Workcell').text(result.Workcell);
+                $('#LastLogin').text(result.LastLogin);
+            }
         },
         error: function(){
             alert('数据获取失败，请稍后重试...');

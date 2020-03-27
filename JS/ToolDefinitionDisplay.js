@@ -44,8 +44,12 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/ToolDefinitionList.json',  //后端Url，待改
         success: function(result){
-            displayTable(result);
-            initData = result;
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                displayTable(result);
+                initData = result;
+            }
         },
         error: function(){
             alert('获取信息失败，请刷新重试...');
@@ -56,10 +60,14 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/FamModDict.json',  //后端Url，待改
         success: function(result){
-            for(let p in result.Family)
-                $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
-            for(let n in result.Model)
-                $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                for(let p in result.Family)
+                    $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                for(let n in result.Model)
+                    $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
+            }
         },
         error: function(){
             $('#familyFilterInput').replaceWith('<input class="form-control filterby-input" id="familyFilterInput" onchange="changeFilter(this, ' + "'Model'" + ');">');
@@ -147,25 +155,28 @@ function getInfo(e){
         dataType: "JSON",
         url: "../TestData/ToolDefinitionInfo.json",  //code附在url后  "...?code=" + code
         success: function(result){
-            
-            $('#Code').text(result.Code);
-            $('#Name').text(result.Name);
-            $('#Family').text(result.Family);
-            $('#Model').text(result.Model);
-            $('#PartNo').text(result.PartNo);
-            $('#UPL').text(result.UPL);
-            $('#UsedFor').text(result.UsedFor);
-            $('#PMPeriod').text(result.PMPeriod);
-            $('#PMContent').text(result.PMContent);
-            $('#OwnerID').text(result.OwnerID);
-            $('#OwnerName').text(result.OwnerName);
-            $('#RecOn').text(result.RecOn);
-            $('#RecorderID').text(result.RecorderID);
-            $('#RecorderName').text(result.RecorderName);
-            $('#EditOn').text(result.EditOn);
-            $('#EditorID').text(result.EditorID);
-            $('#EditorName').text(result.EditorName);
-            $('#Workcell').text(result.Workcell);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                $('#Code').text(result.Code);
+                $('#Name').text(result.Name);
+                $('#Family').text(result.Family);
+                $('#Model').text(result.Model);
+                $('#PartNo').text(result.PartNo);
+                $('#UPL').text(result.UPL);
+                $('#UsedFor').text(result.UsedFor);
+                $('#PMPeriod').text(result.PMPeriod);
+                $('#PMContent').text(result.PMContent);
+                $('#OwnerID').text(result.OwnerID);
+                $('#OwnerName').text(result.OwnerName);
+                $('#RecOn').text(result.RecOn);
+                $('#RecorderID').text(result.RecorderID);
+                $('#RecorderName').text(result.RecorderName);
+                $('#EditOn').text(result.EditOn);
+                $('#EditorID').text(result.EditorID);
+                $('#EditorName').text(result.EditorName);
+                $('#Workcell').text(result.Workcell);
+            }
         },
         error: function(){
             alert('获取数据失败，请稍后重试...')

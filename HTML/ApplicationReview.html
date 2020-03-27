@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <title>ApplicationReview</title>
@@ -11,7 +11,7 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </head>
-    <body> -->
+    <body>
         <!--悬浮按钮-->
         <div class="dangling-box">
             <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
@@ -23,7 +23,7 @@
                 <!-- 操作框 -->
                 <div class="oper-box">
                     <button class="btn btn-primary" id="bulkAccept">批量同意</button>
-                    <button class="btn btn-primary" id="bulkReject">批量拒绝</button>
+                    <button class="btn btn-primary" id="bulkReject">批量驳回</button>
                 </div>
             </div>
             <!-- 申请类别选择 -->
@@ -39,10 +39,9 @@
                     <thead>
                         <tr>
                             <th><input class="checkbox" id="selectAll" type="checkbox"></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>订单编号</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -50,7 +49,92 @@
             </div>
         </div>
 
+        <!-- 查看申请单详情 -->
+        <div class="modal fade" id="applicationInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalTitle">申请单详情</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div class="InfoModal-main form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="OrderID">申请编号</label>
+                                <p class="attr" id="OrderID"></p>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="ToolList">夹具列表</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="6" id="ToolList" disabled></textarea>
+                                </div>
+                            </div>
+                            <!-- 展示类型根据申请类型变化 -->
+                            <div class="variable-box">
+                                <!-- 出库 -->
+                                <div id="outBox" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="UserName">领用人</label>
+                                        <p class="attr" id="UserName"></p> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="LineName">产线</label>
+                                        <p class="attr" id="LineName"></p> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="Check">是否为点检</label>
+                                        <p class="attr" id="Check"></p> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="OutRemarks">备注</label>
+                                        <p class="attr" id="OutRemarks"></p>
+                                    </div>
+                                </div>
+                                <!-- 入库 -->
+                                <div id="inBox" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="InRemarks">备注</label>
+                                        <p class="attr" id="InRemarks"></p>
+                                    </div>
+                                </div>
+                                <!-- 报修 -->
+                                <div id="repairBox" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="PMContent">故障类别</label>
+                                        <p class="attr" id="PMContent"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="RepairReason">故障描述</label>
+                                        <p class="attr" id="RepairReason"></p>
+                                    </div>
+                                </div>
+                                <!-- 报废 -->
+                                <div id="scrapBox" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="ScrapReason">报废原因</label>
+                                        <p class="attr" id="ScrapReason"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Applicant">申请人</label>
+                                <p class="attr" id="Applicant"></p> 
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="ApplicationTime">申请人时间</label>
+                                <p class="attr" id="ApplicationTime"></p> 
+                            </div>
+                            <div class="form-group btn-modal-box">
+                                <button class="btn btn-primary btn-modal" onclick="acceptInModal(this);">同意</button>
+                                <button class="btn btn-primary btn-modal" onclick="rejectInModal(this);">驳回</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <link href="../CSS/ApplicationReview.css" rel="stylesheet" type="text/css">
         <script src="../JS/ApplicationReview.js"></script>
-<!--     </body>
-</html> -->
+    </body>
+</html>

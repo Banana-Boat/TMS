@@ -9,16 +9,20 @@ function refreshTable(){
         dataType: 'JSON',
         url: '../TestData/PwResetApplicationList.json',  //后端Url，待改
         success: function(result){
-            $('tbody').empty();
-            for(let i = 0; i < result.length; i++){
-                $('tbody').append(
-                    '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
-                    + '</td><td>' + result[i].UserID
-                    + '</td><td>' + result[i].Name
-                    + '</td><td>' + result[i].Workcell
-                    + '</td><td><button class="btn act-btn" onclick="accept(this);">同意</button>'
-                    + '<button class="btn act-btn" onclick="reject(this);">拒绝</button>'
-                    + '</td></tr>');
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                $('tbody').empty();
+                for(let i = 0; i < result.length; i++){
+                    $('tbody').append(
+                        '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
+                        + '</td><td>' + result[i].UserID
+                        + '</td><td>' + result[i].Name
+                        + '</td><td>' + result[i].Workcell
+                        + '</td><td><button class="btn act-btn" onclick="accept(this);">同意</button>'
+                        + '<button class="btn act-btn" onclick="reject(this);">驳回</button>'
+                        + '</td></tr>');
+                }
             }
         },
         error: function(){
@@ -56,7 +60,7 @@ function selectOne(e){
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 单个同意、拒绝
+//#region 单个同意、驳回
 function accept(e){
     var transData = {
         'Type': 'accept',
@@ -84,7 +88,7 @@ function reject(e){
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 批量同意、拒绝
+//#region 批量同意、驳回
 function AddToSelectedApplication(){
     selectedApplication = [];
     for(let i = 0; i < $('tbody').children().length; i++){    //将选中的夹具添加入变量数组

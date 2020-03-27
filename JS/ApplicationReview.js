@@ -1,33 +1,43 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 var selectedApplication = [];   //已选择的申请
 var displayType = 'Out';                //当前展示的申请类型
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 展示表格、刷新
+var initData = {};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 获取待审核申请列表、刷新列表（函数）
 function refreshTable(){
-    $.ajax({ 
+    $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/PwResetApplicationList.json',  //后端Url，待改
+        url: '../TestData/ApplicationList.json',  //后端Url待改
         success: function(result){
-            $('tbody').empty();
-            for(let i = 0; i < result.length; i++){
-                $('tbody').append(
-                    '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
-                    + '</td><td>' + result[i].UserID
-                    + '</td><td>' + result[i].Name
-                    + '</td><td>' + result[i].Workcell
-                    + '</td><td><button class="btn act-btn" onclick="accept(this);">同意</button>'
-                    + '<button class="btn act-btn" onclick="reject(this);">拒绝</button>'
-                    + '</td></tr>');
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                initData = result;
+                displayTable(initData[displayType]);
             }
         },
         error: function(){
-            alert('获取信息失败，请刷新重试...');
+            alert('获取信息失败，请稍后重试...');
         }
     });
 }
-$(window).on('load', refreshTable);
+function displayTable(data){
+    $('tbody').empty();
+    for(let i = 0; i < data.length; i++){
+        $('tbody').append(
+            '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
+            + '</td><td>' + data[i].OrderID
+            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+            + '</td><td>' + data[i].ApplicationTime
+            + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
+            + '<button class="btn act-btn" onclick="accept(this);">同意</button>'
+            + '<button class="btn act-btn" onclick="reject(this);">驳回</button>'
+            + '</td></tr>');
+    }
+}
+
+$(window).on('load', refreshTable());
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,6 +48,84 @@ function changeTab(e, type){
     $('#selectAll').prop('checked', false);
     displayType = type;
     displayTable(initData[displayType]);
+}
+//#endregion
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 点击查看详情、模态窗显示、模态窗提交
+function getInfo(e){
+    var OrderID = $(e).parent().parent().children().eq(1).text()
+    $('#OrderID').text(OrderID);
+    $('#Applicant').text($(e).parent().parent().children().eq(2).text());
+    $('#ApplicationTime').text($(e).parent().parent().children().eq(3).text());
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json;charset=UTF-8',
+        url: '../TestData/ApplicationInfo.json'/*  + '?OrderID=' + OrderID */,      //url待改 后附OrderID参数
+        success: function(result){
+            if(result.Status == 'error'){
+                alert('获取信息失败，请稍后重试...');
+            }else{
+                $('#outBox').hide();
+                $('#inBox').hide();
+                $('#repairBox').hide();
+                $('#scrapBox').hide();
+                switch(displayType){                         //更改模态窗内容
+                    case 'Out': 
+                        $('#modalTitle').text('出库申请单详情');
+                        $('#UserName').text(result.UserName);
+                        $('#LineName').text(result.LineName);
+                        $('#Check').text(result.Check);
+                        $('#OutRemarks').text(result.Remarks);
+                        $('#outBox').show();
+                        break;
+                    case 'In':
+                        $('#modalTitle').text('入库申请单详情');
+                        $('#InRemarks').text(result.Remarks);
+                        $('#inBox').show();
+                        break;
+                    case 'Repair':
+                        $('#modalTitle').text('报修申请单详情');
+                        $('#PMContent').text(result.PMContent);
+                        $('#RepairReason').text(result.Reason);
+                        $('#repairBox').show();
+                        break;
+                    case 'Scrap':
+                        $('#modalTitle').text('报废申请单详情');
+                        $('#ScrapReason').text(result.Reason);
+                        $('#scrapBox').show();
+                        break;
+                }
+
+                $('#ToolList').text('');                       //清空富文本框显示夹具  
+                for(let i = 0; i < result.ToolList.length; i++){          //刷新富文本框显示夹具
+                    let temp = $('#ToolList').text();
+                    $('#ToolList').text(temp + 'No.' + (i + 1) + '    ' 
+                        + result.ToolList[i].Code + '    ' 
+                        + result.ToolList[i].SeqID + '\n');
+                }
+                $('#applicationInfoModal').modal('show');
+            }
+        } 
+    });
+}
+function acceptInModal(e){
+    var transData = {
+        'Type': 'accept',
+        'OrderID': [
+            $(e).parent().children().eq(0).children().eq(1).text()
+        ]
+    }
+    //SubmitByAjax(transData, '');
+}
+function rejectInModal(e){
+    var transData = {
+        'Type': 'reject',
+        'OrderID': [
+            $(e).parent().children().eq(0).children().eq(1).text()
+        ]
+    }
+    //SubmitByAjax(transData, '');
 }
 //#endregion
 
@@ -68,15 +156,12 @@ function selectOne(e){
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 单个同意、拒绝
+//#region 单个同意、驳回
 function accept(e){
     var transData = {
         'Type': 'accept',
-        'Application': [
-            {   
-                'UserID': $(e).parent().parent().children().eq(1).text(),
-                'Workcell': $(e).parent().parent().children().eq(3).text()
-            }
+        'OrderID': [
+            $(e).parent().parent().children().eq(1).text()
         ]
     }
     //SubmitByAjax(transData, '');
@@ -84,11 +169,8 @@ function accept(e){
 function reject(e){
     var transData = {
         'Type': 'reject',
-        'Application': [
-            {   
-                'UserID': $(e).parent().parent().children().eq(1).text(),
-                'Workcell': $(e).parent().parent().children().eq(3).text()
-            }
+        'OrderID': [
+            $(e).parent().parent().children().eq(1).text()
         ]
     }
     //SubmitByAjax(transData, '');
@@ -96,15 +178,12 @@ function reject(e){
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 批量同意、拒绝
+//#region 批量同意、驳回
 function AddToSelectedApplication(){
     selectedApplication = [];
     for(let i = 0; i < $('tbody').children().length; i++){    //将选中的夹具添加入变量数组
         if($('tbody').children().eq(i).children().eq(0).children().eq(0).prop('checked')){
-            selectedApplication.push({
-                'UserId': $('tbody').children().eq(i).children().eq(1).text(),
-                'Workcell': $('tbody').children().eq(i).children().eq(3).text()
-            });
+            selectedApplication.push($('tbody').children().eq(i).children().eq(1).text());
         }
     }
 }
@@ -132,11 +211,10 @@ $('#bulkAccept').click(function(){
     }else{
         var transData = {
             'Type': 'accept',
-            'Application': selectedApplication
+            'OrderID': selectedApplication
         }
         //SubmitByAjax(transData, '');
     }
-    
 });
 $('#bulkReject').click(function(){
     AddToSelectedApplication();
@@ -145,7 +223,7 @@ $('#bulkReject').click(function(){
     }else{
         var transData = {
             'Type': 'reject',
-            'Application': selectedApplication
+            'OrderID': selectedApplication
         }
         //SubmitByAjax(transData, '');
     }

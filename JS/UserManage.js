@@ -38,8 +38,12 @@ function refleshTable(){
         dataType: "JSON",
         url: "../TestData/UserInfoList.json",
         success: function(result){
-            displayTable(result);
-            jData = result;
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                displayTable(result);
+                jData = result;
+            }
         },
         error: function(){
             alert('获取信息失败，请稍后刷新重试...');
@@ -51,32 +55,32 @@ $(window).on('load', refleshTable());
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 查找
-    function chooseSearchType(e){
-        $('#searchTypeBtn').text($(e).text());
-        searchType = $(e).text();
-        $('#paramInput').focus();
+function chooseSearchType(e){
+    $('#searchTypeBtn').text($(e).text());
+    searchType = $(e).text();
+    $('#paramInput').focus();
+}
+
+$('#searchBtn').click(function(){
+    var param = $('#paramInput').val();
+    switch(searchType){
+        case 'UserID':
+            displayTable(jData.filter(item => { return item.UserID == param}));
+            break;
+        case 'Name':
+            displayTable(jData.filter(item => { return item.Name == param}));
+            break;
+        case 'Privilege':
+            displayTable(jData.filter(item => { return item.Privilege == param}));
+            break;
+        case 'Workcell':
+            displayTable(jData.filter(item => { return item.Workcell == param}));
+            break;
+        default:
+            $('#paramInput').val('');
+            displayTable(jData);
     }
-    
-    $('#searchBtn').click(function(){
-        var param = $('#paramInput').val();
-        switch(searchType){
-            case 'UserID':
-                displayTable(jData.filter(item => { return item.UserID == param}));
-                break;
-            case 'Name':
-                displayTable(jData.filter(item => { return item.Name == param}));
-                break;
-            case 'Privilege':
-                displayTable(jData.filter(item => { return item.Privilege == param}));
-                break;
-            case 'Workcell':
-                displayTable(jData.filter(item => { return item.Workcell == param}));
-                break;
-            default:
-                $('#paramInput').val('');
-                displayTable(jData);
-        }
-    });
+});
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

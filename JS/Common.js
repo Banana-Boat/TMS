@@ -7,3 +7,4 @@ $('#content').empty();
 //$('#content').load('../HTML/PwResetApplicationManage.html');
 //$('#content').load('../HTML/UserInfoDisplay.html');
 //$('#content').load('../HTML/OldDataLoad.html');
+//$('#content').load('../HTML/ApplicationReview.html');

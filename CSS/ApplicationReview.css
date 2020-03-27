@@ -1,5 +1,6 @@
 .main{
     margin-right: 8%;
+    margin-top: 1.5rem;
 }
 .page-title{
     display: inline-block;
@@ -36,6 +37,7 @@
 }
 .table>tbody>tr>td{
     text-align: center;
+    vertical-align: middle;
 }
 th{
     text-align: center;
@@ -72,4 +74,27 @@ th{
 }
 .dangling-icon:hover{
     color: rgb(196, 196, 196);
+}
+
+/* 模态窗 */
+.attr{
+    display: inline;
+    margin-left: 1.5rem;
+}   
+.InfoModal-main{
+    padding-left: 10%;
+}
+#ToolList{
+    margin-bottom: 1.5rem;
+}
+.btn-modal-box{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+}
+.btn-modal{
+    margin: 0 0.5rem;
+}
+.form-horizontal .control-label {
+    padding-top: 0;
 }

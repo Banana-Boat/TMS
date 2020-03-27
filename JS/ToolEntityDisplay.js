@@ -13,14 +13,18 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/ToolEntityList.json',  //后端Url
         success: function(result){
-            function compare(a, b){
-                if(a.State == '可用' && b.State == '可用')  return 0;
-                else if(a.State == '可用')  return -5;
-                else if(b.State == '可用')  return 5;
-                else    return a.State.localeCompare(b.State);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                function compare(a, b){
+                    if(a.State == '可用' && b.State == '可用')  return 0;
+                    else if(a.State == '可用')  return -5;
+                    else if(b.State == '可用')  return 5;
+                    else    return a.State.localeCompare(b.State);
+                }
+                initData = result.sort(compare);    //将实体数据按照状态排序  可用放最前
+                displayTable(initData);
             }
-            initData = result.sort(compare);    //将实体数据按照状态排序  可用放最前
-            displayTable(initData);
         },
         error: function(){
             alert('获取信息失败，请稍后重试...');
@@ -102,17 +106,21 @@ function refleshCache(){
         dataType: 'JSON',
         url: '../TestData/CacheList.json',   //待改  后端URL
         success: function(result){
-            function addToCacheTbody(tbodyID, len, array){    //将数据分类归入不同表格
-                for(var i = 0; i < len; i++){
-                    $('#' + tbodyID).append('<tr><td>' + array[i].Code
-                    + '</td><td>' + array[i].SeqID
-                    + '</td><td><i class="glyphicon glyphicon-remove cache-remove-icon" onclick="remove(this);"></i></td></tr>')
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                function addToCacheTbody(tbodyID, len, array){    //将数据分类归入不同表格
+                    for(var i = 0; i < len; i++){
+                        $('#' + tbodyID).append('<tr><td>' + array[i].Code
+                        + '</td><td>' + array[i].SeqID
+                        + '</td><td><i class="glyphicon glyphicon-remove cache-remove-icon" onclick="remove(this);"></i></td></tr>')
+                    }
                 }
+                addToCacheTbody('outTbody', result.Out.length, result.Out);
+                addToCacheTbody('inTbody', result.In.length, result.In);
+                addToCacheTbody('repairTbody', result.Repair.length, result.Repair);
+                addToCacheTbody('scrapTbody', result.Scrap.length, result.Scrap);
             }
-            addToCacheTbody('outTbody', result.Out.length, result.Out);
-            addToCacheTbody('inTbody', result.In.length, result.In);
-            addToCacheTbody('repairTbody', result.Repair.length, result.Repair);
-            addToCacheTbody('scrapTbody', result.Scrap.length, result.Scrap);
         },
         error: function(){
             alert('待提交申请中，部分夹具被其他用户操作，系统已自动将其去除');
@@ -233,24 +241,26 @@ function getInfo(e){
         dataType: 'JSON',
         url: '../TestData/ToolEntityInfo.json',  //code附在url后  '...?Code=' + code + '&SeqID=' + seqID
         success: function(result){
-            
-            $('#Code').text(result.Code);
-            $('#SeqID').text(result.SeqID);
-            $('#RegDate').text(result.RegDate);
-            $('#UsedCount').text(result.UsedCount);
-            $('#State').text(result.State);
-            $('#BillNo').text(result.BillNo);
-            $('#StoreHouse').text(result.StoreHouse);
-            $('#LastTestTime').text(result.LastTestTime);
-            $('#TotalUsedTime').text(result.TotalUsedTime);
-            //$('#Image').attr('src', result.Image);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                $('#Code').text(result.Code);
+                $('#SeqID').text(result.SeqID);
+                $('#RegDate').text(result.RegDate);
+                $('#UsedCount').text(result.UsedCount);
+                $('#State').text(result.State);
+                $('#BillNo').text(result.BillNo);
+                $('#StoreHouse').text(result.StoreHouse);
+                $('#LastTestTime').text(result.LastTestTime);
+                $('#TotalUsedTime').text(result.TotalUsedTime);
+                //$('#Image').attr('src', result.Image);
+            }
+            $('#InfoModal').modal('show');
         },
         error: function(){
             alert('获取数据失败，请稍后重试...')
         }
     });
-
-    $('#InfoModal').modal('show');
 }
 //#endregion
 

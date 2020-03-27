@@ -45,8 +45,12 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/ToolDefinitionList.json',  //后端Url，待改
         success: function(result){
-            displayTable(result);
-            initData = result;
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                displayTable(result);
+                initData = result;
+            }
         },
         error: function(){
             alert('获取信息失败，请刷新重试...');
@@ -57,14 +61,18 @@ $(window).on('load', function(){
         dataType: 'JSON',
         url: '../TestData/FamModDict.json',  //后端Url，待改
         success: function(result){           //字典数据绑定至筛选下拉框、信息修改下拉框
-            fmDict = result;                 //说明：为查看详情时可自动将Family和Model两个下拉框补全，故采用value与text均为实际内容
-            for(let p in result.Family){
-                $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
-                $('#Family').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
-            }
-            for(let n in result.Model){
-                $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
-                $('#Model').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>')
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                fmDict = result;                 //说明：为查看详情时可自动将Family和Model两个下拉框补全，故采用value与text均为实际内容
+                for(let p in result.Family){
+                    $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                    $('#Family').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                }
+                for(let n in result.Model){
+                    $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
+                    $('#Model').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>')
+                }
             }
         },
         error: function(){
@@ -152,31 +160,35 @@ function getInfo(e){
         dataType: 'JSON',
         url: '../TestData/ToolDefinitionInfo.json',  //code附在url后  "...?code=' + code
         success: function(result){
-            $('#Code').val(result.Code);
-            $('#Name').val(result.Name);
-            $('#Family').val(result.Family)
-            $('#Model').val(result.Model);
-            $('#PartNo').val(result.PartNo);
-            $('#UPL').val(result.UPL);
-            $('#UsedFor').val(result.UsedFor);
-            $('#PMPeriod').val(result.PMPeriod);
-            $('#PMContent').val(result.PMContent);
-            $('#OwnerID').val(result.OwnerID);
-            $('#OwnerName').val(result.OwnerName);
-            $('#RecOn').val(result.RecOn);
-            $('#RecorderID').val(result.RecorderID);
-            $('#RecorderName').val(result.RecorderName);
-            $('#EditOn').val(result.EditOn);
-            $('#EditorID').val(result.EditorID);
-            $('#EditorName').val(result.EditorName);
-            $('#Workcell').val(result.Workcell);
+            if(result.Status == 'error'){
+                alert('获取数据失败，请稍后重试..');
+            }else{
+                $('#Code').val(result.Code);
+                $('#Name').val(result.Name);
+                $('#Family').val(result.Family)
+                $('#Model').val(result.Model);
+                $('#PartNo').val(result.PartNo);
+                $('#UPL').val(result.UPL);
+                $('#UsedFor').val(result.UsedFor);
+                $('#PMPeriod').val(result.PMPeriod);
+                $('#PMContent').val(result.PMContent);
+                $('#OwnerID').val(result.OwnerID);
+                $('#OwnerName').val(result.OwnerName);
+                $('#RecOn').val(result.RecOn);
+                $('#RecorderID').val(result.RecorderID);
+                $('#RecorderName').val(result.RecorderName);
+                $('#EditOn').val(result.EditOn);
+                $('#EditorID').val(result.EditorID);
+                $('#EditorName').val(result.EditorName);
+                $('#Workcell').val(result.Workcell);
+
+                $('#InfoModal').modal('show');
+            }
         },
         error: function(){
             alert('获取数据失败，请稍后重试...')
         }
     });
-
-    $('#InfoModal').modal('show');
 }
 //#endregion
 

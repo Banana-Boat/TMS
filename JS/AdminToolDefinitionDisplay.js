@@ -182,17 +182,15 @@ function getInfo(e){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 修改夹具定义信息
-function findKey(obj, value, compare = (a, b) => a === b) {  //根据value查找key
+/* function findKey(obj, value, compare = (a, b) => a === b) {  //根据value查找key
     return Object.keys(obj).find(k => compare(obj[k], value))
-}
+} */
 $('#EditBtn').click(function(){
-    var familyID = findKey(fmDict['Family'], $('#Family').val());
-    var modelID = findKey(fmDict['Model'], $('#Model').val());
     var transData = {
         'Code': $('#Code').val(),
         'Name': $('#Name').val(),
-        'FamilyID': familyID,
-        'ModelID': modelID,
+        'Family': $('#Family').val(),
+        'Model': $('#Model').val(),
         'PartNo': $('#PartNo').val(),
         'UPL': $('#UPL').val(),
         'UsedFor': $('#UsedFor').val(),

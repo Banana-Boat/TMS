@@ -1,5 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 全局变量
+var is_name_legel = true;
 var is_password_legel = true;
 var is_rePassword_legal = true;
 var is_email_legel = true;
@@ -40,13 +41,15 @@ $(window).on('load', refleshData());
 //#region 弹出修改窗、提交修改
 $('#showEditModal').click(function(){
     $('#modalUserID').val($('#UserID').text());
+    $('#modalName').val($('#Name').text());
     $('#newEmail').val($('#Email').text());
     $('#editModal').modal('show');
 });
 $('#EditBtn').click(function(){
-    if(is_password_legel && is_rePassword_legal && is_email_legel){
+    if(is_password_legel && is_name_legel && is_rePassword_legal && is_email_legel){
         var transData = {
             'UserID': $('#modalUserID').val(),
+            'NewName': $('#modalName').val(),
             'NewPassword': $('#newPassword').val(),
             'NewEmail': $('#newEmail').val()
         };
@@ -75,7 +78,7 @@ $('#EditBtn').click(function(){
 //#endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 修改窗输入框验证
+//#region 修改窗输入框验证（姓名无验证..）
 $('#newPassword').change(function(){
     if($(this).val() != ""){
         if(!password_reg.test($(this).val())){

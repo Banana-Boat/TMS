@@ -1,14 +1,14 @@
 {
-    "Family": {
-        "1": "JABIL FU",
-        "2": "JABIL BO",
-        "3": "JABIL DO",
-        "4": "JABIL AD"
-    },
-    "Model":{
-        "1": "MOD 3XM2",
-        "2": "MOD 5XM3",
-        "3": "FU",
-        "4": "DUX"
-    }
+    "Family": [
+        "JABIL FU",
+        "JABIL BO",
+        "JABIL DO",
+        "JABIL AD"
+    ],
+    "Model":[
+        "MOD 3XM2",
+        "MOD 5XM3",
+        "FU",
+        "DUX"
+    ]
 }

@@ -8,11 +8,10 @@ var pageSize = 20;              //一页最多显示16条信息
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 获取定义列表、刷新待申请列表（函数）
 $(window).on('load', function(){
-    var code = getUrlVars()['Code'];
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/ToolEntityList.json',  //后端Url，附加code参数
+        url: '../TestData/ToolEntityList.json',  //后端Url
         success: function(result){
             function compare(a, b){
                 if(a.State == '可用' && b.State == '可用')  return 0;

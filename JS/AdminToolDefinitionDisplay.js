@@ -197,7 +197,21 @@ function getInfo(e){
 /* function findKey(obj, value, compare = (a, b) => a === b) {  //根据value查找key
     return Object.keys(obj).find(k => compare(obj[k], value))
 } */
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
 $('#EditBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '确认修改');
     var transData = {
         'Code': $('#Code').val(),
         'Name': $('#Name').val(),
@@ -223,8 +237,10 @@ $('#EditBtn').click(function(){
             }else{
                 alert('修改失败，请稍后重试...');
             }
+            changeBtnStyle(Btn, '确认修改');
         },
         error: function(){
+            changeBtnStyle(Btn, '确认修改');
             alert('修改失败，请稍后重试...');
         }
     });

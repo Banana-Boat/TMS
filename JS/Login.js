@@ -36,10 +36,23 @@ function validate(){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 三种不同情况登录、首次登陆更改初始密码
-
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
 //普通登录
 $('#loginBtn').click(function(){
+    var Btn = this;
     if(validate()){
+        changeBtnStyle(Btn, '登录');
         var transData = {
             'UserID': $('#UserID').val(),
             'Password': $('#Password').val()
@@ -66,16 +79,20 @@ $('#loginBtn').click(function(){
                 else{
                     alert('登录失败，请稍后重试...');
                 }
+                changeBtnStyle(Btn, '登录');
             },
             error: function(){
                 alert('登录失败，请稍后重试...');
+                changeBtnStyle(Btn, '登录');
             }
         }) */
     }
 })
 
 //选择工作部门后登录
-$('#workcellSubmitBtn').click(function(){       
+$('#workcellSubmitBtn').click(function(){    
+    var Btn = this;  
+    changeBtnStyle(Btn, '登录'); 
     var transData = {
         'UserID': $('#UserID').val(),
         'Password': $('#Password').val(),
@@ -92,14 +109,16 @@ $('#workcellSubmitBtn').click(function(){
                 window.location = '';              //url待改
             }
             else if(result.Status == 'first'){     //用户首次登录，需更改初始密码
-                $('#setPwModal'),modal('show');
+                $('#setPwModal').modal('show');
             }
             else{
                 alert('登录失败，请稍后重试...');
             }
+            changeBtnStyle(Btn, '登录'); 
         },
         error: function(){
             alert('登录失败，请稍后重试...');
+            changeBtnStyle(Btn, '登录');
         }
     })
 })
@@ -147,11 +166,13 @@ $('#rePassword').change(function(){
 
 //点击提交
 $('#newPwBtn').click(function(){
+    var Btn = this;  
     var transData = {
         'UserID': $('#UserID').val(),
         'NewPassword': $('#newPassword').val()
     };
     if(is_password_legel && is_rePassword_legal){
+        changeBtnStyle(Btn, '提交');
       /*$.ajax({                           
             type: 'POST',
             dataType: 'JSON',
@@ -165,9 +186,11 @@ $('#newPwBtn').click(function(){
                 else{
                     alert('登录失败，请稍后重试...');
                 }
+                changeBtnStyle(Btn, '提交');
             },
             error: function(){
                 alert('登录失败，请稍后重试...');
+                changeBtnStyle(Btn, '提交');
             }
         }) */
     }
@@ -255,7 +278,9 @@ $('#valiNum').change(function(){
 
 //点击提交申请按钮事件
 $('#valiBtn').click(function(){
+    var Btn = this;
     if(_id_is_legal && email_is_legal && valiNum_is_legal){
+        changeBtnStyle(Btn, '提交申请');
         var json_data = {
             'UserID': $('#_UserID').val(),
             'Email': $('#Email').val(),
@@ -273,6 +298,11 @@ $('#valiBtn').click(function(){
                 }else{
                     alert('申请提交失败，请自行告知管理员...');
                 }
+                changeBtnStyle(Btn, '提交申请');
+            },
+            error: function(){
+                alert('申请提交失败，请自行告知管理员...');
+                changeBtnStyle(Btn, '提交申请');
             }
         });
     }

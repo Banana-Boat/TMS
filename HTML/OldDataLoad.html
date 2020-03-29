@@ -16,7 +16,6 @@
         <!--悬浮按钮-->
         <div class="dangling-box">
             <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
-            <a id="danglingShow" onclick="submit();"><i class="dangling-icon fa fa-pencil-square-o" aria-hidden="true"></i></a>
         </div>
         <div class="main">
             <div class="page-header">
@@ -24,7 +23,7 @@
                 <!-- 操作框 -->
                 <div class="oper-box">
                     <a class="btn btn-primary oper-btn" id="download" href="../EXCEL/夹具实体模板.xlsx" download="夹具实体模板.xlsx">点击下载夹具实体EXCEL模板</a>
-                    <button class="btn btn-primary oper-btn" onclick="submit();">导入</button>
+                    <button class="btn btn-primary oper-btn" id="submitBtn">导入</button>
                     <input type="file" id="upload">
                 </div>
             </div>

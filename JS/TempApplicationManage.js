@@ -215,6 +215,8 @@ function showFillInModal(){
 }
 
 $('#SubmitBtn').click(function(){               //提交申请单
+    var Btn = this;
+    changeBtnStyle(Btn, '确认提交');
     var transData = {
         'ToolModel': selectedToolModel,
         'Workcell': initData['Workcell'],
@@ -227,25 +229,37 @@ $('#SubmitBtn').click(function(){               //提交申请单
             transData['LineID'] = $('#LineID').val();
             transData['Check'] = $('#Check').prop('checked');
             transData['Remarks'] = $('#OutRemarks').val();
-            //SubmitByAjax(transData, '');
+            //SubmitByAjax(transData, '', Btn);
             break;
         case 'In':
             transData['Remarks'] = $('#InRemarks').val();
-            //SubmitByAjax(transData, '');
+            //SubmitByAjax(transData, '', Btn);
             break;
         case 'Repair':
             transData['PMContentID'] = $('#PMContentID').val();
             transData['Reason'] = $('#RepairReason').val();
-            //SubmitByAjax(transData, '');
+            //SubmitByAjax(transData, '', Btn);
             break;
         case 'Scrap':
             transData['Reason'] = $('#ScrapReason').val();
-            //SubmitByAjax(transData, '');
+            //SubmitByAjax(transData, '', Btn);
             break;
     }
 });
 
-function SubmitByAjax(data, url){
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
+function SubmitByAjax(data, url, Btn){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
@@ -259,7 +273,12 @@ function SubmitByAjax(data, url){
                 alert('提交成功！');
                 refreshTable();
             }
-        } 
+            changeBtnStyle(Btn, '确认提交');
+        },
+        error: function(){
+            alert('提交失败，请稍后重试...');
+            changeBtnStyle(Btn, '确认提交');
+        }
     });
 }
 //#endregion

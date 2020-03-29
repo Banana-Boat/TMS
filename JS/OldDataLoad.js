@@ -67,7 +67,21 @@ function changeTab(e, type){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 提交（批量导入）
-function submit(){
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
+$('#submitBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '导入');
     var transData;
     switch(displayType){
         case 'Definition':
@@ -96,9 +110,13 @@ function submit(){
                 alert('导入成功！');
                 refreshTable();
             }
-        } 
+            changeBtnStyle(Btn, '导入');
+        }else{
+            alert('导入失败，请稍后重试...');
+            changeBtnStyle(Btn, '导入');
+        }
     }); */
-}
+})
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -85,6 +85,18 @@ $('#searchBtn').click(function(){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 修改用户信息
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
 function showEditModal(e){
     $('#UserID').val($(e).parent().parent().children().eq(0).text());
     $('#NewPrivilege').val($(e).parent().parent().children().eq(3).text());
@@ -92,6 +104,8 @@ function showEditModal(e){
     $('#editModal').modal('show');
 }
 $('#EditBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '确认修改');
     var transData = {
         'UserID': $('#UserID').val(),
         'NewPrivilege': $('#NewPrivilege').val()
@@ -109,9 +123,11 @@ $('#EditBtn').click(function(){
             }else{
                 alert('修改失败，请稍后重试...');
             }
+            changeBtnStyle(Btn, '确认修改');
         },
         error: function(){
-            alert('修改失败，请稍后重试...')
+            alert('修改失败，请稍后重试...');
+            changeBtnStyle(Btn, '确认修改');
         }
     }); */
 });
@@ -148,6 +164,8 @@ $('#showAddModalBtn').click(function(){
     $('#addModal').modal('show');
 });
 $('#AddBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '确认添加');
     var transData = {
         'UserID': $('#NewUserUserID').val(),
         'Name': $('#NewUserName').val(),
@@ -166,9 +184,11 @@ $('#AddBtn').click(function(){
             }else{
                 alert('添加失败，请稍后重试...');
             }
+            changeBtnStyle(Btn, '确认添加');
         },
         error: function(){
-            alert('添加失败，请稍后重试...')
+            alert('添加失败，请稍后重试...');
+            changeBtnStyle(Btn, '确认添加');
         }
     }); */
 });

@@ -1,10 +1,25 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 登录窗校验
+//全局变量
 var id_is_legal = false;
 var pwd_is_legal = false;
 var id_reg = new RegExp('^[0-9]{7}$');
 var password_reg = new RegExp('^[a-zA-Z0-9]{6,12}$');
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 若存在cookie读入cookie
+$(window).on('load', function(){
+    if($.cookie('UserID')){
+        $('#UserID').val($.cookie('UserID'));
+        $('#Password').val($.cookie('Password'));
+        $('#rememberCheckbox').prop('checked', true);
+        id_is_legal = true;
+        pwd_is_legal = true;
+    }
+})
+//#endregion
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 登录窗校验
 $('#UserID').change(function(){
     if(!id_reg.test($('#UserID').val())){
         id_is_legal = true;
@@ -65,6 +80,16 @@ $('#loginBtn').click(function(){
             url: '',
             success: function(result){
                 if(result.Status == 'success'){
+                    if($('#rememberCheckbox').prop('checked')){     //选择记住账号密码
+                        $.cookie('UserID', $('#UserID').val());
+                        $.cookie('Password', $('#Password').val());
+                    }else{                                          //没有勾选
+                        if($.cookie('UserID')){                     //上次登录勾选，需删除
+                            $.removeCookie('UserID');
+                            $.removeCookie('Password');
+                        }
+                    }
+
                     window.location = '';              //url待改
                 }else if(result.Status == 'choose'){
                     for(let i = 0; i < result.WorkcellList.length; i++){

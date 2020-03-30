@@ -23,6 +23,9 @@
         <div class="main">
             <div class="page-header">
                 <h2 class="page-title">夹具定义信息列表</h2>
+                <div class="oper-box">
+                    <button class="btn btn-primary" id="showEntityModalBtn">添加夹具定义</button>
+                </div>
             </div>
              <!-- 筛选框 -->
             <div class="filter-box nav-bar">
@@ -103,114 +106,190 @@
                     <div class="modal-body" id="modal_body">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="Code">夹具代码</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="Code">夹具代码</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="Code" disabled> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="Name">夹具名称</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="Name">夹具名称</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="Name"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="Family">所属大类</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="Family">所属大类</label>
+                                <div class="col-sm-7">
                                     <select class="form-control" id="Family"></select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="Model">夹具模组</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="Model">夹具模组</label>
+                                <div class="col-sm-7">
                                     <select class="form-control" id="Model"></select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="PartNo">夹具料号</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="PartNo">夹具料号</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="PartNo"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="UPL">单条产线上所需数量</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="UPL">单条产线上所需数量</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="UPL"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="UsedFor">用途</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="UsedFor">用途</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="UsedFor"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="PMPeriod">保养点检周期</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="PMPeriod">保养点检周期</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="PMPeriod"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="PMContent">点检内容</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="PMContent">点检内容</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="PMContent"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="OwnerID">责任人工号</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="OwnerID">责任人工号</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="OwnerID"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="OwnerName">责任人姓名</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="OwnerName">责任人姓名</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="OwnerName" disabled> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="RecOn">录入时间</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="RecOn">录入时间</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="RecOn"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="RecorderID">录入人工号</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="RecorderID">录入人工号</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="RecorderID"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="RecorderName">录入人姓名</label>
-                                <div class="col-sm-8"> 
+                                <label class="control-label col-sm-4" for="RecorderName">录入人姓名</label>
+                                <div class="col-sm-7"> 
                                     <input type="text" class="form-control" id="RecorderName" disabled> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="EditOn">修改日期</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="EditOn">修改日期</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="EditOn"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="EditorID">修改人工号</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="EditorID">修改人工号</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="EditorID"> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="EditorName">修改人姓名</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="EditorName">修改人姓名</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="EditorName" disabled> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="Workcell">工作部门</label>
-                                <div class="col-sm-8">
+                                <label class="control-label col-sm-4" for="Workcell">工作部门</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" id="Workcell"> 
                                 </div>
                             </div>
                             <button type="button" class="btn btn-primary center-block" id="EditBtn">确认修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 新增夹具定义 -->
+        <div class="modal fade" id="EntityAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">夹具定义添加</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewCode">夹具代码</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewCode"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewName">夹具名称</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewName"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewFamily">所属大类</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control" id="NewFamily"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewModel">夹具模组</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control" id="NewModel"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewPartNo">夹具料号</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewPartNo"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewUPL">单条产线上所需数量</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewUPL"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewUsedFor">用途</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewUsedFor"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewPMPeriod">保养点检周期</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewPMPeriod"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewPMContent">点检内容</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewPMContent"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="NewOwnerID">责任人工号</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="NewOwnerID"> 
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary center-block" id="AddBtn">确认添加</button>
                         </div>
                     </div>
                 </div>

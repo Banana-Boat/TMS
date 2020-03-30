@@ -38,8 +38,7 @@ function displayTable(data){
         }
     });
 }
-
-$(window).on('load', function(){
+function refleshTable(){
     $.ajax({                    //获取夹具定义数据
         type: 'GET',
         dataType: 'JSON',
@@ -56,6 +55,10 @@ $(window).on('load', function(){
             alert('获取信息失败，请刷新重试...');
         }
     });
+}
+$(window).on('load', function(){
+    refleshTable();
+
     $.ajax({                    //获取family、model字典
         type: 'GET',
         dataType: 'JSON',
@@ -68,10 +71,12 @@ $(window).on('load', function(){
                 for(let p in result.Family){
                     $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
                     $('#Family').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                    $('#NewFamily').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
                 }
                 for(let n in result.Model){
                     $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
-                    $('#Model').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>')
+                    $('#Model').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
+                    $('#NewModel').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
                 }
             }
         },
@@ -210,7 +215,7 @@ function changeBtnStyle(Btn, BtnText){
     }
 }
 $('#EditBtn').click(function(){
-    var Btn = this;
+    let Btn = this;
     changeBtnStyle(Btn, '确认修改');
     var transData = {
         'Code': $('#Code').val(),
@@ -233,7 +238,7 @@ $('#EditBtn').click(function(){
         success: function(result){
             if(result.Status == 'success'){
                 alert('修改成功！');
-                window.location = '../HTML/AdminToolDefinitionDisplay.html';
+                refleshTable();
             }else{
                 alert('修改失败，请稍后重试...');
             }
@@ -244,13 +249,55 @@ $('#EditBtn').click(function(){
             alert('修改失败，请稍后重试...');
         }
     });
-
-    refleshTable();
 });
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 获取夹具实体列表
+//#region 添加夹具定义信息
+$('#showEntityModalBtn').click(function(){
+    $('#EntityAddModal').modal('show');
+})
+
+$('#AddBtn').click(function(){
+    let Btn = this;
+    changeBtnStyle(Btn, '确认添加');
+    var transData = {
+        'Code': $('#NewCode').val(),
+        'Name': $('#NewName').val(),
+        'Family': $('#NewFamily').val(),
+        'Model': $('#NewModel').val(),
+        'PartNo': $('#NewPartNo').val(),
+        'UPL': $('#NewUPL').val(),
+        'UsedFor': $('#NewUsedFor').val(),
+        'PMPeriod': $('#NewPMPeriod').val(),
+        'PMContent': $('#NewPMContent').val(),
+        'OwnerID': $('#NewOwnerID').val()
+    };
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        contentType: 'application/json',
+        data: transData,
+        url: '',                                    //待改
+        success: function(result){
+            if(result.Status == 'success'){
+                alert('添加成功！');
+                refleshTable();
+            }else{
+                alert('添加失败，请稍后重试...');
+            }
+            changeBtnStyle(Btn, '确认添加');
+        },
+        error: function(){
+            changeBtnStyle(Btn, '确认添加');
+            alert('修改失败，请稍后重试...');
+        }
+    });
+});
+//#endregion
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 点击查看实体按钮跳转指定实体展示页面
 function getEntity(e){
     var code = $(e).parent().parent().children().eq(0).text();
     window.location = '../HTML/DisplayToolEntity.html?code=' + code;

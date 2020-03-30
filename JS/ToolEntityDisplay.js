@@ -253,7 +253,7 @@ function getInfo(e){
                 $('#StoreHouse').text(result.StoreHouse);
                 $('#LastTestTime').text(result.LastTestTime);
                 $('#TotalUsedTime').text(result.TotalUsedTime);
-                //$('#Image').attr('src', result.Image);
+                $('#Image').attr('src', result.Image);
             }
             $('#InfoModal').modal('show');
         },

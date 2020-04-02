@@ -65,7 +65,7 @@ $(window).on('load', function(){
         url: '../TestData/FamModDict.json',  //后端Url，待改
         success: function(result){           //字典数据绑定至筛选下拉框、信息修改下拉框
             if(result.Status == 'error'){
-                alert('获取数据失败，请稍后重试..');
+                alert('获取下拉列表数据失败，请自行填写..');
             }else{
                 fmDict = result;                 //说明：为查看详情时可自动将Family和Model两个下拉框补全，故采用value与text均为实际内容
                 for(let p in result.Family){
@@ -81,6 +81,7 @@ $(window).on('load', function(){
             }
         },
         error: function(){
+            alert('获取下拉列表数据失败，请自行填写..');
             $('#familyFilterInput').replaceWith('<input class="form-control filterby-input" id="familyFilterInput" onchange="changeFilter(this, ' + "'Model'" + ');">');
             $('#modelFilterInput').replaceWith('<input class="form-control filterby-input" id="modelFilterInput" onchange="changeFilter(this, ' + "'Family'" + ');">');
         }

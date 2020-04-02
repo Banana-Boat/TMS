@@ -65,10 +65,7 @@ function accept(e){
     var transData = {
         'Type': 'accept',
         'Application': [
-            {   
-                'UserID': $(e).parent().parent().children().eq(1).text(),
-                'Workcell': $(e).parent().parent().children().eq(3).text()
-            }
+            $(e).parent().parent().children().eq(1).text()
         ]
     }
     //SubmitByAjax(transData, '');
@@ -76,11 +73,8 @@ function accept(e){
 function reject(e){
     var transData = {
         'Type': 'reject',
-        'Application': [
-            {   
-                'UserID': $(e).parent().parent().children().eq(1).text(),
-                'Workcell': $(e).parent().parent().children().eq(3).text()
-            }
+        'Application': [ 
+            $(e).parent().parent().children().eq(1).text()
         ]
     }
     //SubmitByAjax(transData, '');
@@ -91,12 +85,9 @@ function reject(e){
 //#region 批量同意、驳回
 function AddToSelectedApplication(){
     selectedApplication = [];
-    for(let i = 0; i < $('tbody').children().length; i++){    //将选中的夹具添加入变量数组
+    for(let i = 0; i < $('tbody').children().length; i++){
         if($('tbody').children().eq(i).children().eq(0).children().eq(0).prop('checked')){
-            selectedApplication.push({
-                'UserId': $('tbody').children().eq(i).children().eq(1).text(),
-                'Workcell': $('tbody').children().eq(i).children().eq(3).text()
-            });
+            selectedApplication.push($('tbody').children().eq(i).children().eq(1).text());
         }
     }
 }

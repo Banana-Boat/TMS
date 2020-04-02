@@ -8,6 +8,10 @@ var pageSize = 20;              //一页最多显示16条信息
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 获取定义列表、刷新待申请列表（函数）
 $(window).on('load', function(){
+    refreshTable();
+    refreshCache();
+});
+function refreshTable(){
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -30,9 +34,7 @@ $(window).on('load', function(){
             alert('获取信息失败，请稍后重试...');
         }
     });
-    refleshCache();
-});
-
+}
 function displayTable(data){                                                
     $('#paginationToolEntity').jqPaginator({
         first: '<li class="first"><a href="javascript:;">首页</a></li>',
@@ -96,7 +98,7 @@ function displayTable(data){
     });
 }
 
-function refleshCache(){
+function refreshCache(){
     $('#outTbody').empty();
     $('#inTbody').empty();
     $('#repairTbody').empty();
@@ -167,9 +169,13 @@ function submitByAjax(data){          //url待填
                 alert('操作失败，请稍后重试...');
             }else{
                 alert('操作成功！');
+                refreshCache();
                 refreshTable();
             }
-        } 
+        },
+        error: function(){
+            alert('操作失败，请稍后重试...');
+        }
     });
 }
 function chooseBulkOperType(e){
@@ -268,30 +274,30 @@ function getInfo(e){
 //#region  加入临时申请列表
 // 加入出库单
 function addToOut(e){
-    var code = $(e).parent().parent().children().eq(0).text();
-    var seqID = $(e).parent().parent().children().eq(1).text();
+    var code = $(e).parent().parent().children().eq(1).text();
+    var seqID = $(e).parent().parent().children().eq(2).text();
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'Out'});
     //submitByAjax(transData)
-
-    refleshCache();
+    refreshTable();
+    refreshCache();
 }
 
 //加入入库单
 function addToIn(e){
-    var code = $(e).parent().parent().children().eq(0).text();
-    var seqID = $(e).parent().parent().children().eq(1).text();
+    var code = $(e).parent().parent().children().eq(1).text();
+    var seqID = $(e).parent().parent().children().eq(2).text();
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'In'});
     //submitByAjax(transData)
-
-    refleshCache();
+    refreshTable();
+    refreshCache();
 }
 
 // 加入报修单
 function addToRepair(e){
-    var code = $(e).parent().parent().children().eq(0).text();
-    var seqID = $(e).parent().parent().children().eq(1).text();
+    var code = $(e).parent().parent().children().eq(1).text();
+    var seqID = $(e).parent().parent().children().eq(2).text();
     $('#repairCode').val(code);
     $('#repairSeqID').val(seqID);
     $('#RepairModal').modal('show');
@@ -299,7 +305,7 @@ function addToRepair(e){
 
 //预览图片
 $('#repairImageInput').change(function(){
-    f = document.getElementById('repairImageInput').files[0];
+    var f = document.getElementById('repairImageInput').files[0];
     var fileReader = new FileReader();
     fileReader.readAsDataURL(f);
     fileReader.onload = function(){
@@ -307,16 +313,56 @@ $('#repairImageInput').change(function(){
         $('.imageScan').addClass('nodisplay');
     }
 });
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
+$("#repairBtn").click(function(){  
+    var Btn = this;
+    if($('#repairImageInput').val() != ''){
+        changeBtnStyle(Btn, '确认提交');
+        var transData = new FormData(document.getElementById('repairForm'));   
+        $.ajax({ 
+            type: 'POST',  
+            dataType: 'JSON',
+            url: '',                            //后端url待填 
+            cache: false,                       //上传文件不需缓存
+            processData: false,                 //需设置为false。因为data值是FormData对象，不需要对数据做处理
+            contentType: false, 
+            data: transData,
+            success: function(result){
+                if(result.Status == 'error'){
+                    alert('操作失败，请稍后重试...');
+                }else{
+                    alert('操作成功！');
+                }
+                changeBtnStyle(Btn, '确认提交');
+            },
+            error: function(){
+                alert('操作失败，请稍后重试...');
+                changeBtnStyle(Btn, '确认提交');
+            }
+        })
+    }
+})
 
 // 加入报废单
 function addToScrap(e){
-    var code = $(e).parent().parent().children().eq(0).text();
-    var seqID = $(e).parent().parent().children().eq(1).text();
+    var code = $(e).parent().parent().children().eq(1).text();
+    var seqID = $(e).parent().parent().children().eq(2).text();
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'Scrap'});
     //submitByAjax(transData)
-    
-    refleshCache();
+    refreshTable();
+    refreshCache();
 } 
 //#endregion
 
@@ -387,7 +433,7 @@ function remove(e){
         } 
     }); */
 
-    refleshCache();
+    refreshCache();
 }
 //#endregion
 

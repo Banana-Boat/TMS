@@ -1,0 +1,19 @@
+#Image{
+    margin-top: 0.5rem;
+}
+.img-box{
+    margin-bottom: 3rem;
+}
+.imageScan{
+    margin-left: 16.5%;
+}
+#displayImage{
+    margin-left: 10%;
+    width: 15%;
+}
+#SubmitBtn{
+    margin-left: 15%;
+}
+.form-group{
+    margin-right: 0 !important ;
+}

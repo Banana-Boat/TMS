@@ -179,7 +179,7 @@
                         <h4 class="modal-title">加入报修申请</h4>
                     </div>
                     <div class="modal-body" id="modal_body">
-                        <form class="form-horizontal" action="" method="POST">   <!-- action待添加 -->
+                        <form class="form-horizontal" id="repairForm" enctype="multipart/form-data">
                             <div class="form-group">
                                 <span class="help-block col-sm-offset-3">故障类型与故障描述将在待提交申请处理页面填写</span>
                             </div>
@@ -203,7 +203,7 @@
                                 <div class="img-box"><img id="repairImage"><span class="imageScan"><i>图片预览</i></span></div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary repair-btn" type="submit">提交</button>
+                                <button class="btn btn-primary repair-btn" id="repairBtn">确认提交</button>
                             </div>
                         </form>
                     </div>

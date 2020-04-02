@@ -82,13 +82,13 @@ $(window).on('load', function(){
 function runFilter(e, type){  //执行筛选，并刷新展示的表格
     var tempData = initData;
     if(filterBy.Code != '')
-        tempData = tempData.filter(item => {return item.Code == filterBy.Code});
+        tempData = tempData.filter(item => {return item.Code.indexOf(filterBy.Code) != -1});
     if(filterBy.Name != '')
-        tempData = tempData.filter(item => {return item.Name == filterBy.Name});
+        tempData = tempData.filter(item => {return item.Name.indexOf(filterBy.Name) != -1});
     if(filterBy.Family != '')
-        tempData = tempData.filter(item => {return item.Family == filterBy.Family});
+        tempData = tempData.filter(item => {return item.Family.indexOf(filterBy.Family) != -1});
     if(filterBy.Model != '')
-        tempData = tempData.filter(item => {return item.Model == filterBy.Model});
+        tempData = tempData.filter(item => {return item.Model.indexOf(filterBy.Model) != -1});
     
     if(tempData.length > 0)
         displayTable(tempData);

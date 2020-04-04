@@ -181,7 +181,6 @@ function showFillInModal(){
             $('#modalTitle').text('填写出库申请单');
             $('#UserName').val('');
             $('#LineID').val('');
-            $('#Check').prop('checked', false);
             $('#OutRemarks').val('');
             $('#outInput').show();
             break;
@@ -227,7 +226,6 @@ $('#SubmitBtn').click(function(){               //提交申请单
         case 'Out':
             transData['UserName'] = $('#UserName').val();
             transData['LineID'] = $('#LineID').val();
-            transData['Check'] = $('#Check').prop('checked');
             transData['Remarks'] = $('#OutRemarks').val();
             //SubmitByAjax(transData, '', Btn);
             break;

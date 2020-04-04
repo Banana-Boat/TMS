@@ -1,0 +1,36 @@
+.main{
+    margin-right: 15%;
+}
+/* Table */
+.table-responsive{
+    overflow-x: auto;
+}
+.table>tbody>tr>td{
+    text-align: center;
+    vertical-align: middle;
+}
+th{
+    text-align: center;
+}
+.act-btn{
+    margin-right: 2px;
+}
+
+/* 悬浮按钮 */
+.dangling-box{
+    position: fixed;
+    bottom: 3rem;
+    right: 2%;
+    display: block;
+    z-index: 101;
+    width: 55px;
+}
+.dangling-icon{
+    cursor: pointer;
+    margin: 0.5rem 0;
+    color: rgb(160, 160, 160);
+    zoom: 2.8;
+}
+.dangling-icon:hover{
+    color: rgb(196, 196, 196);
+}

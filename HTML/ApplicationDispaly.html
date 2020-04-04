@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>ApplicationDisplay</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../IMG/favicon.ico">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+  </head>
+    <body>
+        <!--悬浮按钮-->
+        <div class="dangling-box">
+            <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="page-header">
+                <h2 class="page-title">个人申请展示</h2>
+            </div>
+            <div class="table-box table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>申请编号</th>
+                            <th>申请类型</th>
+                            <th>申请状态</th>
+                            <th>初审人</th>
+                            <th>终审人</th>
+                            <th>申请时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 提交申请单 -->
+        <div class="modal fade bs-example-modal-sm" id="ApplicationInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalTitle">申请包含夹具列表</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div class="form">
+                            <textarea class="form-control" rows="10" id="ToolTextarea" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <link href="../CSS/ApplicationDisplay.css" rel="stylesheet" type="text/css">
+        <script src="../JS/ApplicationDisplay.js"></script>
+    </body>
+</html>

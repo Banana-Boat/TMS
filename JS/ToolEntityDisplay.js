@@ -61,7 +61,8 @@ function displayTable(data){
                 
                 switch(data[i].State){    //根据夹具不同状态设定不同的操作
                     case '可用':
-                        appendData += '<button class="btn act-btn" onclick="addToOut(this);">出库</button>'
+                        appendData += '<button class="btn act-btn" onclick="addToCheck(this);">点检</button>'
+                        + '<button class="btn act-btn" onclick="addToOut(this);">出库</button>'
                         + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
                         + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                         $('#definitionTbody').append(appendData);
@@ -87,7 +88,8 @@ function displayTable(data){
                         $('#definitionTbody').append(appendData);
                         break;
                     case '待点检':
-                        appendData += '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
+                        appendData += '<button class="btn act-btn" onclick="addToCheck(this);">点检</button>'
+                        + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
                         + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                         $('#definitionTbody').append(appendData);
                         break;
@@ -97,7 +99,6 @@ function displayTable(data){
         }
     });
 }
-
 function refreshCache(){
     $('#outTbody').empty();
     $('#inTbody').empty();
@@ -228,6 +229,18 @@ $('#bulkOperBtn').click(function(){
                     else    throw '夹具选择错误';
                 }
                 break;
+            case '点检':
+                for(let i = num1; i < num2; i++){
+                    let state = displayedData.eq(i).children().eq(5).text();
+                    if(state != '待点检' || state == '可用')
+                        transData.push({
+                            'Code': displayedData.eq(i).children().eq(1).text(),
+                            'SeqID': displayedData.eq(i).children().eq(2).text(),
+                            'Type': 'Check'
+                        });
+                    else    throw '夹具选择错误';
+                }
+                break;
         }
         submitByAjax(transData);
     }
@@ -279,8 +292,6 @@ function addToOut(e){
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'Out'});
     //submitByAjax(transData)
-    refreshTable();
-    refreshCache();
 }
 
 //加入入库单
@@ -290,8 +301,6 @@ function addToIn(e){
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'In'});
     //submitByAjax(transData)
-    refreshTable();
-    refreshCache();
 }
 
 // 加入报修单
@@ -361,8 +370,14 @@ function addToScrap(e){
     var transData = [];
     transData.push({'Code': code, 'SeqID': seqID, 'Type': 'Scrap'});
     //submitByAjax(transData)
-    refreshTable();
-    refreshCache();
+}
+ // 带点检夹具直接申请点检
+function addToCheck(e){
+    var code = $(e).parent().parent().children().eq(1).text();
+    var seqID = $(e).parent().parent().children().eq(2).text();
+    var transData = [];
+    transData.push({'Code': code, 'SeqID': seqID, 'Type': 'Check'});
+    //submitByAjax(transData)
 } 
 //#endregion
 

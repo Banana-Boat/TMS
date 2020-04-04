@@ -99,7 +99,7 @@ $('#loginBtn').click(function(){
                     $('#chooseWorkcellModal').modal('show');
                 }
                 else if(result.Status == 'first'){     //用户首次登录，需更改初始密码
-                    $('#setPwModal'),modal('show');
+                    $('#setPwModal').modal('show');
                 }
                 else{
                     alert('登录失败，请稍后重试...');
@@ -158,17 +158,17 @@ $('#visitorLoginBtn').click(function(){
 //#region 首次登录更改初始密码
 
 //输入框验证
-var is_password_legel = false;
+var is_password_legal = false;
 var is_rePassword_legal = false;
 var password_reg = new RegExp('^[a-zA-Z0-9]{6,12}$');
 $('#newPassword').change(function(){
     if(!password_reg.test($(this).val())){
-        is_password_legel = false;
+        is_password_legal = false;
         $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
     }else{
-        is_password_legel = true;
+        is_password_legal = true;
         $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
@@ -177,12 +177,12 @@ $('#newPassword').change(function(){
 
 $('#rePassword').change(function(){
     if($(this).val() != $('#newPassword').val()){
-        is_rePassword_legel = false;
+        is_rePassword_legal = false;
         $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
     }else{
-        is_rePassword_legel = true;
+        is_rePassword_legal = true;
         $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
@@ -196,7 +196,7 @@ $('#newPwBtn').click(function(){
         'UserID': $('#UserID').val(),
         'NewPassword': $('#newPassword').val()
     };
-    if(is_password_legel && is_rePassword_legal){
+    if(is_password_legal && is_rePassword_legal){
         changeBtnStyle(Btn, '提交');
       /*$.ajax({                           
             type: 'POST',

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PMContentStoreHouseAdd</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css">
+        <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="../IMG/favicon.ico"> 
+    </head>
+    <body>
+        <div class="page-header">
+            <h2>库位及点检内容添加</h2>
+        </div>
+        <!-- 主体 -->
+        <div class="main col-sm-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>库位添加</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-8 col-xs-8">
+                        <input class="form-control" type="text" id="StoreHouse" placeholder="输入格式XX-XX-XX">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="addStoreHouseBtn">添加库位</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>点检内容添加</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-8 col-xs-8">
+                        <input class="form-control" type="text" id="PMContent" maxlength="20" placeholder="长度不可超过20个字符">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="addPMContentBtn">添加点检</button>
+                </div>
+            </div>
+        </div>
+        <script src="../JS/PMContentStoreHouseAdd.js"></script>
+        <link href="../CSS/ToolEntityAdd.css" rel="stylesheet" type="text/css">
+    </body>
+</html>

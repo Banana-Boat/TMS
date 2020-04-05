@@ -4,6 +4,30 @@ var id_is_legal = false;
 var pwd_is_legal = false;
 var id_reg = new RegExp('^[0-9]{7}$');
 var password_reg = new RegExp('^[a-zA-Z0-9]{6,12}$');
+var is_visitor = false;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 填充workcell下拉框
+$(window).on('load', function(){
+    $.ajax({                            
+        type: 'GET',
+        dataType: 'JSON',
+        url: '../TestData/WorkcellList.json',                        //url待改
+        success: function(result){
+            if(result.Status == 'error'){
+                $('#Workcell').replaceWith('<input class="form-control" type="text" id="Workcell">')
+            }else{
+                for(let i = 0; i < result.length; i++){
+                    $('#Workcell').append('<option value="' + result[i]
+                        + '">' + result[i] + '</option>');
+                }
+            }
+        },
+        error: function(){
+            $('#Workcell').replaceWith('<input class="form-control" type="text" id="Workcell">')
+        }
+    });
+})
+//#endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 若存在cookie读入cookie
@@ -89,13 +113,8 @@ $('#loginBtn').click(function(){
                             $.removeCookie('Password');
                         }
                     }
-
                     window.location = '';              //url待改
                 }else if(result.Status == 'choose'){
-                    for(let i = 0; i < result.WorkcellList.length; i++){
-                        $('#Workcell').append('<option value="' + result.WorkcellList[i]
-                            + '">' + result.WorkcellList[i] + '</option>');
-                    }
                     $('#chooseWorkcellModal').modal('show');
                 }
                 else if(result.Status == 'first'){     //用户首次登录，需更改初始密码
@@ -118,11 +137,18 @@ $('#loginBtn').click(function(){
 $('#workcellSubmitBtn').click(function(){    
     var Btn = this;  
     changeBtnStyle(Btn, '登录'); 
-    var transData = {
-        'UserID': $('#UserID').val(),
-        'Password': $('#Password').val(),
-        'Workcell': $('Workcell').val()
-    };
+    var transData;
+    if(is_visitor){
+        transData = {
+            'Workcell': $('Workcell').val()
+        };
+    }else{
+        transData = {
+            'UserID': $('#UserID').val(),
+            'Password': $('#Password').val(),
+            'Workcell': $('Workcell').val()
+        };
+    }
     $.ajax({                           
         type: 'POST',
         dataType: 'JSON',
@@ -149,8 +175,8 @@ $('#workcellSubmitBtn').click(function(){
 })
 
 //游客登录
-$('#visitorLoginBtn').click(function(){         
-    //window.location = '';              //url待改
+$('#visitorLoginBtn').click(function(){  
+    $('#chooseWorkcellModal').modal('show');      
 })
 //#endregion
 

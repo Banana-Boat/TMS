@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 全局变量
-var is_name_legel = true;
-var is_password_legel = true;
+var is_name_legal = true;
+var is_password_legal = true;
 var is_rePassword_legal = true;
-var is_email_legel = true;
+var is_email_legal = true;
 var password_reg = new RegExp('^[a-zA-Z0-9]{6,12}$');
 var email_reg = new RegExp('^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$');
 //#endregion
@@ -63,7 +63,7 @@ $('#showEditModal').click(function(){
 });
 $('#EditBtn').click(function(){
     var Btn = this;
-    if(is_password_legel && is_name_legel && is_rePassword_legal && is_email_legel){
+    if(is_password_legal && is_name_legal && is_rePassword_legal && is_email_legal){
         changeBtnStyle(Btn, '确认修改');
         var transData = {
             'UserID': $('#modalUserID').val(),
@@ -102,23 +102,23 @@ $('#EditBtn').click(function(){
 $('#newPassword').change(function(){
     if($(this).val() != ""){
         if(!password_reg.test($(this).val())){
-            is_password_legel = false;
+            is_password_legal = false;
             $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
             $(this).parent().children('span').remove();
             $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }else{
-            is_password_legel = true;
+            is_password_legal = true;
             $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
             $(this).parent().children('span').remove();
             $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
 
-            is_rePassword_legel = false;
+            is_rePassword_legal = false;
             $('#rePassword').parent().parent().attr('class', 'form-group has-error has-feedback');
             $('#rePassword').parent().children('span').remove();
             $('#rePassword').parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }
     }else{
-        is_password_legel = true;
+        is_password_legal = true;
         $(this).parent().parent().attr('class', 'form-group');
         $(this).parent().children('span').remove();
     }
@@ -126,12 +126,12 @@ $('#newPassword').change(function(){
 
 $('#rePassword').change(function(){
     if($(this).val() != $('#newPassword').val()){
-        is_rePassword_legel = false;
+        is_rePassword_legal = false;
         $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
     }else{
-        is_rePassword_legel = true;
+        is_rePassword_legal = true;
         $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
@@ -141,18 +141,18 @@ $('#rePassword').change(function(){
 $('#newEmail').change(function(){
     if($(this).val() != ""){
         if(!email_reg.test($(this).val())){
-            is_email_legel = false;
+            is_email_legal = false;
             $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
             $(this).parent().children('span').remove();
             $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }else{
-            is_email_legel = true;
+            is_email_legal = true;
             $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
             $(this).parent().children('span').remove();
             $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
     }else{
-        is_email_legel = true;
+        is_email_legal = true;
         $(this).parent().parent().attr('class', 'form-group');
         $(this).parent().children('span').remove();
     }

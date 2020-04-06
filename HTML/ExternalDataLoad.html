@@ -19,7 +19,7 @@
         </div>
         <div class="main">
             <div class="page-header">
-                <h2 class="page-title">原数据导入</h2>
+                <h2 class="page-title">外部数据导入</h2>
                 <!-- 操作框 -->
                 <div class="oper-box">
                     <a class="btn btn-primary oper-btn" id="download" href="../EXCEL/夹具实体模板.xlsx" download="夹具实体模板.xlsx">点击下载夹具实体EXCEL模板</a>
@@ -30,16 +30,18 @@
             <!-- 申请类别选择 -->
             <div class="tab-box">
                 <a class="a-tab a-tab-active" id="DefinitionTab" onclick="changeTab(this, 'Definition');">夹具定义</a>
-                <a class="a-tab" id="ModelTab" onclick="changeTab(this, 'Model');">夹具实体</a>
+                <a class="a-tab" id="EntityTab" onclick="changeTab(this, 'Entity');">夹具实体</a>
+                <a class="a-tab" id="UserInfoTab" onclick="changeTab(this, 'UserInfo');">用户信息</a>
             </div>
             <!-- 表格展示 -->
             <div class="table-box table-responsive">
                 <table class="table table-hover" id="DefinitionTable"></table>
-                <table class="table table-hover" id="ModelTable" style="display: none;"></table>
+                <table class="table table-hover" id="EntityTable" style="display: none;"></table>
+                <table class="table table-hover" id="UserInfoTable" style="display: none;"></table>
             </div>
         </div>
         <script type="text/javascript" src="../node_modules/xlsx/dist/xlsx.full.min.js"></script>
-        <script src="../JS/OldDataLoad.js"></script>
-        <link href="../CSS/OldDataLoad.css" rel="stylesheet" type="text/css">
+        <script src="../JS/ExternalDataLoad.js"></script>
+        <link href="../CSS/ExternalDataLoad.css" rel="stylesheet" type="text/css">
     </body>
 </html>

@@ -87,12 +87,6 @@ function displayTable(data){
                         + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                         $('#definitionTbody').append(appendData);
                         break;
-                    case '待点检':
-                        appendData += '<button class="btn act-btn" onclick="addToCheck(this);">点检</button>'
-                        + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
-                        + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
-                        $('#definitionTbody').append(appendData);
-                        break;
                 }
                 n++;   //当前页面序号
             }

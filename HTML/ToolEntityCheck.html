@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>ToolEntityCheck</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../IMG/favicon.ico">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+  </head>
+    <body>
+        <!--悬浮按钮-->
+        <div class="dangling-box">
+            <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="page-header">
+                <h2 class="page-title">待点检夹具列表</h2>
+                <!-- 操作框 -->
+                <div class="oper-box">
+                    <button class="btn btn-primary" id="bulkCheck">批量点检</button>
+                </div>
+            </div>
+            <div class="table-box table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><input class="checkbox" id="selectAll" type="checkbox"></th>
+                            <th>夹具代码</th>
+                            <th>序列号</th>
+                            <th>工作部门</th>
+                            <th>剩余到期时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <link href="../CSS/PwResetApplicationManage.css" rel="stylesheet" type="text/css">
+        <script src="../JS/ToolEntityCheck.js"></script>
+    </body>
+</html>

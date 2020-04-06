@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 var displayType = 'Definition';                //当前展示的申请类型
-var defInitData, modInitData;                  //存放未处理的夹具定义、实体数据
+var defiInitData, entiInitData, userInitData;    //存放未处理的夹具定义、实体，用户信息数据
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 上传Excel并刷新展示
 function refleshTable(data, type){
@@ -20,21 +20,27 @@ function refleshTable(data, type){
 $('#upload').change(function(){
     var reader = new FileReader();
     var file = $('#upload')[0].files[0];
-    reader.readAsBinaryString(file);
-    reader.onload = function(){
-        var data = this.result;
-        var wb = XLSX.read(data, {type:'binary'}) //利用XLSX解析二进制文件为xlsx对象
-        var initData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //利用XLSX把wb第一个sheet转换成JSON对象
-        switch(displayType){
-            case 'Definition':
-                defInitData = initData;
-                refleshTable(defInitData, 'Definition'); 
-                break;
-            case 'Model':
-                modInitData = initData;
-                refleshTable(modInitData, 'Model');
-                break;
-        }   
+    if(file){
+        reader.readAsBinaryString(file);
+        reader.onload = function(){
+            var data = this.result;
+            var wb = XLSX.read(data, {type:'binary'}) //利用XLSX解析二进制文件为xlsx对象
+            var initData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //利用XLSX把wb第一个sheet转换成JSON对象
+            switch(displayType){
+                case 'Definition':
+                    defiInitData = initData;
+                    refleshTable(defiInitData, 'Definition'); 
+                    break;
+                case 'Entity':
+                    entiInitData = initData;
+                    refleshTable(entiInitData, 'Entity');
+                    break;
+                case 'UserInfo':
+                    userInitData = initData;
+                    refleshTable(userInitData, 'UserInfo');
+                    break;
+            }   
+        }
     }
 });
 //#endregion
@@ -51,14 +57,24 @@ function changeTab(e, type){
             $('#download').text('点击下载夹具实体EXCEL模板');
             $('#download').attr('href', '../EXCEL/夹具实体模板.xlsx');
             $('#download').attr('download', '夹具实体模板.xlsx');
-            $('#ModelTable').hide();
             $('#DefinitionTable').show();
+            $('#EntityTable').hide();
+            $('#UserInfoTable').hide();
             break;
-        case 'Model':
+        case 'Entity':
             $('#download').text('点击下载夹具定义EXCEL模板');
             $('#download').attr('href', '../EXCEL/夹具定义模板.xlsx');
             $('#download').attr('download', '夹具定义模板.xlsx');
-            $('#ModelTable').show();
+            $('#EntityTable').show();
+            $('#DefinitionTable').hide();
+            $('#UserInfoTable').hide();
+            break;
+        case 'UserInfo':
+            $('#download').text('点击下载用户信息EXCEL模板');
+            $('#download').attr('href', '../EXCEL/用户信息模板.xlsx');
+            $('#download').attr('download', '用户信息模板.xlsx');
+            $('#UserInfoTable').show();
+            $('#EntityTable').hide();
             $('#DefinitionTable').hide();
             break;
     }
@@ -80,42 +96,55 @@ function changeBtnStyle(Btn, BtnText){
     }
 }
 $('#submitBtn').click(function(){
-    var Btn = this;
-    changeBtnStyle(Btn, '导入');
-    var transData;
-    switch(displayType){
-        case 'Definition':
-            transData = {
-                'Type': 'definition',
-                'List': defInitData
-            }
-            break;
-        case 'Model':
-            transData = {
-                'Type': 'model',
-                'List': modInitData
-            }
-            break;
-    }   
-    /* $.ajax({
-        type: 'POST',
-        dataType: 'JSON',
-        contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify(transData),
-        url: ,                                  //后端url待填
-        success: function(result){
-            if(result.Status == 'error'){
+    if(defiInitData || entiInitData || userInitData){
+        var Btn = this;
+        changeBtnStyle(Btn, '导入');
+        var transData;
+        switch(displayType){
+            case 'Definition':
+                transData = {
+                    'Type': 'definition',
+                    'List': defiInitData
+                }
+                break;
+            case 'Entity':
+                transData = {
+                    'Type': 'entity',
+                    'List': entiInitData
+                }
+                break;
+            case 'UserInfo':
+                transData = {
+                    'Type': 'userinfo',
+                    'List': userInitData
+                }
+                break;
+        }   
+        /* $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(transData),
+            url: ,                                  //后端url待填
+            success: function(result){
+                if(result.Status == 'error'){
+                    alert('导入失败，请稍后重试...');
+                }else{
+                    alert('导入成功！成功个数：' + result.Success
+                          + '失败个数：' + result.Failure
+                          + '重复个数：' + result.Repetition);
+                    refreshTable();
+                }
+                changeBtnStyle(Btn, '导入');
+            },
+            error: function(){
                 alert('导入失败，请稍后重试...');
-            }else{
-                alert('导入成功！');
-                refreshTable();
+                changeBtnStyle(Btn, '导入');
             }
-            changeBtnStyle(Btn, '导入');
-        }else{
-            alert('导入失败，请稍后重试...');
-            changeBtnStyle(Btn, '导入');
-        }
-    }); */
+        }); */
+    }else{
+        alert('您还未选择任何EXCEL文件');
+    }
 })
 //#endregion
 

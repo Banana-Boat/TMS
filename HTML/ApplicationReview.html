@@ -33,24 +33,45 @@
                 <a class="a-tab" id="InTab" onclick="changeTab(this, 'In');">入库</a>
                 <a class="a-tab" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
                 <a class="a-tab" id="ScrapTab" onclick="changeTab(this, 'Scrap');">报废</a>
+                <a class="a-tab" id="PurchaseTab" onclick="changeTab(this, 'Purchase');">采购入库</a>
             </div>
             <!-- 申请表格展示 -->
             <div class="table-box table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="commonTable">
                     <thead>
                         <tr>
                             <th><input class="checkbox" id="selectAll" type="checkbox"></th>
-                            <th>订单编号</th>
+                            <th>申请编号</th>
+                            <th>申请状态</th>
                             <th>申请人</th>
                             <th>申请时间</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="commonTbody"></tbody>
                 </table>
+                <table class="table table-hover" id="purchaseTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>夹具代码</th>
+                            <th>夹具序列号</th>
+                            <th>申请状态</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="purchaseTbody"></tbody>
+                </table>
+            </div>
+            <!-- 分页框 -->
+            <div class="setPageDiv">
+                <ul class="pagination" id="paginationApplication"></ul>
             </div>
         </div>
 
-        <!-- 查看申请单详情 -->
+        <!-- 查看普通申请单详情 -->
         <div class="modal fade" id="applicationInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -81,10 +102,6 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="LineName">产线</label>
                                         <p class="attr" id="LineName"></p> 
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="Check">是否为点检</label>
-                                        <p class="attr" id="Check"></p> 
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="OutRemarks">备注</label>
@@ -118,6 +135,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-sm-3" for="State">申请类型</label>
+                                <p class="attr" id="State"></p> 
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-sm-3" for="Applicant">申请人</label>
                                 <p class="attr" id="Applicant"></p> 
                             </div>
@@ -134,8 +155,64 @@
                 </div>
             </div>
         </div>
+        <!-- 查看采购入库申请单详情 -->
+        <div class="modal fade" id="purchaseInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalTitle">申请单详情</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div class="InfoModal-main form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Code">夹具代码</label>
+                                <p class="attr" id="Code"></p>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="SeqID">夹具序列号</label>
+                                <p class="attr" id="SeqID"></p>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Buyoff">夹具buyoff编号</label>
+                                <p class="attr" id="Buyoff"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="BillNo">采购单据号</label>
+                                <p class="attr" id="BillNo"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="StoreHouse">存放库位</label>
+                                <p class="attr" id="StoreHouse"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="Image">夹具图片</label>
+                                <div class="img-box"><img id="Image"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="purchaseState">申请类型</label>
+                                <p class="attr" id="purchaseState"></p> 
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="purchaseApplicant">申请人</label>
+                                <p class="attr" id="purchaseApplicant"></p> 
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="purchaseApplicationTime">申请人时间</label>
+                                <p class="attr" id="purchaseApplicationTime"></p> 
+                            </div>
+                            <div class="form-group btn-modal-box">
+                                <button class="btn btn-primary btn-modal" onclick="purchaseAcceptInModal(this);">同意</button>
+                                <button class="btn btn-primary btn-modal" onclick="purchaseRejectInModal(this);">驳回</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <link href="../CSS/ApplicationReview.css" rel="stylesheet" type="text/css">
+        <script src="../node_modules/jqPaginator-2.0.2/dist/jq-paginator.js"></script>
         <script src="../JS/ApplicationReview.js"></script>
     </body>
 </html>

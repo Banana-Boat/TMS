@@ -251,18 +251,24 @@ $('#bulkOperBtn').click(function(){
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 获取夹具定义的详细信息
+//#region 获取夹具定义的详细信息、修改库位信息
 function getInfo(e){
     var code = $(e).parent().parent().children().eq(0).text();
     var seqID = $(e).parent().parent().children().eq(1).text();
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/ToolEntityInfo.json',  //code附在url后  '...?Code=' + code + '&SeqID=' + seqID
+        url: '../TestData/ToolEntityInfo(Admin).json',  //参数附在url后  '...?Code=' + code + '&SeqID=' + seqID
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
             }else{
+                $('#StoreHouse').empty();
+                for(let i = 0; i < result.StoreHouseList.length; i++){
+                    $('#StoreHouse').append('<option value="' + result.StoreHouseList[i]
+                        + '">' + result.StoreHouseList[i] + '</option>');
+                }
+
                 $('#Code').text(result.Code);
                 $('#SeqID').text(result.SeqID);
                 $('#Buyoff').text(result.Buyoff);
@@ -270,11 +276,11 @@ function getInfo(e){
                 $('#UsedCount').text(result.UsedCount);
                 $('#State').text(result.State);
                 $('#BillNo').text(result.BillNo);
-                $('#StoreHouse').text(result.StoreHouse);
+                $('#StoreHouse').val(result.StoreHouse);
                 $('#LastTestTime').text(result.LastTestTime);
                 $('#TotalUsedTime').text(result.TotalUsedTime);
                 $('#Image').attr('src', result.Image);
-                
+
                 $('#InfoModal').modal('show');
             }
         },
@@ -283,6 +289,46 @@ function getInfo(e){
         }
     });
 }
+//响应时改变按钮显示
+function changeBtnStyle(Btn, BtnText){
+    if($(Btn).attr('disabled')){
+        $(Btn).empty();
+        $(Btn).text(BtnText);
+        $(Btn).removeAttr('disabled');
+    }else{
+        $(Btn).text('');
+        $(Btn).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>');
+        $(Btn).attr('disabled', true);
+    }
+}
+$('#EditBtn').click(function(){
+    let Btn = this;
+    changeBtnStyle(Btn, '确认修改');
+    var transData = {
+        'Code': $('#Code').text(),
+        'SeqID': $('#SeqID').text(),
+        'NewStoreHouse': $('#StoreHouse').val()
+    }
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        contentType: 'application/json',
+        data: JSON.stringify(transData),
+        url: '',                                    //待改
+        success: function(result){
+            if(result.Status == 'success'){
+                alert('修改成功！');
+            }else{
+                alert('修改失败，请稍后重试...');
+            }
+            changeBtnStyle(Btn, '确认修改');
+        },
+        error: function(){
+            changeBtnStyle(Btn, '确认修改');
+            alert('修改失败，请稍后重试...');
+        }
+    });
+})
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

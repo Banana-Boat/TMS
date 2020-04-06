@@ -12,12 +12,13 @@
     display: block;
 }
 .img-box{
-    width: 40%;
-    margin: 0 auto;
-    text-align: center;
+    width: 60%;
+}
+#Image{
+    width: 100%;
 }
 .infoModal-content{
-    margin-left: 20%;
+    margin-left: 25%;
 }
 #repairImage{
     max-width: 100%;

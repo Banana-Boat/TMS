@@ -1,18 +1,19 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 验证库位输入
 var is_storehouse_legal = false;
-var storehouse_reg = /[a-zA-Z0-9]{2}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{2}/;
+var storehouse_reg1 = /[0-9]{1,2}-[a-zA-Z0-9]{2}-[0-9]{1,2}/;
+var storehouse_reg2 = /[0-9]{1,2}-[a-zA-Z0-9]{2}/;
 $('#StoreHouse').change(function(){
-    if(!storehouse_reg.test($(this).val())){
-        is_storehouse_legal = false;
-        $(this).parent().parent().attr('class', 'panel-body has-error has-feedback');
-        $(this).parent().children('span').remove();
-        $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback" style="right: 15px;"></span>');
-    }else{
+    if(storehouse_reg1.test($(this).val()) || storehouse_reg2.test($(this).val())){
         is_storehouse_legal = true;
         $(this).parent().parent().attr('class', 'panel-body has-success has-feedback');
         $(this).parent().children('span').remove();
         $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback" style="right: 15px;"></span>');
+    }else{
+        is_storehouse_legal = false;
+        $(this).parent().parent().attr('class', 'panel-body has-error has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback" style="right: 15px;"></span>');
     }
 });
 //#endregion

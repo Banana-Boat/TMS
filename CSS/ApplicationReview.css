@@ -98,3 +98,14 @@ th{
 .form-horizontal .control-label {
     padding-top: 0;
 }
+.img-box{
+    width: 50%;
+    margin-left: 25%;
+}
+#Image{
+    width: 100%;
+}
+/* 分页框 */
+.setPageDiv{
+    margin-left: 30%;
+}

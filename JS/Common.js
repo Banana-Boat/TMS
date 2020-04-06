@@ -8,3 +8,4 @@ $('#content').empty();
 //$('#content').load('../HTML/UserInfoDisplay.html');
 //$('#content').load('../HTML/OldDataLoad.html');
 //$('#content').load('../HTML/ApplicationReview.html');
+//$('#content').load('../HTML/AdminToolEntityDisplay.html');

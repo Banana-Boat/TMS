@@ -6,8 +6,16 @@
     "UsedCount": "3",
     "State": "状态",
     "BillNo": "BO19070500000002",
-    "StoreHouse": "库位名",
+    "StoreHouse": "16-A2",
     "LastTestTime": "2019/7/5  16:42:43",
     "TotalUsedTime": "200",
-    "Image": "../IMG/404.jpg"
+    "Image": "../IMG/404.jpg",
+    "StoreHouseList": [
+        "16-A2",
+        "8-A2-1",
+        "3-A1-5",
+        "16-A9",
+        "3-A2-1",
+        "16-A1-5"
+    ]
 }

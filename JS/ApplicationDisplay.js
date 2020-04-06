@@ -48,7 +48,8 @@ function getInfo(e){
                     let temp = $('#ToolTextarea').text();
                     $('#ToolTextarea').text(temp + 'No.' + (i + 1) + '    ' 
                         + result[i].Code + '    ' 
-                        + result[i].SeqID + '\n');
+                        + result[i].SeqID + '    ' 
+                        + result[i].StoreHouse + '\n');
                 }
                 $('#ApplicationInfoModal').modal('show');
             }

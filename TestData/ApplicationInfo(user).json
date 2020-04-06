@@ -1,14 +1,17 @@
 [
     {
         "Code": "EF0790",
-        "SeqID": "1"
+        "SeqID": "1",
+        "StoreHouse": "12-A2-4"
     },
     {
         "Code": "EF0788",
-        "SeqID": "2"
+        "SeqID": "2",
+        "StoreHouse": "12-A2-4"
     },
     {
         "Code": "EF0790",
-        "SeqID": "3"
+        "SeqID": "3",
+        "StoreHouse": "12-A2-4"
     }
 ]

@@ -179,7 +179,7 @@ function showFillInModal(){
     switch(displayType){                         //更改模态窗内容
         case 'Out': 
             $('#modalTitle').text('填写出库申请单');
-            $('#UserName').val('');
+            $('#UserID').val('');
             $('#LineID').val('');
             $('#OutRemarks').val('');
             $('#outInput').show();
@@ -224,7 +224,7 @@ $('#SubmitBtn').click(function(){               //提交申请单
     };
     switch(displayType){
         case 'Out':
-            transData['UserName'] = $('#UserName').val();
+            transData['UserID'] = $('#UserID').val();
             transData['LineID'] = $('#LineID').val();
             transData['Remarks'] = $('#OutRemarks').val();
             //SubmitByAjax(transData, '', Btn);

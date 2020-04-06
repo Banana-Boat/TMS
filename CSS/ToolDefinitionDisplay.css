@@ -3,6 +3,28 @@
     float: right;
     margin: 2rem 0;
 }
+.model-input-group{
+    display: flex;
+    margin-top: 0.8rem;
+}
+.input-group-icon-plus, .input-group-icon-minus{
+    margin: 0 0.5rem;
+    margin-top: 0.6rem;
+    color: rgb(110, 110, 110);
+    zoom: 1.3;
+    display: block;
+    cursor: pointer;
+}
+.input-group-icon-plus:hover{
+    color: rgb(150, 150, 150);
+}
+.input-group-icon-minus{
+    color: rgb(255, 30, 30);
+}
+.input-group-icon-minus:hover{
+    color: rgb(255, 100, 100);
+}
+
 /* 两个页面公用 */
 .attr{
     display: inline;

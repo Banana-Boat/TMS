@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>AdminToolApplicationDisplay</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../IMG/favicon.ico">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+  </head>
+    <body>
+        <!--悬浮按钮-->
+        <div class="dangling-box">
+            <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="page-header">
+                <h2 class="page-title">夹具申请记录展示</h2>
+                <!-- 操作框 -->
+                <div class="oper-box col-sm-6">
+                    <div class="search-box input-group">
+                        <span class="input-group-addon">夹具代码</span>
+                        <input type="text" class="form-control" id="CodeInput">
+                        <span class="input-group-addon">夹具序列号</span>
+                        <input type="text" class="form-control" id="SeqIDInput">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="searchBtn">查找</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- 申请类别选择 -->
+            <div class="tab-box">
+                <a class="a-tab a-tab-active" id="OutTab" onclick="changeTab(this, 'Out');">出库</a>
+                <a class="a-tab" id="InTab" onclick="changeTab(this, 'In');">入库</a>
+                <a class="a-tab" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
+                <a class="a-tab" id="ScrapTab" onclick="changeTab(this, 'Scrap');">报废</a>
+            </div>
+            <!-- 申请表格展示 -->
+            <div class="table-box table-responsive">
+                <table class="table table-hover" id="OutTable">
+                    <thead>
+                        <tr>
+                            <th>申请编号</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
+                            <th>审核人</th>
+                            <th>领用人</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody id="OutTbody"></tbody>
+                </table>
+                <table class="table table-hover" id="InTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>申请编号</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
+                            <th>审核人</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody id="InTbody"></tbody>
+                </table>
+                <table class="table table-hover" id="RepairTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>申请编号</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
+                            <th>审核人</th>
+                            <th>故障类别</th>
+                            <th>故障描述</th>
+                        </tr>
+                    </thead>
+                    <tbody id="RepairTbody"></tbody>
+                </table>
+                <table class="table table-hover" id="ScrapTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>申请编号</th>
+                            <th>申请人</th>
+                            <th>申请时间</th>
+                            <th>审核人</th>
+                            <th>使用寿命</th>
+                            <th>报废原因</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ScrapTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <link href="../CSS/ApplicationReview.css" rel="stylesheet" type="text/css">
+        <script src="../JS/AdminToolApplicationDisplay.js"></script>
+    </body>
+</html>
+
+
+

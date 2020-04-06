@@ -265,6 +265,7 @@ function getInfo(e){
 
                 $('#Code').text(result.Code);
                 $('#SeqID').text(result.SeqID);
+                $('#ToolApplication').attr('href', '../HTML/AdminToolApplicationDisplay.html'); /* ?Code=' + result.Code + '&SeqID=' + result.SeqID */
                 $('#Buyoff').text(result.Buyoff);
                 $('#RegDate').text(result.RegDate);
                 $('#UsedCount').text(result.UsedCount);

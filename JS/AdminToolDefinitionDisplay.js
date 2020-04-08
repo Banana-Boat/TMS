@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //定义全局变量
-var initData = [];                 //全体数据
+var initData = [];              //全体数据
 var pageSize = 16;              //一页最多显示16条信息
 var filterBy = {                //存放筛选条件
     'Code': '',
@@ -8,7 +8,7 @@ var filterBy = {                //存放筛选条件
     'Family': '',
     'Model': ''
 };   
-var fmDict = {};                //Family、Model字典
+var mod_str = '', pm_str = '';            //Family、Model字典
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 初始化/刷新表格数据
 function displayTable(data){
@@ -62,21 +62,24 @@ $(window).on('load', function(){
     $.ajax({                    //获取family、model字典
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/FamModDict.json',  //后端Url，待改
+        url: '../TestData/FamModPMDict.json',  //后端Url，待改
         success: function(result){           //字典数据绑定至筛选下拉框、信息修改下拉框
             if(result.Status == 'error'){
                 alert('获取下拉列表数据失败，请自行填写..');
             }else{
-                fmDict = result;                 //说明：为查看详情时可自动将Family和Model两个下拉框补全，故采用value与text均为实际内容
+                //说明：为查看详情时可自动将Family和Model两个下拉框补全，故采用value与text均为实际内容
                 for(let p in result.Family){
                     $('#familyFilterInput').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
-                    $('#familyTipList').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
-                    $('#newFamilyTipList').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                    $('#Family').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
+                    $('#NewFamily').append('<option value="' + result.Family[p] + '">' + result.Family[p] + '</option>');
                 }
                 for(let n in result.Model){
                     $('#modelFilterInput').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
-                    $('#modelTipList').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
-                    $('#newModelTipList').append('<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>');
+                    //由于每次打开两个模态窗都会重置Model的输入，故将<option>数据暂存为字符串
+                    mod_str += '<option value="' + result.Model[n] + '">' + result.Model[n] + '</option>';     
+                }
+                for(let n in result.PMContent){
+                    pm_str += '<option value="' + result.PMContent[n] + '">' + result.PMContent[n] + '</option>'; 
                 }
             }
         },
@@ -161,10 +164,15 @@ $(window).scroll(function(){
 //#region 获取夹具定义的详细信息、多个模组相关事件
 function getInfo(e){
     var code = $(e).parent().parent().children().eq(0).text();
-    $('#modelInputBox').empty();                             //清除可能出现的多个模组框
-    $('#modelInputBox').append('<div style="display: flex;">'
-            + '<input type="text" class="form-control" list="modelTipList">'
-            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="modelAddBtn();"></i>'
+    $('#ModelInputBox').empty();                             //清除可能出现的多个模组框
+    $('#ModelInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + mod_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'Model'" + ');"></i>'
+            + '</div>')
+    $('#PMContentInputBox').empty();                             //清除可能出现的多个点检框
+    $('#PMContentInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + pm_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'PMContent'" + ');"></i>'
             + '</div>')              
 
     $.ajax({
@@ -174,22 +182,26 @@ function getInfo(e){
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
-            }else{
+            }else{  
                 $('#Code').val(result.Code);
                 $('#Name').val(result.Name);
                 $('#Family').val(result.Family);
 
-                $('#modelInputBox').children().children().eq(0).val(result.Model.split('/')[0]);
+                $('#ModelInputBox').children().children().eq(0).val(result.Model.split('/')[0]);
                 for(let i = 1; i < result.Model.split('/').length; i++){
-                    modelAddBtn();
-                    $('#modelInputBox').children().last().children().eq(0).val(result.Model.split('/')[i]);
+                    AddBtn("Model");
+                    $('#ModelInputBox').children().last().children().eq(0).val(result.Model.split('/')[i]);
+                }
+                $('#PMContentInputBox').children().children().eq(0).val(result.PMContent.split('/')[0]);
+                for(let i = 1; i < result.PMContent.split('/').length; i++){
+                    AddBtn("PMContent");
+                    $('#PMContentInputBox').children().last().children().eq(0).val(result.PMContent.split('/')[i]);
                 }
                 
                 $('#PartNo').val(result.PartNo);
                 $('#UPL').val(result.UPL);
                 $('#UsedFor').val(result.UsedFor);
                 $('#PMPeriod').val(result.PMPeriod);
-                $('#PMContent').val(result.PMContent);
                 $('#OwnerID').val(result.OwnerID);
                 $('#OwnerName').val(result.OwnerName);
                 $('#RecOn').val(result.RecOn);
@@ -208,37 +220,21 @@ function getInfo(e){
         }
     });
 }
-function modelAddBtn(){
-    if($('#modelInputBox').children().length < 6){
-        $('#modelInputBox').children().last().children().last().remove();
-        $('#modelInputBox').append('<div class="model-input-group">'
-                + '<input type="text" class="form-control" list="modelTipList">'
-                + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="modelMinusBtn(this);"></i>'
-                + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="modelAddBtn();"></i>'
-                + '</div>');
+function AddBtn(type){
+    if($('#' + type + 'InputBox').children().length < 6){
+        $('#' + type + 'InputBox').children().last().children().last().remove();
+        let temp = '<div class="input-group">'
+        + '<select class="form-control">' + (type == 'Model' ? mod_str : pm_str) + '</select>'
+        + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="MinusBtn(this, ' + "'" + type + "'" + ');"></i>'
+        + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'" + type + "'" + ');"></i>'
+        + '</div>'
+        $('#' + type + 'InputBox').append(temp);
     }
 }
-function modelMinusBtn(e){
-    if($(e)[0] == $('#modelInputBox').children().last().children().eq(1)[0]){       //当前元素为最后一个减号
+function MinusBtn(e, type){
+    if($(e)[0] == $('#' + type + 'InputBox').children().last().children().eq(1)[0]){       //当前元素为最后一个减号
         $(e).parent().remove();
-        $('#modelInputBox').children().last().append('<i class="fa fa-plus-circle input-group-icon-plus" onclick="modelAddBtn();"></i>');
-    }
-    $(e).parent().remove();
-}
-function newModelAddBtn(){
-    if($('#newModelInputBox').children().length < 6){
-        $('#newModelInputBox').children().last().children().last().remove();
-        $('#newModelInputBox').append('<div class="model-input-group">'
-                + '<input type="text" class="form-control" list="newModelTipList">'
-                + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="newModelMinusBtn(this);"></i>'
-                + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="newModelAddBtn();"></i>'
-                + '</div>');
-    }
-}
-function newModelMinusBtn(e){
-    if($(e)[0] == $('#newModelInputBox').children().last().children().eq(1)[0]){       //当前元素为最后一个减号
-        $(e).parent().remove();
-        $('#newModelInputBox').children().last().append('<i class="fa fa-plus-circle input-group-icon-plus" onclick="newModelAddBtn();"></i>');
+        $('#' + type + 'InputBox').children().last().append('<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'" + type + "'" + ');"></i>');
     }
     $(e).parent().remove();
 }
@@ -265,9 +261,9 @@ $('#EditBtn').click(function(){
     let Btn = this;
     changeBtnStyle(Btn, '确认修改');
 
-    let tempModel = $('#modelInputBox').children().eq(0).children().eq(0).val()     //整合model
-    for(let i = 1; i < $('#modelInputBox').children().length; i++){
-        tempModel += '/' + $('#modelInputBox').children().eq(i).children().eq(0).val();
+    let tempModel = $('#ModelInputBox').children().eq(0).children().eq(0).val()     //整合model
+    for(let i = 1; i < $('#ModelInputBox').children().length; i++){
+        tempModel += '/' + $('#ModelInputBox').children().eq(i).children().eq(0).val();
     }
 
     var transData = {
@@ -308,11 +304,17 @@ $('#EditBtn').click(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 添加夹具定义信息
 $('#showEntityModalBtn').click(function(){
-    $('#newModelInputBox').empty();                             //清除可能出现的多个模组框
-    $('#newModelInputBox').append('<div style="display: flex;">'
-            + '<input type="text" class="form-control" list="newModelTipList">'
-            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="newModelAddBtn();"></i>'
+    $('#NewModelInputBox').empty();                             //清除可能出现的多个模组框
+    $('#NewModelInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + mod_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'Model'" + ');"></i>'
             + '</div>')  
+    $('#NewPMContentInputBox').empty();                             //清除可能出现的多个模组框
+    $('#NewPMContentInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + pm_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'PMContent'" + ');"></i>'
+            + '</div>') 
+
     $('#EntityAddModal').modal('show');
 })
 
@@ -320,9 +322,13 @@ $('#AddBtn').click(function(){
     let Btn = this;
     changeBtnStyle(Btn, '确认添加');
 
-    let tempModel = $('#newModelInputBox').children().eq(0).children().eq(0).val()     //整合model
-    for(let i = 1; i < $('#newModelInputBox').children().length; i++){
-        tempModel += '/' + $('#newModelInputBox').children().eq(i).children().eq(0).val();
+    let tempModel = $('#NewModelInputBox').children().eq(0).children().eq(0).val()     //整合model
+    for(let i = 1; i < $('#NewModelInputBox').children().length; i++){
+        tempModel += '/' + $('#NewModelInputBox').children().eq(i).children().eq(0).val();
+    }
+    let tempPMContent = $('#NewPMContentInputBox').children().eq(0).children().eq(0).val()     //整合model
+    for(let i = 1; i < $('#NewPMContentInputBox').children().length; i++){
+        tempPMContent += '/' + $('#NewPMContentInputBox').children().eq(i).children().eq(0).val();
     }
     var transData = {
         'Code': $('#NewCode').val(),
@@ -333,7 +339,7 @@ $('#AddBtn').click(function(){
         'UPL': $('#NewUPL').val(),
         'UsedFor': $('#NewUsedFor').val(),
         'PMPeriod': $('#NewPMPeriod').val(),
-        'PMContent': $('#NewPMContent').val(),
+        'PMContent': tempPMContent,
         'OwnerID': $('#NewOwnerID').val()
     };
     $.ajax({
@@ -357,6 +363,23 @@ $('#AddBtn').click(function(){
         }
     });
 });
+function NewAddBtn(type){
+    if($('#New' + type + 'InputBox').children().length < 6){
+        $('#New' + type + 'InputBox').children().last().children().last().remove();
+        $('#New' + type + 'InputBox').append('<div class="input-group">'
+                + '<select class="form-control">' + (type == 'Model' ? mod_str : pm_str) + '</select>'
+                + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="NewMinusBtn(this, ' + "'" + type + "'" + ');"></i>'
+                + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'" + type + "'" + ');"></i>'
+                + '</div>');
+    }
+}
+function NewMinusBtn(e, type){
+    if($(e)[0] == $('#New' + type + 'InputBox').children().last().children().eq(1)[0]){       //当前元素为最后一个减号
+        $(e).parent().remove();
+        $('#New' + type + 'InputBox').children().last().append('<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'" + type + "'" + ');"></i>');
+    }
+    $(e).parent().remove();
+}
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

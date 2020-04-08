@@ -65,15 +65,12 @@ function displayTable(data, displayType){
                     + '</td></tr>');
             }
             break;
-        case 'Scrap':
+        case 'Check':
             for(let i = 0; i < data.length; i++){
                 $('#' + displayType + 'Tbody').append(
-                    '<tr><td>' + data[i].OrderID
-                    + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                    '<tr><th>' + (i + 1).toString()
+                    + '</th><td>' + data[i].ExaminerID + '&nbsp&nbsp&nbsp' + data[i].ExaminerName
                     + '</td><td>' + data[i].ApplicationTime
-                    + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
-                    + '</td><td>' + data[i].ServiceLife
-                    + '</td><td>' + data[i].Reason
                     + '</td></tr>');
             }
             break;

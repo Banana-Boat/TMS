@@ -68,16 +68,21 @@
             "Reason": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         }
     ],
-    "Scrap":[
+    "Check":[
         {
-            "OrderID": "0001",
-            "ApplicantID": "2019001",
-            "ApplicantName": "Zhou Wei",
-            "ApplicationTime": "2019/3/2",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
-            "ServiceLife": "20",
-            "Reason": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            "ExaminerID": "2019001",
+            "ExaminerName": "Zhou Wei",
+            "ApplicationTime": "2019/3/2"
+        },
+        {
+            "ExaminerID": "2019001",
+            "ExaminerName": "Zhou Wei",
+            "ApplicationTime": "2019/3/8"
+        },
+        {
+            "ExaminerID": "2019001",
+            "ExaminerName": "Zhou Wei",
+            "ApplicationTime": "2019/3/1"
         }
     ]
 }

@@ -39,7 +39,7 @@
                 <a class="a-tab a-tab-active" id="OutTab" onclick="changeTab(this, 'Out');">出库</a>
                 <a class="a-tab" id="InTab" onclick="changeTab(this, 'In');">入库</a>
                 <a class="a-tab" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
-                <a class="a-tab" id="ScrapTab" onclick="changeTab(this, 'Scrap');">报废</a>
+                <a class="a-tab" id="CheckTab" onclick="changeTab(this, 'Check');">点检</a>
             </div>
             <!-- 申请表格展示 -->
             <div class="table-box table-responsive">
@@ -81,18 +81,15 @@
                     </thead>
                     <tbody id="RepairTbody"></tbody>
                 </table>
-                <table class="table table-hover" id="ScrapTable" style="display: none;">
+                <table class="table table-hover" id="CheckTable" style="display: none;">
                     <thead>
                         <tr>
-                            <th>申请编号</th>
-                            <th>申请人</th>
-                            <th>申请时间</th>
-                            <th>审核人</th>
-                            <th>使用寿命</th>
-                            <th>报废原因</th>
+                            <th>序号</th>
+                            <th>点检人</th>
+                            <th>时间</th>
                         </tr>
                     </thead>
-                    <tbody id="ScrapTbody"></tbody>
+                    <tbody id="CheckTbody"></tbody>
                 </table>
             </div>
         </div>

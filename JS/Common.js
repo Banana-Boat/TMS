@@ -9,3 +9,4 @@ $('#content').empty();
 //$('#content').load('../HTML/OldDataLoad.html');
 //$('#content').load('../HTML/ApplicationReview.html');
 //$('#content').load('../HTML/AdminToolEntityDisplay.html');
+//$('#content').load('../HTML/DictionaryManage.html');

@@ -1,23 +1,24 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 var displayType = 'Definition';                //当前展示的申请类型
-var defiInitData, entiInitData, userInitData;    //存放未处理的夹具定义、实体，用户信息数据
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 上传Excel并刷新展示
-function refleshTable(data, type){
-    $('#' + type + 'Table').empty();
-    $('#' + type + 'Table').append('<thead id="' + type + 'Thead"><tr></tr></thead>');
+function refleshTable(data){
+    $('table').empty();
+    $('table').append('<thead><tr></tr></thead>');
     for(var th in data[0]){  //设置表头
-        $('#' + type + 'Thead').children('tr').append("<th>" + th + "</th>");
+        $('Thead').children('tr').append("<th>" + th + "</th>");
     }
-    $('#' + type + 'Table').append('<tbody id="' + type + 'Tbody"></tbody>');
+    $('table').append('<tbody></tbody>');
     for(var i = 0; i < data.length; i++){ 
-        $('#' + type + 'Tbody').append('<tr></tr>');
+        $('tbody').append('<tr></tr>');
         for(var td in data[i]){
-            $('#' + type + 'Tbody').children('tr').eq(i).append('<td>' + data[i][td] + '</td>');
+            $('tbody').children('tr').eq(i).append('<td>' + data[i][td] + '</td>');
         }
     }
 };
 $('#upload').change(function(){
+    $('#tableBg').remove();
     var reader = new FileReader();
     var file = $('#upload')[0].files[0];
     if(file){
@@ -26,20 +27,7 @@ $('#upload').change(function(){
             var data = this.result;
             var wb = XLSX.read(data, {type:'binary'}) //利用XLSX解析二进制文件为xlsx对象
             var initData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //利用XLSX把wb第一个sheet转换成JSON对象
-            switch(displayType){
-                case 'Definition':
-                    defiInitData = initData;
-                    refleshTable(defiInitData, 'Definition'); 
-                    break;
-                case 'Entity':
-                    entiInitData = initData;
-                    refleshTable(entiInitData, 'Entity');
-                    break;
-                case 'UserInfo':
-                    userInitData = initData;
-                    refleshTable(userInitData, 'UserInfo');
-                    break;
-            }   
+            refleshTable(initData); 
         }
     }
 });
@@ -48,34 +36,25 @@ $('#upload').change(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 切换展示的数据类型
 function changeTab(e, type){
-    $('#' + displayType + 'Tab').removeClass('a-tab-active');
-    $(e).addClass('a-tab-active');
     displayType = type;
-
     switch(type){       //刷新操作
         case 'Definition':
             $('#download').text('点击下载夹具实体EXCEL模板');
             $('#download').attr('href', '../EXCEL/夹具实体模板.xlsx');
             $('#download').attr('download', '夹具实体模板.xlsx');
-            $('#DefinitionTable').show();
-            $('#EntityTable').hide();
-            $('#UserInfoTable').hide();
+            $('#chooseBtn').text('夹具实体');
             break;
         case 'Entity':
             $('#download').text('点击下载夹具定义EXCEL模板');
             $('#download').attr('href', '../EXCEL/夹具定义模板.xlsx');
             $('#download').attr('download', '夹具定义模板.xlsx');
-            $('#EntityTable').show();
-            $('#DefinitionTable').hide();
-            $('#UserInfoTable').hide();
+            $('#chooseBtn').text('夹具定义');
             break;
         case 'UserInfo':
             $('#download').text('点击下载用户信息EXCEL模板');
             $('#download').attr('href', '../EXCEL/用户信息模板.xlsx');
             $('#download').attr('download', '用户信息模板.xlsx');
-            $('#UserInfoTable').show();
-            $('#EntityTable').hide();
-            $('#DefinitionTable').hide();
+            $('#chooseBtn').text('用户信息');
             break;
     }
 }

@@ -137,45 +137,66 @@ $('#loginBtn').click(function(){
 $('#workcellSubmitBtn').click(function(){    
     var Btn = this;  
     changeBtnStyle(Btn, '登录'); 
-    var transData;
     if(is_visitor){
-        transData = {
-            'Workcell': $('Workcell').val()
+        let transData = {
+            'Workcell': $('#Workcell').val()
         };
+        /* $.ajax({                           
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(transData),
+            url: ,     //url待改
+            success: function(result){
+                if(result.Status == 'success'){
+                    window.location = '';                    //url待改
+                }
+                else{
+                    alert('登录失败，请稍后重试...');
+                }
+                changeBtnStyle(Btn, '登录'); 
+            },
+            error: function(){
+                alert('登录失败，请稍后重试...');
+                changeBtnStyle(Btn, '登录');
+            }
+        }); */
     }else{
-        transData = {
+        let transData = {
             'UserID': $('#UserID').val(),
             'Password': $('#Password').val(),
-            'Workcell': $('Workcell').val()
+            'Workcell': $('#Workcell').val()
         };
-    }
-    $.ajax({                           
-        type: 'POST',
-        dataType: 'JSON',
-        contentType: 'application/json',
-        data: JSON.stringify(transData),
-        url: '',                                   //url待改
-        success: function(result){
-            if(result.Status == 'success'){
-                window.location = '';              //url待改
-            }
-            else if(result.Status == 'first'){     //用户首次登录，需更改初始密码
-                $('#setPwModal').modal('show');
-            }
-            else{
+        $.ajax({                           
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(transData),
+            url: '',                                   //url待改
+            success: function(result){
+                if(result.Status == 'success'){
+                    window.location = '';              //url待改
+                }
+                else if(result.Status == 'first'){     //用户首次登录，需更改初始密码
+                    $('##chooseWorkcellModal').modal('hide');
+                    $('#setPwModal').modal('show');
+                }
+                else{
+                    alert('登录失败，请稍后重试...');
+                }
+                changeBtnStyle(Btn, '登录'); 
+            },
+            error: function(){
                 alert('登录失败，请稍后重试...');
+                changeBtnStyle(Btn, '登录');
             }
-            changeBtnStyle(Btn, '登录'); 
-        },
-        error: function(){
-            alert('登录失败，请稍后重试...');
-            changeBtnStyle(Btn, '登录');
-        }
-    })
+        })
+    }
 })
 
 //游客登录
 $('#visitorLoginBtn').click(function(){  
+    is_visitor = true;
     $('#chooseWorkcellModal').modal('show');      
 })
 //#endregion

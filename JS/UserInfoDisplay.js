@@ -1,6 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 全局变量
-var is_name_legal = true;
 var is_password_legal = true;
 var is_rePassword_legal = true;
 var is_email_legal = true;
@@ -63,7 +62,7 @@ $('#showEditModal').click(function(){
 });
 $('#EditBtn').click(function(){
     var Btn = this;
-    if(is_password_legal && is_name_legal && is_rePassword_legal && is_email_legal){
+    if(is_password_legal && is_rePassword_legal && is_email_legal){
         changeBtnStyle(Btn, '确认修改');
         var transData = {
             'UserID': $('#modalUserID').val(),

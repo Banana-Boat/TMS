@@ -7,13 +7,6 @@
         "State": "可用"
     },
     {
-        "Code": "EF0790",
-        "SeqID": "3",
-        "RegDate": "2019/7/5  16:42:43",
-        "UsedCount": "1",
-        "State": "已出库"
-    },
-    {
         "Code": "EF0789",
         "SeqID": "3",
         "RegDate": "2019/7/5  16:42:43",
@@ -26,20 +19,6 @@
         "RegDate": "2019/7/5  16:42:43",
         "UsedCount": "6",
         "State": "可用"
-    },
-    {
-        "Code": "EF0790",
-        "SeqID": "1",
-        "RegDate": "2019/7/5  16:42:43",
-        "UsedCount": "3",
-        "State": "已出库"
-    },
-    {
-        "Code": "EF0789",
-        "SeqID": "1",
-        "RegDate": "2019/7/5  16:42:43",
-        "UsedCount": "3",
-        "State": "已出库"
     },
     {
         "Code": "EF0790",
@@ -133,25 +112,11 @@
         "State": "待入库"
     },
     {
-        "Code": "EF0790",
-        "SeqID": "3",
-        "RegDate": "2019/7/5  16:42:43",
-        "UsedCount": "1",
-        "State": "已出库"
-    },
-    {
         "Code": "EF0789",
         "SeqID": "1",
         "RegDate": "2019/7/5  16:42:43",
         "UsedCount": "6",
         "State": "可用"
-    },
-    {
-        "Code": "EF0790",
-        "SeqID": "3",
-        "RegDate": "2019/7/5  16:42:43",
-        "UsedCount": "1",
-        "State": "已出库"
     },
     {
         "Code": "EF0789",

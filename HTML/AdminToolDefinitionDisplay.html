@@ -120,19 +120,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="Family">所属大类</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="Family" list="familyTipList">
+                                    <select class="form-control" id="Family"></select>
                                 </div>
-                                <datalist id="familyTipList"></datalist>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="Model">夹具模组</label>
-                                <div class="col-sm-7" id="modelInputBox">
-                                    <div style="display: flex;">
-                                        <input type="text" class="form-control" list="modelTipList">
-                                        <i class="fa fa-plus-circle input-group-icon-plus" onclick="modelAddBtn();"></i>
-                                    </div>
-                                </div>
-                                <datalist id="modelTipList"></datalist>
+                                <div class="col-sm-7" id="ModelInputBox"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="PartNo">夹具料号</label>
@@ -160,9 +153,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="PMContent">点检内容</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="PMContent"> 
-                                </div>
+                                <div class="col-sm-7" id="PMContentInputBox"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="OwnerID">责任人工号</label>
@@ -249,19 +240,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="NewFamily">所属大类</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="NewFamily" list="newFamilyTipList">
+                                    <select class="form-control" id="NewFamily"></select>
                                 </div>
-                                <datalist id="newFamilyTipList"></datalist>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="Model">夹具模组</label>
-                                <div class="col-sm-7" id="newModelInputBox">
-                                    <div style="display: flex;">
-                                        <input type="text" class="form-control" list="newModelTipList">
-                                        <i class="fa fa-plus-circle input-group-icon-plus" onclick="newModelAddBtn();"></i>
-                                    </div>
-                                </div>
-                                <datalist id="newModelTipList"></datalist>
+                                <div class="col-sm-7" id="NewModelInputBox"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="NewPartNo">夹具料号</label>
@@ -289,9 +273,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="NewPMContent">点检内容</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="NewPMContent"> 
-                                </div>
+                                <div class="col-sm-7" id="NewPMContentInputBox"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="NewOwnerID">责任人工号</label>

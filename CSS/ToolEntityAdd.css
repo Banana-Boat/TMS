@@ -1,3 +1,7 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
 #Image{
     margin-top: 0.5rem;
 }

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //定义全局变量
 var initData = [];              //全体数据
-var pageSize = 16;              //一页最多显示16条信息
+var pageSize = 12;              //一页最多显示12条信息
 var filterBy = {                //存放筛选条件
     'Code': '',
     'Name': '',
@@ -25,15 +25,22 @@ function displayTable(data){
             $('tbody').empty();
             var begin = (num - 1) * pageSize;
             for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                $('tbody').append('<tr><td>' + data[i].Code
-                + '</td><td>' + data[i].Name
-                + '</td><td>' + data[i].Family
-                + '</td><td>' + data[i].Model
-                + '</td><td>' + data[i].PartNo
-                + '</td><td>' + data[i].OwnerID + '&nbsp&nbsp&nbsp' + data[i].OwnerName
-                + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
-                + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
-                + '</td></tr>');
+                let tempStr = ''
+                tempStr += '<tr><td>' + data[i].Code
+                    + '</td><td>' + data[i].Name
+                    + '</td><td>' + data[i].Family
+                    + '</td><td>' + data[i].Model;
+                
+                tempPartNo = data[i].PartNo.split(' ')[0];
+                for(let p = 1; p < data[i].PartNo.split(' ').length; p++){
+                    tempPartNo += '<br>' + data[i].PartNo.split(' ')[p]
+                }
+                tempStr += '</td><td>' + tempPartNo
+                    + '</td><td>' + data[i].OwnerID + '<br>' + data[i].OwnerName
+                    + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
+                    + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
+                    + '</td></tr>';
+                $('tbody').append(tempStr);
             }
         }
     });
@@ -97,13 +104,13 @@ $(window).on('load', function(){
 function runFilter(e, type){  //执行筛选，并刷新展示的表格
     var tempData = initData;
     if(filterBy.Code != '')
-        tempData = tempData.filter(item => {return item.Code == filterBy.Code});
+        tempData = tempData.filter(item => {return item.Code.indexOf(filterBy.Code) != -1});
     if(filterBy.Name != '')
-        tempData = tempData.filter(item => {return item.Name == filterBy.Name});
+        tempData = tempData.filter(item => {return item.Name.indexOf(filterBy.Name) != -1});
     if(filterBy.Family != '')
-        tempData = tempData.filter(item => {return item.Family == filterBy.Family});
+        tempData = tempData.filter(item => {return item.Family.indexOf(filterBy.Family) != -1});
     if(filterBy.Model != '')
-        tempData = tempData.filter(item => {return item.Model == filterBy.Model});
+        tempData = tempData.filter(item => {return item.Model.indexOf(filterBy.Model) != -1});
     
     if(tempData.length > 0)
         displayTable(tempData);

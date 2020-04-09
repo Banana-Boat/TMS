@@ -1,3 +1,7 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
 .nodisplay{
     display: none;
 }
@@ -37,11 +41,8 @@
 .table-responsive{
     overflow-x: auto;
 }
-.table>tbody>tr>td{
+.table>tbody>tr>td, .table>tbody>tr>th, .table>thead:first-child>tr:first-child>th{
     vertical-align: middle;
-    text-align: center;
-}
-th{
     text-align: center;
 }
 /* Oper-box */
@@ -49,20 +50,25 @@ th{
     display: flex;
     z-index: 99;
     padding: 1rem 0;
+    width: 90%;
 }
 .oper-box-sticky{
     padding: 1rem ;
-    width: 62%;
+    width: 70%;
     border-radius: 10px;
     background-color: rgba(200, 200, 200, 0.9);
     position: fixed;
-    top: 55px;
+    top: 50px;
 }
 .pointer-type{
     cursor: pointer;
 }
+.search-box{
+    width: 50%;
+}
 .bulkoper-box{
-    margin-left: 4rem;
+    margin-left: 3rem;
+    width: 50%;
 }
 /* Cache-Box */
 .cache-box{
@@ -71,21 +77,21 @@ th{
     display: block;
     float: right;
     z-index: 101;
-    width: 300px;
+    width: 260px;
     background-color: rgb(190, 190, 200);
     border-radius: 10px;
     box-shadow: -3px 3px 20px 0px;
 }
 .cache-tab-a{
     height: 35px;
-    width: 75px;
+    width: 65px;
     float: left;
     text-align: center;
     background-color: rgb(235, 235, 235);
     cursor: pointer;
     text-decoration: none !important;
     color: rgb(100,100,100) !important;
-    font-size: 1.8rem;
+    font-size: 18px;
     line-height: 3.5rem;
     margin-bottom: 1rem;
 }
@@ -101,11 +107,11 @@ th{
 }
 .cache-icon{
     padding: 2px 10px;
-    zoom: 0.85;
+    zoom: 0.80;
 }
 .cache-title{
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 18px;
     margin-left: 1rem;
 }
 .cache-content{
@@ -154,6 +160,9 @@ th{
 }
 
 @media (max-width: 1050px){
+    .main{
+        margin-right: 100px;
+    }
     #cacheTab{
         display: none;
     }
@@ -166,18 +175,10 @@ th{
     .cache-box{
         width: 56px;
     }
-    /* Oper-box */
-    .oper-box{
-        display: block;
-    }
-    .bulkoper-box {
-        margin-left: 0;
-        margin-top: 1rem;
-    }
 }
 @media (min-width: 1050px){
     .main{
-        margin-right: 180px;
+        margin-right: 220px;
     }
     #cacheTab{
         display: block;
@@ -189,6 +190,6 @@ th{
         display: inline;
     }
     .cache-box{
-        width: 300px;
+        width: 260px;
     }
 }

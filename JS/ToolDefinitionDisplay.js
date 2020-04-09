@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //定义全局变量
-var initData = [];                 //从后端获取的初始数据           
-var pageSize = 20;              //一页最多显示20条信息
+var initData = [];              //全体数据         
+var pageSize = 12;              //一页最多显示12条信息
 var filterBy = {                //存放筛选条件
     'Code': '',
     'Name': '',
@@ -24,15 +24,22 @@ function displayTable(data){
             $('tbody').empty();
             var begin = (num - 1) * pageSize;
             for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                $('tbody').append('<tr><td>' + data[i].Code
-                + '</td><td>' + data[i].Name
-                + '</td><td>' + data[i].Family
-                + '</td><td>' + data[i].Model
-                + '</td><td>' + data[i].PartNo
-                + '</td><td>' + data[i].OwnerID + '&nbsp&nbsp&nbsp' + data[i].OwnerName
-                + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
-                + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
-                + '</td></tr>');
+                let tempStr = ''
+                tempStr += '<tr><td>' + data[i].Code
+                    + '</td><td>' + data[i].Name
+                    + '</td><td>' + data[i].Family
+                    + '</td><td>' + data[i].Model;
+                
+                tempPartNo = data[i].PartNo.split(' ')[0];
+                for(let p = 1; p < data[i].PartNo.split(' ').length; p++){
+                    tempPartNo += '<br>' + data[i].PartNo.split(' ')[p]
+                }
+                tempStr += '</td><td>' + tempPartNo
+                    + '</td><td>' + data[i].OwnerID + '<br>' + data[i].OwnerName
+                    + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
+                    + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
+                    + '</td></tr>';
+                $('tbody').append(tempStr);
             }
         }
     });
@@ -58,7 +65,7 @@ $(window).on('load', function(){
     $.ajax({                    //获取family、model字典
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/FamModDict.json',  //后端Url，待改
+        url: '../TestData/FamModPMDict.json',  //后端Url，待改
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
@@ -106,7 +113,6 @@ function changeFilter(e, type){  //响应绑定的控件
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 筛选框动画效果、固定顶部
-
 function showFilterInput(e){
     var inputBoxNode = $(e).parent().children().eq(1);
     var iconNode = $(e).parent().children().eq(0).children().eq(0);

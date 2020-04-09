@@ -36,56 +36,60 @@ function refreshTable(){
     });
 }
 function displayTable(data){                                                
-    $('#paginationToolEntity').jqPaginator({
-        first: '<li class="first"><a href="javascript:;">首页</a></li>',
-        prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
-        next: '<li class="next"><a href="javascript:;">>></a></li>',
-        last: '<li class="last"><a href="javascript:;">末页</a></li>',
-        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-        totalPages: Math.ceil(data.length / pageSize),
-        totalCounts: data.length,
-        pageSize: pageSize,
-        onPageChange: function(num){
-            $('#definitionTbody').empty();
-            var begin = (num - 1) * pageSize;
-            var n = 1;
-            for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                var appendData = 
-                    '<tr><th>' + n
-                    + '</th><td>' + data[i].Code
-                    + '</td><td>' + data[i].SeqID
-                    + '</td><td>' + data[i].RegDate
-                    + '</td><td>' + data[i].UsedCount
-                    + '</td><td>' + data[i].State
-                    + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>';
-                
-                switch(data[i].State){    //根据夹具不同状态设定不同的操作
-                    case '可用':
-                        appendData += '<button class="btn act-btn" onclick="addToOut(this);">出库</button>'
-                        + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
-                        + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
-                        $('#definitionTbody').append(appendData);
-                        break;
-                    case '待入库':
-                        appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
-                        + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
-                        + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
-                        $('#definitionTbody').append(appendData);
-                        break;
-                    case '已报修':
-                        appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
-                        + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
-                        $('#definitionTbody').append(appendData);
-                        break;
-                    case '已报废':
-                        appendData += '</td></tr>';
-                        $('#definitionTbody').append(appendData);
-                        break;
+    if(data.length > 0){
+        $('#paginationToolEntity').jqPaginator({
+            first: '<li class="first"><a href="javascript:;">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
+            next: '<li class="next"><a href="javascript:;">>></a></li>',
+            last: '<li class="last"><a href="javascript:;">末页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            totalPages: Math.ceil(data.length / pageSize),
+            totalCounts: data.length,
+            pageSize: pageSize,
+            onPageChange: function(num){
+                $('#definitionTbody').empty();
+                var begin = (num - 1) * pageSize;
+                var n = 1;
+                for(var i = begin; i < data.length && i < begin + pageSize; i++){
+                    var appendData = 
+                        '<tr><th>' + n
+                        + '</th><td>' + data[i].Code
+                        + '</td><td>' + data[i].SeqID
+                        + '</td><td>' + data[i].RegDate
+                        + '</td><td>' + data[i].UsedCount
+                        + '</td><td>' + data[i].State
+                        + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>';
+                    
+                    switch(data[i].State){    //根据夹具不同状态设定不同的操作
+                        case '可用':
+                            appendData += '<button class="btn act-btn" onclick="addToOut(this);">出库</button>'
+                            + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
+                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                            $('#definitionTbody').append(appendData);
+                            break;
+                        case '待入库':
+                            appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
+                            + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
+                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                            $('#definitionTbody').append(appendData);
+                            break;
+                        case '已报修':
+                            appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
+                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                            $('#definitionTbody').append(appendData);
+                            break;
+                        case '已报废':
+                            appendData += '</td></tr>';
+                            $('#definitionTbody').append(appendData);
+                            break;
+                    }
+                    n++;   //当前页面序号
                 }
-                n++;   //当前页面序号
             }
-        }
-    });
+        });
+    }else{
+        alert('无筛选结果');
+    }
 }
 function refreshCache(){
     $('#outTbody').empty();
@@ -363,7 +367,9 @@ $("#repairBtn").click(function(){
     var Btn = this;
     if($('#repairImageInput').val() != ''){
         changeBtnStyle(Btn, '确认提交');
-        var transData = new FormData(document.getElementById('repairForm'));   
+        var transData = new FormData(document.getElementById('repairForm')); 
+        transData.append('Code', $('#repairCode').val());
+        transData.append('SeqID', $('#repairSeqID').val());
         $.ajax({ 
             type: 'POST',  
             dataType: 'JSON',
@@ -406,7 +412,7 @@ $('.cache-icon').click(function(){
         $('.cache-tab').show();
         $('.cache-content').show();
         $('.cache-title').show();
-        $('.cache-box').width(300);
+        $('.cache-box').width(260);
     }else{
         $('.cache-tab').hide();
         $('.cache-content').hide();

@@ -1,3 +1,7 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
 .attr-name{
     font-size: 1.8rem;
 }

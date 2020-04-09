@@ -20,8 +20,8 @@
           <img src="../IMG/company_logo2.png">
         </div>
         <ul class="nav nav-pills title_user">
-          <li><a href="#">欢迎，Terry！</a></li>
-          <li><a href="#">注销</a></li>
+          <li><a class="pointer" onclick="changeContent('./UserInfoDisplay.html')">欢迎，Terry！</a></li>
+          <li><a class="pointer" id="logoutBtn" href="#">注销</a></li>
         </ul>
       </div>
     </nav>
@@ -31,23 +31,36 @@
       <nav class="menu">
         <ul class="nav nav-pills nav-stacked navbar-link">
           <li class="active">
-            <a class="collapse" data-toggle="collapse" href="#tool"><i class="fa fa-align-left" aria-hidden="true"></i>   夹具管理</a>
+            <a class="collapse" data-toggle="collapse" href="#tool"><i class="fa fa-wrench" aria-hidden="true"></i>   夹具管理</a>
             <ul id="tool" class="nav collapse coll_a">
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
+                <li><a class="pointer" onclick="changeContent('./AdminToolDefinitionDisplay.html')">夹具操作</a></li>
+                <li><a class="pointer" onclick="changeContent('./TempApplicationManage.html')">暂存申请处理</a></li>
+                <li><a class="pointer" onclick="changeContent('./ToolEntityAdd.html')">采购入库</a></li>
+                <li><a class="pointer" onclick="changeContent('./ToolEntityCheck.html')">点检处理</a></li>
             </ul>
           </li>
           <li class="active">
-            <a class="collapse" data-toggle="collapse" href="#inout"><i class="fa fa-handshake-o" aria-hidden="true"></i>    租借记录</a>
+            <a class="collapse" data-toggle="collapse" href="#inout"><i class="fa fa-align-left" aria-hidden="true"></i>    记录管理</a>
             <ul id="inout" class="nav collapse coll_a">
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
+                <li><a class="pointer" onclick="changeContent('./ApplicationDisplay.html')">个人申请记录</a></li>
+                <li><a class="pointer" onclick="changeContent('./ApplicationReview.html')">部门申请记录</a></li>
             </ul>
           </li>
-          <li class="active"><a href="#"><i class="fa fa-address-card-o" aria-hidden="true"></i>    用户信息</a></li>
+          <li class="active">
+            <a class="collapse" data-toggle="collapse" href="#info"><i class="fa fa-external-link" aria-hidden="true"></i>    信息管理</a>
+            <ul id="info" class="nav collapse coll_a">
+                <li><a class="pointer" onclick="changeContent('./DictionaryManage.html')">信息添加</a></li>
+                <li><a class="pointer" onclick="changeContent('./ExternalDataLoad.html')">数据导入</a></li>
+            </ul>
+          </li>
+          <li class="active">
+            <a class="collapse" data-toggle="collapse" href="#user"><i class="fa fa-address-card-o" aria-hidden="true"></i>    用户管理</a>
+            <ul id="user" class="nav collapse coll_a">
+                <li><a class="pointer" onclick="changeContent('./UserManage.html')">部门用户管理</a></li>
+                <li><a class="pointer" onclick="changeContent('./PwResetApplicationManage.html')">密码重置申请</a></li>
+                <li><a class="pointer" onclick="changeContent('./UserInfoDisplay.html')">个人用户管理</a></li>
+            </ul>
+          </li>          
         </ul>
       </nav>
       <!-- 响应式抽屉按钮 -->
@@ -59,18 +72,17 @@
       </div>
     </div>
     <button class="menu-button" id="open-button">Open Menu</button>
-
+    <!-- 内容部分 -->
     <div class="content-wrap">
-      <div class="content" id="content">
-        
+      <div class="content">
+        <iframe src="./UserManage.html" id="contentIframe" frameborder="0" height="100%" width="100%"></iframe>
       </div>
     </div>
-    
-    
+
     <link rel="stylesheet" type="text/css" href="../CSS/Common.css"/>
+    <script src="../JS/Common.js"></script>
     <script src="../JS/sidebar/snap.svg-min.js"></script>
     <script src="../JS/sidebar/html5.js"></script>  <!--兼容IE-->
-    <script src="../JS/Common.js"></script>
     <script src="../JS/sidebar/classie.js"></script>
     <script src="../JS/sidebar/main4.js"></script>
 

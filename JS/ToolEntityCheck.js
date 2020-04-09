@@ -18,8 +18,8 @@ function refreshTable(){
                         '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
                         + '</td><td>' + result[i].Code
                         + '</td><td>' + result[i].SeqID
-                        + '</td><td>' + result[i].RemainDays
                         + '</td><td>' + result[i].Workcell
+                        + '</td><td>' + result[i].RemainDays
                         + '</td><td><button class="btn act-btn" onclick="check(this);">点检</button>'
                         + '</td></tr>');
                 }

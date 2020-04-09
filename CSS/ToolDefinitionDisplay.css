@@ -1,7 +1,7 @@
 /* Admin~页面 */
 .oper-box{
+    display: inline;
     float: right;
-    margin: 2rem 0;
 }
 .input-group{
     display: flex;
@@ -26,6 +26,13 @@
 }
 
 /* 两个页面公用 */
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
+.main{
+    margin-right: 82px;
+}
 .attr{
     display: inline;
     margin-left: 2rem;
@@ -46,7 +53,7 @@ th{
     padding-left: 20%;
 }
 .page-title{
-    display: inline-block;
+    display: inline;
 }
 .setPageDiv{
     text-align: center;
@@ -98,10 +105,12 @@ th{
     height: 3rem;
 }
 .filter-box-sticky{
+    /* display: inline-table;  使用该布局可使 打开多个筛选框时换行，但点击返回顶端按钮进度条会卡在中间*/    
     padding: 1rem;
+    padding-bottom: 0;
     height: 5rem;
     border-radius: 10px;
-    background-color: rgba(210, 210, 210, 0.9);
+    background-color: rgba(230, 230, 230, 0.9);
     position: fixed;
     top: 55px;
 }

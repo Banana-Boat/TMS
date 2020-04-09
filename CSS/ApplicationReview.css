@@ -1,13 +1,17 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
 .main{
     margin-right: 8%;
     margin-top: 1.5rem;
 }
 .page-title{
-    display: inline-block;
+    display: inline;
 }
 .oper-box{
+    display: inline;
     float: right;
-    margin: 2rem 0;
 }
 
 /* Tab */

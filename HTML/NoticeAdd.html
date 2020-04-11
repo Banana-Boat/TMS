@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NoticeManage</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css">
+        <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="../IMG/favicon.ico"> 
+    </head>
+    <body>
+        <div class="page-header">
+            <h2>公告管理</h2>
+        </div>
+        <!-- 主体 -->
+        <div class="main col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>公告管理</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-9 col-xs-9">
+                            <input class="form-control" type="text" id="StoreHouseAdd" placeholder="不超过40个字符" maxlength="40">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="addStoreHouseBtn">发布公告</button>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9 col-xs-9">
+                            <select class="form-control" id="NoticeDel">
+                                <option value='0'>请选择公告</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="delNoticeBtn">撤销公告</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../JS/NoticeAdd.js"></script>
+        <link href="../CSS/ToolEntityAdd.css" rel="stylesheet" type="text/css">
+    </body>
+</html>

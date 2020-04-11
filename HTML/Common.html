@@ -50,6 +50,7 @@
             <a class="collapse" data-toggle="collapse" href="#info"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;信息管理</a>
             <ul id="info" class="nav collapse coll_a">
                 <li><a class="pointer" onclick="changeContent('./DictionaryManage.html')">元数据增删</a></li>
+                <li><a class="pointer" onclick="changeContent('./NoticeAdd.html')">公告管理</a></li>
                 <li><a class="pointer" onclick="changeContent('./ExternalDataLoad.html')">数据导入</a></li>
             </ul>
           </li>
@@ -63,8 +64,8 @@
           </li>          
         </ul>
         <div class="bottom-nav-link">
-          <button class="btn btn-default" id="AboutBtn">关于<br>我们</button>
-          <button class="btn btn-default" id="HomeBtn">返回<br>首页</button>
+          <button class="btn btn-default" id="AboutBtn" data-toggle="modal" data-target="#AboutModal">关于<br>我们</button>
+          <a class="btn btn-default" id="HomeBtn" onclick="changeContent('./Home.html')">返回<br>首页</a>
         </div>
       </nav>
       <!-- 响应式抽屉按钮 -->
@@ -79,9 +80,24 @@
     <!-- 内容部分 -->
     <div class="content-wrap">
       <div class="content">
-        <iframe src="./Home.html" id="contentIframe" frameborder="0" height="100%" width="100%"></iframe>
+        <iframe src="./VisitorToolEntityDisplay.html" id="contentIframe" frameborder="0" height="100%" width="100%"></iframe>
       </div>
     </div>
+
+    <!-- 关于页 -->
+    <div class="modal fade" id="AboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="modalTitle">关于</h4>
+              </div>
+              <div class="modal-body" id="modal_body">
+                  
+              </div>
+          </div>
+      </div>
+  </div>
 
     <link rel="stylesheet" type="text/css" href="../CSS/Common.css"/>
     <script src="../JS/Common.js"></script>

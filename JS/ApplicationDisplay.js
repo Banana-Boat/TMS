@@ -63,10 +63,18 @@ function getInfo(e){
                 $('#ToolTextarea').text('');
                 for(let i = 0; i < result.length; i++){          //刷新富文本框显示夹具
                     let temp = $('#ToolTextarea').text();
-                    $('#ToolTextarea').text(temp + 'No.' + (i + 1) + '    ' 
+                    if(result[i].ScrapID != 0){
+                        $('#ToolTextarea').text(temp + 'No.' + (i + 1) + '    ' 
                         + result[i].Code + '    ' 
                         + result[i].SeqID + '    ' 
-                        + result[i].StoreHouse + '\n');
+                        + result[i].Content + '    已报废\n');
+                    }else{
+                        $('#ToolTextarea').text(temp + 'No.' + (i + 1) + '    ' 
+                        + result[i].Code + '    ' 
+                        + result[i].SeqID + '    ' 
+                        + result[i].Content + '\n');
+                    }
+                    
                 }
                 $('#ApplicationInfoModal').modal('show');
             }

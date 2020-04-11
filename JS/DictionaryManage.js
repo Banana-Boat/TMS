@@ -4,7 +4,7 @@ $(window).on('load', function(){
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/StoPMFamModDict.json',  //后端Url
+        url: '../TestData/StoPMFamModParDict.json',  //后端Url
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
@@ -17,6 +17,7 @@ $(window).on('load', function(){
                 addToDataList('PMContent');
                 addToDataList('Family');
                 addToDataList('Model');
+                addToDataList('PartNo');
             }
         },
         error: function(){
@@ -60,38 +61,36 @@ function changeBtnStyle(Btn, BtnText){
         $(Btn).attr('disabled', true);
     }
 }
-function FourEvent(type, zhongwen, is_legal){
+function ThreeEvent(type, zhongwen){
     $('#add' + type + 'Btn').click(function(){
         var btn = this;
-        if(is_legal){
-            changeBtnStyle(btn, '添加' + zhongwen);
-            let transData = {
-                'Type': type,
-                'Content' : $('#' + type + 'Add').val()
-            }
-            $.ajax({
-                type: 'POST',
-                dataType: 'JSON',
-                contentType: 'application/json;charset=UTF-8',
-                data: JSON.stringify(transData),
-                url: url,                                         
-                success: function(result){
-                    if (result.Status == 'error') {
-                        alert('添加失败，请稍后重试...');
-                    }else if (result.Status == 'success') {
-                        alert('添加成功！')
-                    }
-                    else {
-                        alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
-                    }
-                    changeBtnStyle(btn, '添加' + zhongwen);
-                },
-                error: function(){
-                    alert('添加失败，请稍后重试...');
-                    changeBtnStyle(btn, '添加' + zhongwen);
-                }
-            });
+        changeBtnStyle(btn, '添加' + zhongwen);
+        let transData = {
+            'Type': type,
+            'Content' : $('#' + type + 'Add').val()
         }
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(transData),
+            url: url,                                         
+            success: function(result){
+                if (result.Status == 'error') {
+                    alert('添加失败，请稍后重试...');
+                }else if (result.Status == 'success') {
+                    alert('添加成功！')
+                }
+                else {
+                    alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
+                }
+                changeBtnStyle(btn, '添加' + zhongwen);
+            },
+            error: function(){
+                alert('添加失败，请稍后重试...');
+                changeBtnStyle(btn, '添加' + zhongwen);
+            }
+        });
     })
     $('#del' + type + 'Btn').click(function(){
         var btn = this;
@@ -123,9 +122,69 @@ function FourEvent(type, zhongwen, is_legal){
 }
 
 //第三个参数为url       接口可不同
-FourEvent('StoreHouse', '库位', is_storehouse_legal);
-FourEvent('PMContent', '点检', true);
-FourEvent('Family', '大类', true);
-FourEvent('Model', '模组', true);
+ThreeEvent('PMContent', '点检')
+ThreeEvent('Family', '大类')
+ThreeEvent('Model', '模组')
+ThreeEvent('PartNo', '料号')
 
+
+$('#addStoreHouseBtn').click(function(){
+    var btn = this;
+    if(is_storehouse_legal){
+        changeBtnStyle(btn, '添加库位');
+        let transData = {
+            'Type': 'StoreHouse',
+            'Content' : $('#StoreHouseAdd').val()
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(transData),
+            url: '',                                         
+            success: function(result){
+                if (result.Status == 'error') {
+                    alert('添加失败，请稍后重试...');
+                }else if (result.Status == 'success') {
+                    alert('添加成功！')
+                }
+                else {
+                    alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
+                }
+                changeBtnStyle(btn, '添加库位');
+            },
+            error: function(){
+                alert('添加失败，请稍后重试...');
+                changeBtnStyle(btn, '添加库位');
+            }
+        });
+    }
+})
+$('#delStoreHouseBtn').click(function(){
+    var btn = this;
+    changeBtnStyle(btn, '删除库位');
+    let transData = {
+        'Type': 'StoreHouse',
+        'Content': $('#StoreHouseDel').val()
+    }
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(transData),
+        url: '',                            //url待改  
+        success: function(result){
+            if(result.Status == 'error'){
+                alert('删除失败，请稍后重试...');
+            }else{
+                alert('删除成功！');
+            }
+            changeBtnStyle(btn, '删除库位');
+        },
+        error: function(){
+            alert('删除失败，请稍后重试...');
+            changeBtnStyle(btn, '删除库位');
+        }
+    });
+})
 //#endregion

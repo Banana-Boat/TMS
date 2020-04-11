@@ -12,38 +12,42 @@ var mod_str = '', pm_str = '';            //Family、Model字典
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 初始化/刷新表格数据
 function displayTable(data){
-    $('#paginationToolDeinit').jqPaginator({
-        first: '<li class="first"><a href="javascript:;">首页</a></li>',
-        prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
-        next: '<li class="next"><a href="javascript:;">>></a></li>',
-        last: '<li class="last"><a href="javascript:;">末页</a></li>',
-        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-        totalPages: Math.ceil(data.length / pageSize),
-        totalCounts: data.length,
-        pageSize: pageSize,
-        onPageChange: function(num){
-            $('tbody').empty();
-            var begin = (num - 1) * pageSize;
-            for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                let tempStr = ''
-                tempStr += '<tr><td>' + data[i].Code
-                    + '</td><td>' + data[i].Name
-                    + '</td><td>' + data[i].Family
-                    + '</td><td>' + data[i].Model;
-                
-                tempPartNo = data[i].PartNo.split(' ')[0];
-                for(let p = 1; p < data[i].PartNo.split(' ').length; p++){
-                    tempPartNo += '<br>' + data[i].PartNo.split(' ')[p]
+    if(data.length > 0){
+        $('#paginationToolDeinit').jqPaginator({
+            first: '<li class="first"><a href="javascript:;">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
+            next: '<li class="next"><a href="javascript:;">>></a></li>',
+            last: '<li class="last"><a href="javascript:;">末页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            totalPages: Math.ceil(data.length / pageSize),
+            totalCounts: data.length,
+            pageSize: pageSize,
+            onPageChange: function(num){
+                $('tbody').empty();
+                var begin = (num - 1) * pageSize;
+                for(var i = begin; i < data.length && i < begin + pageSize; i++){
+                    let tempStr = ''
+                    tempStr += '<tr><td>' + data[i].Code
+                        + '</td><td>' + data[i].Name
+                        + '</td><td>' + data[i].Family
+                        + '</td><td>' + data[i].Model;
+                    
+                    tempPartNo = data[i].PartNo.split(' ')[0];
+                    for(let p = 1; p < data[i].PartNo.split(' ').length; p++){
+                        tempPartNo += '<br>' + data[i].PartNo.split(' ')[p]
+                    }
+                    tempStr += '</td><td>' + tempPartNo
+                        + '</td><td>' + data[i].OwnerID + '<br>' + data[i].OwnerName
+                        + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
+                        + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
+                        + '</td></tr>';
+                    $('tbody').append(tempStr);
                 }
-                tempStr += '</td><td>' + tempPartNo
-                    + '</td><td>' + data[i].OwnerID + '<br>' + data[i].OwnerName
-                    + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
-                    + '<button class="btn act-btn" onclick="getEntity(this);">查看实体</button>'
-                    + '</td></tr>';
-                $('tbody').append(tempStr);
             }
-        }
-    });
+        });
+    }else{
+        alert('当前无数据可展示');
+    }
 }
 function refleshTable(){
     $.ajax({                    //获取夹具定义数据
@@ -199,10 +203,12 @@ function getInfo(e){
                     AddBtn("Model");
                     $('#ModelInputBox').children().last().children().eq(0).val(result.Model.split('/')[i]);
                 }
-                $('#PMContentInputBox').children().children().eq(0).val(result.PMContent.split('/')[0]);
-                for(let i = 1; i < result.PMContent.split('/').length; i++){
-                    AddBtn("PMContent");
-                    $('#PMContentInputBox').children().last().children().eq(0).val(result.PMContent.split('/')[i]);
+                if(result.PMContent){       //点检内容可能为空
+                    $('#PMContentInputBox').children().children().eq(0).val(result.PMContent.split('/')[0]);
+                    for(let i = 1; i < result.PMContent.split('/').length; i++){
+                        AddBtn("PMContent");
+                        $('#PMContentInputBox').children().last().children().eq(0).val(result.PMContent.split('/')[i]);
+                    }
                 }
                 
                 $('#PartNo').val(result.PartNo);
@@ -311,6 +317,15 @@ $('#EditBtn').click(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 添加夹具定义信息
 $('#showEntityModalBtn').click(function(){
+    $('#NewCode').val('')
+    $('#NewName').val('')
+    $('#NewFamily').val('')
+    $('#NewPartNo').val('')
+    $('#NewUPL').val('')
+    $('#NewUsedFor').val('')
+    $('#NewPMPeriod').val('')
+    $('#NewOwnerID').val('')
+
     $('#NewModelInputBox').empty();                             //清除可能出现的多个模组框
     $('#NewModelInputBox').append('<div style="display: flex;">'
             + '<select class="form-control">' + mod_str + '</select>'

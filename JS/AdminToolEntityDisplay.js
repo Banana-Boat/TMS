@@ -4,7 +4,8 @@ var initData = [];
 var searchType = '';
 var bulkOperType = '';
 var cacheTbodyType = 'Out';
-var pageSize = 20;              //一页最多显示16条信息
+var pageSize = 20;              //一页最多显示20条信息
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 获取定义列表、刷新待申请列表（函数）
 $(window).on('load', function(){
@@ -63,19 +64,19 @@ function displayTable(data){
                     switch(data[i].State){    //根据夹具不同状态设定不同的操作
                         case '可用':
                             appendData += '<button class="btn act-btn" onclick="addToOut(this);">出库</button>'
-                            + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
-                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                                + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
+                                + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                             $('#definitionTbody').append(appendData);
                             break;
                         case '待入库':
                             appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
-                            + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
-                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                                + '<button class="btn act-btn" onclick="addToRepair(this);">报修</button>'
+                                + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                             $('#definitionTbody').append(appendData);
                             break;
                         case '已报修':
                             appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
-                            + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
+                                + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                             $('#definitionTbody').append(appendData);
                             break;
                         case '已报废':
@@ -248,6 +249,8 @@ function getInfo(e){
                     $('#StoreHouse').append('<option value="' + result.StoreHouseList[i]
                         + '">' + result.StoreHouseList[i] + '</option>');
                 }
+                $('#StoreHouse').append('<option value="' + result.StoreHouse
+                        + '">' + result.StoreHouse + '</option>');
 
                 $('#Code').text(result.Code);
                 $('#SeqID').text(result.SeqID);
@@ -383,6 +386,7 @@ $("#repairBtn").click(function(){
                     alert('操作失败，请稍后重试...');
                 }else{
                     alert('操作成功！');
+                    refreshCache();
                 }
                 changeBtnStyle(Btn, '确认提交');
             },
@@ -537,4 +541,64 @@ $(window).on('load', function(){
         }, 30);
     });
 })
+//#endregion
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 展示夹具状态饼图
+$('#danglingShow').click(function(){
+    //if(!$('#ToolStateChart').children().length > 0){      //若已初始化，则直接展示
+        var toolChart = echarts.init(document.getElementById('ToolStateChart'));
+        toolChart.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            series: [
+                {
+                    name: '夹具状态',
+                    type: 'pie',
+                    radius: '75%',
+                    center: ['50%', '50%'],
+                    data: [
+                        {value: getSum(initData, '可用'), name: '可用', itemStyle: {color: '#87bd71'}},
+                        {value: getSum(initData, '待入库'), name: '待入库', itemStyle: {color: '#d66464'}},
+                        {value: getSum(initData, '已报修'), name: '已报修', itemStyle: {color: '#58aece'}},
+                        {value: getSum(initData, '已报废'), name: '已报废', itemStyle: {color: '#f83232'}}
+                    ].sort(function (a, b) { return a.value - b.value; }),
+                    roseType: 'radius',
+                    label: {
+                        color: 'rgba(0, 0, 0, 0.6)',
+                        fontSize: 17
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            color: 'rgba(0, 0, 0, 0.6)'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
+                    },
+                    itemStyle: {
+                        shadowBlur: 30,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function (idx) {
+                        return Math.random() * 200;
+                    }
+                }
+            ]
+        });
+    //}
+    $('#ToolStateChartModal').modal('show');
+})
+function getSum(data, state){
+    var sum = 0;
+    for(let p in data){
+        if(data[p].State == state)
+            sum ++;
+    }
+    return sum;
+}
 //#endregion

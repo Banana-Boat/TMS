@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <script type="text/javascript" charset="utf-8" src="http://webapi.amap.com/maps?v=1.3&key=70c1e3393205c7c29e3297d0a27941e9&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/incubator-echarts-4.7.0/incubator-echarts-4.7.0/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="userinfo">
+            <div class="head-box">
+                <img id="head-img" src="../IMG/head.png">
+            </div>
+            <div class="info-box">
+                <div id="welcome"></div>
+                <div id="info"></div>
+            </div>
+            <div class="weather">
+                <div class="weather-img-box"><img id="weatherImg"></div>
+                <div class="weather-info">
+                    <div id="temperature"></div>
+                    <div id="city"></div>
+                </div>
+            </div>
+        </div>
+        <div class="three-box">
+            <div class="todo-list">
+                <div class="panel panel-default">
+                    <div class="panel-heading">待办事项</div>
+                    <div class="panel-body" id="TodoList"></div>
+                </div>
+            </div>
+            <div class="tool-info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">本周夹具使用情况&nbsp;&nbsp;<a style="cursor: pointer;" onclick="changeChart();"><small>[切换]</small></a></div>
+                    <div class="panel-body" id="ToolInfo"></div>
+                </div>
+            </div>
+            <div class="notice">
+                <div class="panel panel-default">
+                    <div class="panel-heading">公告</div>
+                    <div class="panel-body" id="Notice"></div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    
+    <link href="../CSS/Home.css" rel="stylesheet" type="text/css">
+    <script src="../JS/Home.js"></script>
+    </body>
+</html>

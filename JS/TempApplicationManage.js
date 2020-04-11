@@ -52,12 +52,12 @@ $(window).on('load', function(){
                 alert('获取数据失败，请稍后重试..');
             }else{
                 for(let p in result['Line']){            //将产线、故障字典绑定至下拉框
-                    $('#LineID').append('<option value="' 
-                        + p + '">' + result['Line'][p] + '</option>');
+                    $('#Line').append('<option value="' 
+                        + result['Line'][p] + '">' + result['Line'][p] + '</option>');
                 }
                 for(let p in result['PMContent']){
-                    $('#PMContentID').append('<option value="' 
-                        + p + '">' + result['PMContent'][p] + '</option>');
+                    $('#PMContent').append('<option value="' 
+                        + result['PMContent'][p] + '">' + result['PMContent'][p] + '</option>');
                 }
             }
         },
@@ -180,7 +180,7 @@ function showFillInModal(){
         case 'Out': 
             $('#modalTitle').text('填写出库申请单');
             $('#UserID').val('');
-            $('#LineID').val('');
+            $('#Line').val('');
             $('#OutRemarks').val('');
             $('#outInput').show();
             break;
@@ -191,7 +191,7 @@ function showFillInModal(){
             break;
         case 'Repair':
             $('#modalTitle').text('填写报修申请单');
-            $('#PMContentID').val('');
+            $('#PMContent').val('');
             $('#RepairReason').val('');
             $('#repairInput').show();
             break;
@@ -225,7 +225,7 @@ $('#SubmitBtn').click(function(){               //提交申请单
     switch(displayType){
         case 'Out':
             transData['UserID'] = $('#UserID').val();
-            transData['LineID'] = $('#LineID').val();
+            transData['Line'] = $('#Line').val();
             transData['Remarks'] = $('#OutRemarks').val();
             //SubmitByAjax(transData, '', Btn);
             break;
@@ -234,7 +234,7 @@ $('#SubmitBtn').click(function(){               //提交申请单
             //SubmitByAjax(transData, '', Btn);
             break;
         case 'Repair':
-            transData['PMContentID'] = $('#PMContentID').val();
+            transData['PMContent'] = $('#PMContent').val();
             transData['Reason'] = $('#RepairReason').val();
             //SubmitByAjax(transData, '', Btn);
             break;

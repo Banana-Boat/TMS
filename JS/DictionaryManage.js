@@ -61,16 +61,13 @@ function changeBtnStyle(Btn, BtnText){
     }
 }
 function FourEvent(type, zhongwen, is_legal){
-
-    let url = ''                                    //url待改 
-
     $('#add' + type + 'Btn').click(function(){
         var btn = this;
         if(is_legal){
             changeBtnStyle(btn, '添加' + zhongwen);
             let transData = {
-                'Type': 'add',
-                [type] : $('#' + type + 'Add').val()
+                'Type': type,
+                'Content' : $('#' + type + 'Add').val()
             }
             $.ajax({
                 type: 'POST',
@@ -79,10 +76,13 @@ function FourEvent(type, zhongwen, is_legal){
                 data: JSON.stringify(transData),
                 url: url,                                         
                 success: function(result){
-                    if(result.Status == 'error'){
+                    if (result.Status == 'error') {
                         alert('添加失败，请稍后重试...');
-                    }else{
-                        alert('添加成功！');
+                    }else if (result.Status == 'success') {
+                        alert('添加成功！')
+                    }
+                    else {
+                        alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
                     }
                     changeBtnStyle(btn, '添加' + zhongwen);
                 },
@@ -97,8 +97,8 @@ function FourEvent(type, zhongwen, is_legal){
         var btn = this;
         changeBtnStyle(btn, '删除' + zhongwen);
         let transData = {
-            'Type': 'delete',
-            [type]: $('#' + type + 'Del').val()
+            'Type': type,
+            'Content': $('#' + type + 'Del').val()
         }
         $.ajax({
             type: 'POST',

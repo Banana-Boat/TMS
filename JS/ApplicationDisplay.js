@@ -11,15 +11,32 @@ function refreshTable(){
             }else{
                 $('tbody').empty();
                 for(let i = 0; i < result.length; i++){
-                    $('tbody').append('<tr><td>' + result[i].OrderID
-                        + '</td><td>' + result[i].Type
-                        + '</td><td>' + result[i].State
-                        + '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName
-                        + '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
-                        + '</td><td>' + result[i].ApplicationTime
-                        + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>'
-                        + '<button class="btn act-btn" onclick="revoke(this);">撤销</button>'
-                        + '</td></tr>');
+                    let tempStr = '<tr><td>' + result[i].OrderID + '</td><td>' + result[i].Type;
+
+                    if(result[i].State == '同意')
+                        tempStr += '</td><td style="color: green;">' + result[i].State
+                            + '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName
+                            + '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
+                            + '</td><td>' + result[i].ApplicationTime
+                            + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>'
+                            + '</td></tr>';
+                    else if(result[i].State == '驳回')
+                        tempStr += '</td><td style="color: red;">' + result[i].State
+                            + '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName
+                            + '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
+                            + '</td><td>' + result[i].ApplicationTime
+                            + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>'
+                            + '</td></tr>';
+                    else
+                        tempStr += '</td><td>' + result[i].State
+                            + '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName
+                            + '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
+                            + '</td><td>' + result[i].ApplicationTime
+                            + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>'
+                            + '<button class="btn act-btn" onclick="revoke(this);">撤销</button>'
+                            + '</td></tr>';
+
+                    $('tbody').append(tempStr);
                 }
             }
         },

@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 var displayType = 'Definition';                //当前展示的申请类型
-
+var initData = null;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 上传Excel并刷新展示
-function refleshTable(data){
+function refreshTable(data){
     $('table').empty();
     $('table').append('<thead><tr></tr></thead>');
     for(var th in data[0]){  //设置表头
@@ -26,8 +26,8 @@ $('#upload').change(function(){
         reader.onload = function(){
             var data = this.result;
             var wb = XLSX.read(data, {type:'binary'}) //利用XLSX解析二进制文件为xlsx对象
-            var initData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //利用XLSX把wb第一个sheet转换成JSON对象
-            refleshTable(initData); 
+            initData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //利用XLSX把wb第一个sheet转换成JSON对象
+            refreshTable(initData); 
         }
     }
 });
@@ -39,22 +39,25 @@ function changeTab(e, type){
     displayType = type;
     switch(type){       //刷新操作
         case 'Definition':
-            $('#download').text('点击下载夹具实体EXCEL模板');
-            $('#download').attr('href', '../EXCEL/夹具实体模板.xlsx');
-            $('#download').attr('download', '夹具实体模板.xlsx');
-            $('#chooseBtn').text('夹具实体');
-            break;
-        case 'Entity':
             $('#download').text('点击下载夹具定义EXCEL模板');
             $('#download').attr('href', '../EXCEL/夹具定义模板.xlsx');
             $('#download').attr('download', '夹具定义模板.xlsx');
             $('#chooseBtn').text('夹具定义');
+            $('#submitBtn').text('导入夹具定义');
+            break;
+        case 'Entity':
+            $('#download').text('点击下载夹具实体EXCEL模板');
+            $('#download').attr('href', '../EXCEL/夹具实体模板.xlsx');
+            $('#download').attr('download', '夹具实体模板.xlsx');
+            $('#chooseBtn').text('夹具实体');
+            $('#submitBtn').text('导入夹具实体');
             break;
         case 'UserInfo':
             $('#download').text('点击下载用户信息EXCEL模板');
             $('#download').attr('href', '../EXCEL/用户信息模板.xlsx');
             $('#download').attr('download', '用户信息模板.xlsx');
             $('#chooseBtn').text('用户信息');
+            $('#submitBtn').text('导入用户信息');
             break;
     }
 }
@@ -75,54 +78,58 @@ function changeBtnStyle(Btn, BtnText){
     }
 }
 $('#submitBtn').click(function(){
-    if(defiInitData || entiInitData || userInitData){
-        var Btn = this;
-        changeBtnStyle(Btn, '导入');
-        var transData;
-        switch(displayType){
-            case 'Definition':
-                transData = {
-                    'Type': 'definition',
-                    'List': defiInitData
-                }
-                break;
-            case 'Entity':
-                transData = {
-                    'Type': 'entity',
-                    'List': entiInitData
-                }
-                break;
-            case 'UserInfo':
-                transData = {
-                    'Type': 'userinfo',
-                    'List': userInitData
-                }
-                break;
-        }   
-        /* $.ajax({
-            type: 'POST',
-            dataType: 'JSON',
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify(transData),
-            url: ,                                  //后端url待填
-            success: function(result){
-                if(result.Status == 'error'){
+    if($('#chooseBtn').text() == '夹具定义' || $('#chooseBtn').text() == '夹具实体' || $('#chooseBtn').text() == '用户信息'){
+        if(initData){
+            var Btn = this;
+            var tempText = Btn.innerText            
+            changeBtnStyle(Btn, tempText);
+            var transData;
+            switch(displayType){
+                case 'Definition':
+                    transData = {
+                        'Type': 'definition',
+                        'List': initData
+                    }
+                    break;
+                case 'Entity':
+                    transData = {
+                        'Type': 'entity',
+                        'List': initData
+                    }
+                    break;
+                case 'UserInfo':
+                    transData = {
+                        'Type': 'userinfo',
+                        'List': initData
+                    }
+                    break;
+            }   
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify(transData),
+                url: '',                                  //后端url待填
+                success: function(result){
+                    if(result.Status == 'error'){
+                        alert('导入失败，请稍后重试...');
+                    }else{
+                        alert('导入成功！成功个数：' + result.Success
+                              + '  失败个数：' + result.Failure
+                              + '  重复个数：' + result.Repetition);
+                    }
+                    changeBtnStyle(Btn, tempText);
+                },
+                error: function(){
                     alert('导入失败，请稍后重试...');
-                }else{
-                    alert('导入成功！成功个数：' + result.Success
-                          + '失败个数：' + result.Failure
-                          + '重复个数：' + result.Repetition);
-                    refreshTable();
+                    changeBtnStyle(Btn, tempText);
                 }
-                changeBtnStyle(Btn, '导入');
-            },
-            error: function(){
-                alert('导入失败，请稍后重试...');
-                changeBtnStyle(Btn, '导入');
-            }
-        }); */
+            });
+        }else{
+            alert('您未选择任何EXCEL文件');
+        }
     }else{
-        alert('您还未选择任何EXCEL文件');
+        alert('您未选择需导入的数据类型')
     }
 })
 //#endregion

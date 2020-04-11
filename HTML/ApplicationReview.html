@@ -29,9 +29,7 @@
             </div>
             <!-- 申请类别选择 -->
             <div class="tab-box">
-                <a class="a-tab a-tab-active" id="OutTab" onclick="changeTab(this, 'Out');">出库</a>
-                <a class="a-tab" id="InTab" onclick="changeTab(this, 'In');">入库</a>
-                <a class="a-tab" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
+                <a class="a-tab a-tab-active" id="RepairTab" onclick="changeTab(this, 'Repair');">报修</a>
                 <a class="a-tab" id="ScrapTab" onclick="changeTab(this, 'Scrap');">报废</a>
                 <a class="a-tab" id="PurchaseTab" onclick="changeTab(this, 'Purchase');">采购入库</a>
             </div>
@@ -93,28 +91,6 @@
                             </div>
                             <!-- 展示类型根据申请类型变化 -->
                             <div class="variable-box">
-                                <!-- 出库 -->
-                                <div id="outBox" style="display: none;">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="UserName">领用人</label>
-                                        <p class="attr" id="UserName"></p> 
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="LineName">产线</label>
-                                        <p class="attr" id="LineName"></p> 
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="OutRemarks">备注</label>
-                                        <p class="attr" id="OutRemarks"></p>
-                                    </div>
-                                </div>
-                                <!-- 入库 -->
-                                <div id="inBox" style="display: none;">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="InRemarks">备注</label>
-                                        <p class="attr" id="InRemarks"></p>
-                                    </div>
-                                </div>
                                 <!-- 报修 -->
                                 <div id="repairBox" style="display: none;">
                                     <div class="form-group">

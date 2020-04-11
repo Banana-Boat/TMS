@@ -6,6 +6,7 @@ var searchType = '';
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 展示表格  
 function displayTable(data){
+    $('tbody').empty();
     $('#paginationUserInfoList').jqPaginator({
         first: '<li class="first"><a href="javascript:;">首页</a></li>',
         prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
@@ -32,7 +33,6 @@ function displayTable(data){
     });
 }
 function refleshTable(){
-    $('tbody').empty();
     $.ajax({
         type: "GET",
         dataType: "JSON",

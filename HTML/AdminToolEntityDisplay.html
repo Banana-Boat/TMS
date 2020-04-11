@@ -11,6 +11,7 @@
         <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+        <script src="../node_modules/incubator-echarts-4.7.0/incubator-echarts-4.7.0/dist/echarts.min.js"></script>
         <link rel="shortcut icon" href="../IMG/favicon.ico"> 
     </head> 
     <body>
@@ -45,6 +46,7 @@
         <!--悬浮按钮-->
         <div class="dangling-box">
             <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+            <a id="danglingShow"><i class="dangling-icon fa fa-pie-chart" aria-hidden="true"></i></a>
         </div>
         <!-- 主体 -->
         <div class="main">
@@ -215,6 +217,20 @@
                                 <button class="btn btn-primary repair-btn" id="repairBtn">确认提交</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 当前夹具状态饼图 -->
+        <div class="modal fade bs-example-modal-sm" id="ToolStateChartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">当前夹具一览</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div id="ToolStateChart" style="height: 250px; width: 550px;"></div>
                     </div>
                 </div>
             </div>

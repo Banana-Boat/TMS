@@ -1,0 +1,234 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
+.main{
+    margin-right: 25px;
+    margin-left: 25px;
+}
+/* 顶部信息栏 */
+.userinfo{
+    width: 100%;
+    height: 125px;
+    margin-top: 35px;
+    border-bottom: solid 2px #d1d1d1;
+}
+.head-box, #head-img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+.head-box{
+    float: left;
+    overflow: hidden;
+}
+.info-box{
+    float: left;
+    margin-left: 1.5rem;
+}
+#welcome{
+    font-size: 32px;
+}
+#info{
+    color: #999999;
+    margin-top: 2rem;
+    font-size: 16px;
+}
+.weather{
+    float: right;
+}
+.weather-info{
+    float: right;
+    margin-left: 1rem;
+}
+.weather-img-box{
+    float: left;
+}
+#city{
+    font-size: 20px;
+    color: #999999;
+}
+#temperature{
+    font-size: 20px;
+    color: #787878;
+}
+@media screen and (max-width:760px){
+    .weather{
+        display: none;
+    }
+}
+
+/* 底部三栏 */
+.panel-default>.panel-heading {
+    color: #606060 !important;
+    font-size: 18px !important;
+}
+.panel-body {
+    height: 320px !important;
+    overflow-y: auto !important;
+}
+.three-box{
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+}
+.todo-list{
+    width: 26%;
+}
+.tool-info{
+    width: 46%;
+    margin: 0 2%;
+}
+.notice{
+    width: 26%;
+}
+.badge{
+    float: right;
+    margin-top: 0.3rem;
+}
+.todo-item{
+    display: block;
+    font-size: 16.5px;
+    margin-bottom: 0.6rem;
+    text-decoration: none !important;
+}
+.todo-item:hover{
+    background-color: #e9e9e9;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 992px){
+    .three-box{
+        width: 100%;
+        display: block;
+    }
+    .todo-list{
+        width: 100%;
+    }
+    .todo-list .panel-body{
+        height: 150px !important
+    } 
+    .tool-info{
+        width: 100%;
+        margin: 0;
+    }
+    .notice{
+        width: 100%;
+    }
+    .notice .panel-body{
+        height: 150px !important
+    } 
+}
+
+/* 滚动条 */
+.panel-body::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 9px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.panel-body::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #c2c2c2;
+}
+.panel-body::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background: #f4f4f4;
+}
+
+
+
+#WelContent{
+    width: 100%;
+}
+#WelInfoBox, #WelTodoList{
+    width: 100%;
+    height: 20rem;
+}
+#InfoSelf, #Todo, WelOtherInfo{
+    height: 100%;
+}
+#WelInfoT, #WelNotice{
+    width: 80%;
+    height: 100%;
+    border-collapse: collapse;
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+#WelOtherInfoT{
+    width: 50%;
+    height: 100%;
+    float: right;
+    border-collapse: collapse;
+    margin: 1rem 1rem 1rem 1rem;
+}
+#WelOtherInfoT td{
+    background-color: #d1d1d1;
+}
+#WelOtherInfoTitle td{
+    background-color: #909296;
+}
+#WelOtherInfoTD{
+    border-top-left-radius: 5px;
+}
+#WelOtherInfoTC{
+    border-top-right-radius: 5px;
+}
+#WelOtherInfoWW{
+    border-bottom-left-radius: 5px;
+}
+#WelOtherInfoWT{
+    border-bottom-right-radius: 5px;
+}
+#date{
+    font-size: 6rem;
+    text-align: right;
+}
+
+
+#WelInfoTitle, WelOtherInfoTitle{
+    margin-top: -10px;
+    margin-bottom: -10px;
+    height: 10%;
+}
+#WelInfoTitle td, WelOtherInfoTitle td{
+    padding-left: 2rem;
+    background-color: #8badfe;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+}
+#Head{
+    background-color: rgb(217, 227, 251);
+    border-bottom-left-radius: 5px;
+    width: 100px;
+    padding-left: 2rem;
+}
+
+#Info{
+    padding-left: 2rem;
+    background-color: rgb(217, 227, 251);
+    border-bottom-right-radius: 5px;
+}
+/* 待办事项 */
+#WelTodoList{
+    margin-top: 5rem;
+}
+#WelNotice{
+    cursor: pointer;
+}
+#WelNotTitle{
+    padding-left: 2rem;
+    background-color: #ff7a2c;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+    height: 10%;
+}
+#TodoL{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgb(255, 216, 145);
+}
+
+

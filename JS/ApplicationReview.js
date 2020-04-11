@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 var selectedApplication = [];   //已选择的申请
-var displayType = 'Out';                //当前展示的申请类型
+var displayType = 'Repair';                //当前展示的申请类型
 var initData = {};
 var pageSize = 20;              //一页最多显示16条信息
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,18 +141,6 @@ function getInfo(e){
                 $('#repairBox').hide();
                 $('#scrapBox').hide();
                 switch(displayType){                         //更改模态窗内容
-                    case 'Out': 
-                        $('#modalTitle').text('出库申请单详情');
-                        $('#UserName').text(result.UserName);
-                        $('#LineName').text(result.LineName);
-                        $('#OutRemarks').text(result.Remarks);
-                        $('#outBox').show();
-                        break;
-                    case 'In':
-                        $('#modalTitle').text('入库申请单详情');
-                        $('#InRemarks').text(result.Remarks);
-                        $('#inBox').show();
-                        break;
                     case 'Repair':
                         $('#modalTitle').text('报修申请单详情');
                         $('#PMContent').text(result.PMContent);

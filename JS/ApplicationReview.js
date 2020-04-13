@@ -130,14 +130,12 @@ function getInfo(e){
     $('#ApplicationTime').text($(e).parent().parent().children().eq(4).text());
     $.ajax({
         type: 'GET',
-        contentType: 'application/json;charset=UTF-8',
+        dataType: 'JSON',
         url: '../TestData/ApplicationInfo.json'/*  + '?OrderID=' + OrderID */,      //url待改 后附OrderID参数
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取信息失败，请稍后重试...');
             }else{
-                $('#outBox').hide();
-                $('#inBox').hide();
                 $('#repairBox').hide();
                 $('#scrapBox').hide();
                 switch(displayType){                         //更改模态窗内容
@@ -149,11 +147,11 @@ function getInfo(e){
                         break;
                     case 'Scrap':
                         $('#modalTitle').text('报废申请单详情');
+                        $('#ServiceLife').text(result.ServiceLife);
                         $('#ScrapReason').text(result.Reason);
                         $('#scrapBox').show();
                         break;
                 }
-
                 $('#ToolList').text('');                       //清空富文本框显示夹具  
                 for(let i = 0; i < result.ToolList.length; i++){          //刷新富文本框显示夹具
                     let temp = $('#ToolList').text();

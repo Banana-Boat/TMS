@@ -74,12 +74,7 @@ function displayTable(data){
                                 + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
                             $('#definitionTbody').append(appendData);
                             break;
-                        case '已报修':
-                            appendData += '<button class="btn act-btn" onclick="addToIn(this);">入库</button>'
-                                + '<button class="btn act-btn" onclick="addToScrap(this);">报废</button></td></tr>';
-                            $('#definitionTbody').append(appendData);
-                            break;
-                        case '已报废':
+                        default:
                             appendData += '</td></tr>';
                             $('#definitionTbody').append(appendData);
                             break;
@@ -201,7 +196,7 @@ $('#bulkOperBtn').click(function(){
             case '入库':
                 for(let i = num1; i < num2; i++){
                     let state = displayedData.eq(i).children().eq(5).text();
-                    if(state == '已报修')
+                    if(state == '待入库')
                         transData.push({
                             'Code': displayedData.eq(i).children().eq(1).text(),
                             'SeqID': displayedData.eq(i).children().eq(2).text(),
@@ -213,7 +208,7 @@ $('#bulkOperBtn').click(function(){
             case '报废':
                 for(let i = num1; i < num2; i++){
                     let state = displayedData.eq(i).children().eq(5).text();
-                    if(state != '已报废')
+                    if(state == '可用' || state == '待入库') 
                         transData.push({
                             'Code': displayedData.eq(i).children().eq(1).text(),
                             'SeqID': displayedData.eq(i).children().eq(2).text(),
@@ -417,11 +412,15 @@ $('.cache-icon').click(function(){
         $('.cache-content').show();
         $('.cache-title').show();
         $('.cache-box').width(260);
+        $('.cache-box').css('box-shadow', '-3px 3px 20px rgb(200,200,200)');
+        $('.cache-box').css('right', '0');
     }else{
         $('.cache-tab').hide();
         $('.cache-content').hide();
         $('.cache-title').hide();
         $('.cache-box').width(56);
+        $('.cache-box').css('box-shadow', '0 0 0 0');
+        $('.cache-box').css('right', '3%');
     }
 });
 
@@ -562,8 +561,10 @@ $('#danglingShow').click(function(){
                     data: [
                         {value: getSum(initData, '可用'), name: '可用', itemStyle: {color: '#87bd71'}},
                         {value: getSum(initData, '待入库'), name: '待入库', itemStyle: {color: '#d66464'}},
-                        {value: getSum(initData, '已报修'), name: '已报修', itemStyle: {color: '#58aece'}},
-                        {value: getSum(initData, '已报废'), name: '已报废', itemStyle: {color: '#f83232'}}
+                        {value: getSum(initData, '已报废'), name: '已报废', itemStyle: {color: '#58aece'}},
+                        {value: getSum(initData, '报修锁定'), name: '报修锁定', itemStyle: {color: '#f83232'}},
+                        {value: getSum(initData, '报废锁定'), name: '报废锁定', itemStyle: {color: '#f83232'}},
+                        {value: getSum(initData, '待点检'), name: '待点检', itemStyle: {color: '#f83232'}}
                     ].sort(function (a, b) { return a.value - b.value; }),
                     roseType: 'radius',
                     label: {

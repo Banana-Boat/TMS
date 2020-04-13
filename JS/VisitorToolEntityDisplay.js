@@ -124,7 +124,6 @@ function getInfo(e){
 }
 //#endregion
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 获取Url查询字符串
 function getUrlVars()
@@ -208,8 +207,10 @@ $('#danglingShow').click(function(){
                     data: [
                         {value: getSum(initData, '可用'), name: '可用', itemStyle: {color: '#87bd71'}},
                         {value: getSum(initData, '待入库'), name: '待入库', itemStyle: {color: '#d66464'}},
-                        {value: getSum(initData, '已报修'), name: '已报修', itemStyle: {color: '#58aece'}},
-                        {value: getSum(initData, '已报废'), name: '已报废', itemStyle: {color: '#f83232'}}
+                        {value: getSum(initData, '已报废'), name: '已报废', itemStyle: {color: '#58aece'}},
+                        {value: getSum(initData, '报修锁定'), name: '报修锁定', itemStyle: {color: '#f83232'}},
+                        {value: getSum(initData, '报废锁定'), name: '报废锁定', itemStyle: {color: '#f83232'}},
+                        {value: getSum(initData, '待点检'), name: '待点检', itemStyle: {color: '#f83232'}}
                     ].sort(function (a, b) { return a.value - b.value; }),
                     roseType: 'radius',
                     label: {

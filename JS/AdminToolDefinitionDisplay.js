@@ -8,7 +8,7 @@ var filterBy = {                //存放筛选条件
     'Family': '',
     'Model': ''
 };   
-var mod_str = '', pm_str = '';            //Family、Model字典
+var mod_str = '', part_str = '', pm_str = '';            //Family、Model字典
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 初始化/刷新表格数据
 function displayTable(data){
@@ -73,7 +73,7 @@ $(window).on('load', function(){
     $.ajax({                    //获取family、model字典
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/FamModPMDict.json',  //后端Url，待改
+        url: '../TestData/FamModParPMDict.json',  //后端Url，待改
         success: function(result){           //字典数据绑定至筛选下拉框、信息修改下拉框
             if(result.Status == 'error'){
                 alert('获取下拉列表数据失败，请自行填写..');
@@ -91,6 +91,9 @@ $(window).on('load', function(){
                 }
                 for(let n in result.PMContent){
                     pm_str += '<option value="' + result.PMContent[n] + '">' + result.PMContent[n] + '</option>'; 
+                }
+                for(let n in result.PartNo){
+                    part_str += '<option value="' + result.PartNo[n] + '">' + result.PartNo[n] + '</option>'; 
                 }
             }
         },
@@ -184,7 +187,12 @@ function getInfo(e){
     $('#PMContentInputBox').append('<div style="display: flex;">'
             + '<select class="form-control">' + pm_str + '</select>'
             + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'PMContent'" + ');"></i>'
-            + '</div>')              
+            + '</div>')     
+    $('#PartNoInputBox').empty();                             //清除可能出现的多个料号框
+    $('#PartNoInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + part_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'PartNo'" + ');"></i>'
+            + '</div>')               
 
     $.ajax({
         type: 'GET',
@@ -198,20 +206,24 @@ function getInfo(e){
                 $('#Name').val(result.Name);
                 $('#Family').val(result.Family);
 
-                $('#ModelInputBox').children().children().eq(0).val(result.Model.split('/')[0]);
-                for(let i = 1; i < result.Model.split('/').length; i++){
+                $('#ModelInputBox').children().children().eq(0).val(result.Model.split(' ')[0]);
+                for(let i = 1; i < result.Model.split(' ').length; i++){
                     AddBtn("Model");
-                    $('#ModelInputBox').children().last().children().eq(0).val(result.Model.split('/')[i]);
+                    $('#ModelInputBox').children().last().children().eq(0).val(result.Model.split(' ')[i]);
+                }
+                $('#PartNoInputBox').children().children().eq(0).val(result.PartNo.split(' ')[0]);
+                for(let i = 1; i < result.PartNo.split(' ').length; i++){
+                    AddBtn("PartNo");
+                    $('#PartNoInputBox').children().last().children().eq(0).val(result.PartNo.split(' ')[i]);
                 }
                 if(result.PMContent){       //点检内容可能为空
-                    $('#PMContentInputBox').children().children().eq(0).val(result.PMContent.split('/')[0]);
-                    for(let i = 1; i < result.PMContent.split('/').length; i++){
+                    $('#PMContentInputBox').children().children().eq(0).val(result.PMContent.split(' ')[0]);
+                    for(let i = 1; i < result.PMContent.split(' ').length; i++){
                         AddBtn("PMContent");
-                        $('#PMContentInputBox').children().last().children().eq(0).val(result.PMContent.split('/')[i]);
+                        $('#PMContentInputBox').children().last().children().eq(0).val(result.PMContent.split(' ')[i]);
                     }
                 }
                 
-                $('#PartNo').val(result.PartNo);
                 $('#UPL').val(result.UPL);
                 $('#UsedFor').val(result.UsedFor);
                 $('#PMPeriod').val(result.PMPeriod);
@@ -237,7 +249,7 @@ function AddBtn(type){
     if($('#' + type + 'InputBox').children().length < 6){
         $('#' + type + 'InputBox').children().last().children().last().remove();
         let temp = '<div class="input-group">'
-        + '<select class="form-control">' + (type == 'Model' ? mod_str : pm_str) + '</select>'
+        + '<select class="form-control">' + (type == 'Model' ? mod_str : (type == 'PartNo' ? part_str : pm_str)) + '</select>'
         + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="MinusBtn(this, ' + "'" + type + "'" + ');"></i>'
         + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="AddBtn(' + "'" + type + "'" + ');"></i>'
         + '</div>'
@@ -258,6 +270,15 @@ function MinusBtn(e, type){
 /* function findKey(obj, value, compare = (a, b) => a === b) {  //根据value查找key
     return Object.keys(obj).find(k => compare(obj[k], value))
 } */
+function isNotRepeat(arr) {        //判断数组中是否存在重复的值
+    arr.sort();
+    for (var i = 0; i < arr.length - 1; i++) {
+        if (arr[i] == arr[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
 //响应时改变按钮显示
 function changeBtnStyle(Btn, BtnText){
     if($(Btn).attr('disabled')){
@@ -276,41 +297,54 @@ $('#EditBtn').click(function(){
 
     let tempModel = $('#ModelInputBox').children().eq(0).children().eq(0).val()     //整合model
     for(let i = 1; i < $('#ModelInputBox').children().length; i++){
-        tempModel += '/' + $('#ModelInputBox').children().eq(i).children().eq(0).val();
+        tempModel += ' ' + $('#ModelInputBox').children().eq(i).children().eq(0).val();
     }
-
-    var transData = {
-        'Code': $('#Code').val(),
-        'Name': $('#Name').val(),
-        'Family': $('#Family').val(),
-        'Model': tempModel,
-        'PartNo': $('#PartNo').val(),
-        'UPL': $('#UPL').val(),
-        'UsedFor': $('#UsedFor').val(),
-        'PMPeriod': $('#PMPeriod').val(),
-        'PMContent': $('#PMContent').val(),
-        'OwnerID': $('#OwnerID').val()
-    };
-    $.ajax({
-        type: 'POST',
-        dataType: 'JSON',
-        contentType: 'application/json',
-        data: transData,
-        url: '',                                    //待改
-        success: function(result){
-            if(result.Status == 'success'){
-                alert('修改成功！');
-                refleshTable();
-            }else{
+    let tempPartNo = $('#PartNoInputBox').children().eq(0).children().eq(0).val()     //整合partno
+    for(let i = 1; i < $('#PartNoInputBox').children().length; i++){
+        tempPartNo += ' ' + $('#PartNoInputBox').children().eq(i).children().eq(0).val();
+    }
+    let tempPMContent = $('#PMContentInputBox').children().eq(0).children().eq(0).val()     //整合pmcontent
+    for(let i = 1; i < $('#PMContentInputBox').children().length; i++){
+        tempPMContent += ' ' + $('#PMContentInputBox').children().eq(i).children().eq(0).val();
+    }
+    //三项数据若多选无重复
+    if(isNotRepeat(tempPartNo.split(' ')) && isNotRepeat(tempModel.split(' ')) && isNotRepeat(tempPMContent.split(' '))){
+        var transData = {
+            'Code': $('#Code').val(),
+            'Name': $('#Name').val(),
+            'Family': $('#Family').val(),
+            'Model': tempModel,
+            'PartNo': tempPartNo,
+            'UPL': $('#UPL').val(),
+            'UsedFor': $('#UsedFor').val(),
+            'PMPeriod': $('#PMPeriod').val(),
+            'PMContent': tempPMContent,
+            'OwnerID': $('#OwnerID').val()
+        };
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: transData,
+            url: '',                                    //待改
+            success: function(result){
+                if(result.Status == 'success'){
+                    alert('修改成功！');
+                    refleshTable();
+                }else{
+                    alert('修改失败，请稍后重试...');
+                }
+                changeBtnStyle(Btn, '确认修改');
+            },
+            error: function(){
+                changeBtnStyle(Btn, '确认修改');
                 alert('修改失败，请稍后重试...');
             }
-            changeBtnStyle(Btn, '确认修改');
-        },
-        error: function(){
-            changeBtnStyle(Btn, '确认修改');
-            alert('修改失败，请稍后重试...');
-        }
-    });
+        });
+    }else{
+        alert('信息存在重复，请重新填写！');
+        changeBtnStyle(Btn, '确认修改');
+    }
 });
 //#endregion
 
@@ -320,7 +354,6 @@ $('#showEntityModalBtn').click(function(){
     $('#NewCode').val('')
     $('#NewName').val('')
     $('#NewFamily').val('')
-    $('#NewPartNo').val('')
     $('#NewUPL').val('')
     $('#NewUsedFor').val('')
     $('#NewPMPeriod').val('')
@@ -336,6 +369,11 @@ $('#showEntityModalBtn').click(function(){
             + '<select class="form-control">' + pm_str + '</select>'
             + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'PMContent'" + ');"></i>'
             + '</div>') 
+    $('#NewPartNoInputBox').empty();                             //清除可能出现的多个料号框
+    $('#NewPartNoInputBox').append('<div style="display: flex;">'
+            + '<select class="form-control">' + part_str + '</select>'
+            + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'PartNo'" + ');"></i>'
+            + '</div>')
 
     $('#EntityAddModal').modal('show');
 })
@@ -346,50 +384,60 @@ $('#AddBtn').click(function(){
 
     let tempModel = $('#NewModelInputBox').children().eq(0).children().eq(0).val()     //整合model
     for(let i = 1; i < $('#NewModelInputBox').children().length; i++){
-        tempModel += '/' + $('#NewModelInputBox').children().eq(i).children().eq(0).val();
+        tempModel += ' ' + $('#NewModelInputBox').children().eq(i).children().eq(0).val();
+    }
+    let tempPartNo = $('#NewPartNoInputBox').children().eq(0).children().eq(0).val()     //整合model
+    for(let i = 1; i < $('#NewPartNoInputBox').children().length; i++){
+        tempPartNo += ' ' + $('#NewPartNoInputBox').children().eq(i).children().eq(0).val();
     }
     let tempPMContent = $('#NewPMContentInputBox').children().eq(0).children().eq(0).val()     //整合model
     for(let i = 1; i < $('#NewPMContentInputBox').children().length; i++){
-        tempPMContent += '/' + $('#NewPMContentInputBox').children().eq(i).children().eq(0).val();
+        tempPMContent += ' ' + $('#NewPMContentInputBox').children().eq(i).children().eq(0).val();
     }
-    var transData = {
-        'Code': $('#NewCode').val(),
-        'Name': $('#NewName').val(),
-        'Family': $('#NewFamily').val(),
-        'Model': tempModel,
-        'PartNo': $('#NewPartNo').val(),
-        'UPL': $('#NewUPL').val(),
-        'UsedFor': $('#NewUsedFor').val(),
-        'PMPeriod': $('#NewPMPeriod').val(),
-        'PMContent': tempPMContent,
-        'OwnerID': $('#NewOwnerID').val()
-    };
-    $.ajax({
-        type: 'POST',
-        dataType: 'JSON',
-        contentType: 'application/json',
-        data: transData,
-        url: '',                                    //待改
-        success: function(result){
-            if(result.Status == 'success'){
-                alert('添加成功！');
-                refleshTable();
-            }else{
-                alert('添加失败，请稍后重试...');
+    //三项数据若多选无重复
+    if(isNotRepeat(tempPartNo.split(' ')) && isNotRepeat(tempModel.split(' ')) && isNotRepeat(tempPMContent.split(' '))){
+        var transData = {
+            'Code': $('#NewCode').val(),
+            'Name': $('#NewName').val(),
+            'Family': $('#NewFamily').val(),
+            'Model': tempModel,
+            'PartNo': tempPartNo,
+            'UPL': $('#NewUPL').val(),
+            'UsedFor': $('#NewUsedFor').val(),
+            'PMPeriod': $('#NewPMPeriod').val(),
+            'PMContent': tempPMContent,
+            'OwnerID': $('#NewOwnerID').val()
+        };
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: transData,
+            url: '',                                    //待改
+            success: function(result){
+                if(result.Status == 'success'){
+                    alert('添加成功！');
+                    refleshTable();
+                }else{
+                    alert('添加失败，请稍后重试...');
+                }
+                changeBtnStyle(Btn, '确认添加');
+            },
+            error: function(){
+                changeBtnStyle(Btn, '确认添加');
+                alert('修改失败，请稍后重试...');
             }
-            changeBtnStyle(Btn, '确认添加');
-        },
-        error: function(){
-            changeBtnStyle(Btn, '确认添加');
-            alert('修改失败，请稍后重试...');
-        }
-    });
+        });
+    }else{
+        alert('信息存在重复，请重新填写！');
+        changeBtnStyle(Btn, '确认添加');
+    }
 });
 function NewAddBtn(type){
     if($('#New' + type + 'InputBox').children().length < 6){
         $('#New' + type + 'InputBox').children().last().children().last().remove();
         $('#New' + type + 'InputBox').append('<div class="input-group">'
-                + '<select class="form-control">' + (type == 'Model' ? mod_str : pm_str) + '</select>'
+                + '<select class="form-control">' + (type == 'Model' ? mod_str : (type == 'PartNo' ? part_str : pm_str)) + '</select>'
                 + '<i class="fa fa-minus-circle input-group-icon-minus" onclick="NewMinusBtn(this, ' + "'" + type + "'" + ');"></i>'
                 + '<i class="fa fa-plus-circle input-group-icon-plus" onclick="NewAddBtn(' + "'" + type + "'" + ');"></i>'
                 + '</div>');
@@ -408,7 +456,7 @@ function NewMinusBtn(e, type){
 //#region 点击查看实体按钮跳转指定实体展示页面
 function getEntity(e){
     var code = $(e).parent().parent().children().eq(0).text();
-    window.location = '../HTML/DisplayToolEntity.html?code=' + code;
+    window.location = '../HTML/AdminToolEntityDisplay.html?code=' + code;
 }
 //#endregion
 

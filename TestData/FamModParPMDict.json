@@ -6,10 +6,17 @@
         "JABIL AD"
     ],
     "Model":[
-        "MOD 3XM2",
-        "MOD 5XM3",
+        "3XM2",
+        "MOD",
+        "5XM3",
         "FU",
         "DUX"
+    ],
+    "PartNo":[
+        "PNA90320/1",
+        "PNA90320/2",
+        "PNA90320/3",
+        "PNA90322/1"
     ],
     "PMContent": [
         "XXX",

@@ -10,8 +10,7 @@ body{
 .header_box{
 	background-color: rgb(40,60,150);
 	border-color: rgb(40,80,150);
-	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
+	border-radius: 15px;
 	box-shadow: 10px 3px 20px rgb(110, 110, 110);
 }
 .nav-pills>li.active>a{
@@ -48,27 +47,18 @@ body{
 	cursor: pointer;
 }
 
-
-.menu{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-}
 /* 导航栏底部按钮 */
 .bottom-nav-link{
-	margin: 0 -1em 0;     			/* 抵消掉menu的padding */
-	position: absolute;
-	width: 100%;
-	bottom: 8rem;
+	position: fixed;
+	bottom: 4rem;
 	display: flex;
-	flex-direction: row;			/* 两个button横向顺序排列 */
-	justify-content: center;
 }
 #AboutBtn{
-	margin-right: 2.5rem;
+	margin-left: 1rem;
 }
-
-
+#HomeBtn{
+	margin-right: 1rem;
+}
 
 
 

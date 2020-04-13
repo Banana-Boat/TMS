@@ -13,10 +13,7 @@
             "SeqID": "3"
         }
     ],
-    "UserName": "Zhou Hua",
-    "LineName": "BLKA10-L2",
-    "Remarks": "本批夹具将运送至长城工业基地。(入库备注同)",
-
+    "ServiceLife": "20",
     "PMContent": "",
     "Reason": "(报修报废同)"
 }

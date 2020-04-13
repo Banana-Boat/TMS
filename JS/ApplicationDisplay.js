@@ -29,9 +29,11 @@ function refreshTable(){
                             + '</td></tr>';
                     else
                         tempStr += '</td><td>' + result[i].State
-                            + '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName
-                            + '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
-                            + '</td><td>' + result[i].ApplicationTime
+                        if(result[i].FIID)
+                            tempStr += '</td><td>' + result[i].FIID + '&nbsp&nbsp&nbsp' + result[i].FIName;
+                        if(result[i].LIID)
+                            tempStr += '</td><td>' + result[i].LIID + '&nbsp&nbsp&nbsp' + result[i].LIName
+                        tempStr += '</td><td>' + result[i].ApplicationTime
                             + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>'
                             + '<button class="btn act-btn" onclick="revoke(this);">撤销</button>'
                             + '</td></tr>';

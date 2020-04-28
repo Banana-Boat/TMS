@@ -1,0 +1,122 @@
+body{
+    padding: 0 4rem;
+    overflow-y: scroll;
+}
+.main{
+    margin-right: 8%;
+    margin-top: 1.5rem;
+}
+.page-title{
+    display: inline;
+}
+
+/* Tab */
+.tab-box{
+    width: 100%;
+    display: inline-block;
+    border-bottom: 2px solid #d7d7d7;
+}
+.a-tab{
+    color:  rgb(40,60,150);
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none !important;
+    font-size: 1.8rem;
+    line-height: 3.5rem;
+    padding: 0 5%;
+}
+.a-tab-active{
+    border-bottom: 2px solid rgb(40,60,150);
+    margin-bottom: -2px;
+}
+
+/* 统计图 */
+.statistic-box{
+    margin-top: 2rem;
+}
+.panel-default>.panel-heading {
+    color: #606060 !important;
+    font-size: 18px !important;
+}
+.panel-body {
+    height: 350px !important;
+    overflow-y: auto !important;
+}
+.three-single-box{
+    width: 100%;
+    display: flex;
+}
+.single-box{
+    margin: 0 1.15%;
+    width: 31%;
+}
+@media screen and (max-width: 992px){
+    .three-single-box{
+        width: 100%;
+        display: block;
+    }
+    .single-box{
+        margin: 1.5rem 0;
+        width: 100%;
+    }
+}
+#RealTimeContent{
+    height: 100%;
+    width: 65%;
+}
+.realtime-bbs-box{
+    width: 35%;
+    height: 100%;
+    border-left: 3px dotted rgb(196, 196, 196);
+    padding-left: 1.5rem;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>thead:first-child>tr:first-child>th{
+    vertical-align: middle;
+    text-align: center;
+}
+/* 滚动条 */
+.panel-body::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 9px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.panel-body::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #dcdcdc;
+}
+.panel-body::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    border-radius: 10px;
+    background: #f4f4f4;
+}
+.realtime-bbs-box::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 9px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.realtime-bbs-box::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #dcdcdc;
+}
+.realtime-bbs-box::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    border-radius: 10px;
+    background: #f4f4f4;
+}
+/* 悬浮按钮 */
+.dangling-box{
+    position: fixed;
+    bottom: 3rem;
+    right: 2%;
+    display: block;
+    z-index: 101;
+    width: 55px;
+}
+.dangling-icon{
+    cursor: pointer;
+    margin: 0.5rem 0;
+    color: rgb(160, 160, 160);
+    zoom: 2.8;
+}
+.dangling-icon:hover{
+    color: rgb(196, 196, 196);
+}

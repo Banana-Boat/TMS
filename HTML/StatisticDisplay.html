@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>StatisticDisplay</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../IMG/favicon.ico">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../node_modules/normalize.css/normalize.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <script src="../node_modules/incubator-echarts-4.7.0/incubator-echarts-4.7.0/dist/echarts.min.js"></script>
+  </head>
+    <body>
+        <!--悬浮按钮-->
+        <div class="dangling-box">
+            <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="page-header">
+                <h2 class="page-title">数据统计</h2>
+            </div>
+            <!-- 统计类别选择 -->
+            <div class="tab-box">
+                <a class="a-tab a-tab-active" id="OverviewTab" onclick="changeTab(this, 'Overview');">申请总览</a>
+                <a class="a-tab" id="RealTimeTab" onclick="changeTab(this, 'RealTime');">实时使用情况</a>
+                <a class="a-tab" id="SingleTab" onclick="changeTab(this, 'Single');">单项统计</a>
+            </div>
+            <!-- 内容展示 -->
+            <div class="statistic-box">
+                <div id="Overview">
+                    <div class="overview-box panel panel-default">
+                        <div class="panel-heading" style="display: flex;">
+                            <div>
+                                夹具申请总览（本周）
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="OverviewWeekContent" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="overview-box panel panel-default">
+                        <div class="panel-heading" style="display: flex;">
+                            <div>
+                                夹具申请总览（月）
+                            </div>
+                            <div id="selectBox" style="display: flex;width: 280px;margin-left: 3rem;">
+                                <select class="form-control" id="monthInputOfMonthBox"></select>&nbsp;-&nbsp;
+                                <select class="form-control" id="yearInputOfMonthBox"></select>&nbsp;&nbsp;
+                                <button class="btn btn-default" id="OverviewMonthSearchBtn">查询</button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="OverviewMonthContent" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="overview-box panel panel-default">
+                        <div class="panel-heading" style="display: flex;">
+                            <div>
+                                夹具申请总览（年度）
+                            </div>
+                            <div id="selectBox" style="display: flex;width: 200px;margin-left: 3rem;">
+                                <select class="form-control" id="yearInputOfYearBox"></select>&nbsp;&nbsp;
+                                <button class="btn btn-default" id="OverviewYearSearchBtn">查询</button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="OverviewYearContent" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="RealTime" style="display: none;">
+                    <div class="realtime-box panel panel-default">
+                        <div class="panel-heading">实时使用情况<small>&nbsp;&nbsp;&nbsp;(每半分钟更新一次)</small></div>
+                        <div class="panel-body" style="display: flex;">
+                            <div id="RealTimeContent"></div>
+                            <div class="realtime-bbs-box table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>已出库</th>
+                                        <th>未出库</th>
+                                        <th>时间</th>
+                                    </thead>
+                                    <tbody id="RealTimeBBS"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="three-single-box" id="Single" style="display: none;">
+                    <div class="single-box panel panel-default">
+                        <div class="panel-heading">本月出库</div>
+                        <div class="panel-body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th>#</th>
+                                    <th>夹具代码</th>
+                                    <th>次数</th>
+                                </thead>
+                                <tbody id="SingleOutContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="single-box panel panel-default">
+                        <div class="panel-heading">本月报修</div>
+                        <div class="panel-body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th>#</th>
+                                    <th>夹具代码</th>
+                                    <th>次数</th>
+                                </thead>
+                                <tbody id="SingleRepairContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="single-box panel panel-default">
+                        <div class="panel-heading">本月采购入库</div>
+                        <div class="panel-body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th>#</th>
+                                    <th>夹具代码</th>
+                                    <th>次数</th>
+                                </thead>
+                                <tbody id="SinglePurchaseContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <link href="../CSS/StatisticDisplay.css" rel="stylesheet" type="text/css">
+        <script src="../JS/StatisticDisplay.js"></script>
+    </body>
+</html>

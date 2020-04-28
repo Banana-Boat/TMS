@@ -116,7 +116,7 @@ function showChart(){
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: initToolData.date
+                data: initToolData.Date
             },
             yAxis: {
                 type: 'value'

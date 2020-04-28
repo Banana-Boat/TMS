@@ -50,6 +50,7 @@
           <li class="active">
             <a class="collapse" data-toggle="collapse" href="#info"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;信息管理</a>
             <ul id="info" class="nav collapse coll_a">
+                <li><a class="pointer" onclick="changeContent('./StatisticDisplay.html')">数据统计</a></li>
                 <li><a class="pointer" onclick="changeContent('./DictionaryManage.html')">元数据增删</a></li>
                 <li><a class="pointer" onclick="changeContent('./NoticeAdd.html')">公告管理</a></li>
                 <li><a class="pointer" onclick="changeContent('./ExternalDataLoad.html')">数据导入</a></li>
@@ -81,7 +82,7 @@
     <!-- 内容部分 -->
     <div class="content-wrap">
       <div class="content">
-        <iframe src="./Home.html" id="contentIframe" frameborder="0" height="100%" width="100%"></iframe>
+        <iframe src="./StatisticDisplay.html" id="contentIframe" frameborder="0" height="100%" width="100%"></iframe>
       </div>
     </div>
 
@@ -100,12 +101,12 @@
       </div>
   </div>
 
-    <link rel="stylesheet" type="text/css" href="../CSS/Common.css"/>
-    <script src="../JS/Common.js"></script>
-    <script src="../JS/sidebar/snap.svg-min.js"></script>
-    <script src="../JS/sidebar/html5.js"></script>  <!--兼容IE-->
-    <script src="../JS/sidebar/classie.js"></script>
-    <script src="../JS/sidebar/main4.js"></script>
+  <link rel="stylesheet" type="text/css" href="../CSS/Common.css"/>
+  <script src="../JS/Common.js"></script>
+  <script src="../JS/sidebar/snap.svg-min.js"></script>
+  <script src="../JS/sidebar/html5.js"></script>  <!--兼容IE-->
+  <script src="../JS/sidebar/classie.js"></script>
+  <script src="../JS/sidebar/main4.js"></script>
 
   </body>
 </html>

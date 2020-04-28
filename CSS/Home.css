@@ -128,10 +128,9 @@ body{
 .panel-body::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 10px;
      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: #c2c2c2;
+    background: #dcdcdc;
 }
 .panel-body::-webkit-scrollbar-track {/*滚动条里面轨道*/
-    box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
     border-radius: 10px;
     background: #f4f4f4;
 }

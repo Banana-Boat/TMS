@@ -207,7 +207,6 @@ $('#visitorLoginBtn').click(function(){
 //输入框验证
 var is_password_legal = false;
 var is_rePassword_legal = false;
-var password_reg = new RegExp('^[a-zA-Z0-9]{6,12}$');
 $('#newPassword').change(function(){
     if(!password_reg.test($(this).val())){
         is_password_legal = false;
@@ -330,7 +329,7 @@ $('#getNum').click(function(){
                 $('#getNum').html('再次获取');
                 clearInterval(timer);
             }else{
-                $('#getNum').html(time + '秒后可再次获取');
+                $('#getNum').html(time + 's');
                 time--;
             }
         }, 1000);
@@ -381,4 +380,148 @@ $('#valiBtn').click(function(){
 });
 //#endregion
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 系统初始
 
+//Ctrl+i显示系统初始窗
+$(window).keypress(function(event){         
+    if(event.which == 9){
+        $('#systemInitModal').modal('show');
+        $('#privateKeyInput').val('');
+    }
+})
+//输入框验证
+var is_privatekey_legal = false;
+var is_initpsw_legal = false;
+var is_reinitpsw_legal = false;
+$('#systemInitPswInput').change(function(){             //密码验证
+    if(!initpsw_reg.test($(this).val())){
+        is_initpsw_legal = false;
+        $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+    }else{
+        is_initpsw_legal = true;
+        $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
+    }
+});
+
+$('#systemInitRepswInput').change(function(){           //确认密码验证
+    if($(this).val() != $('#systemInitPswInput').val()){
+        is_reinitpsw_legal = false;
+        $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+    }else{
+        is_reinitpsw_legal = true;
+        $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
+    }
+});
+$('#privateKeyInput').change(function(){                //私钥验证
+    if($(this).val() == ''){
+        is_privatekey_legal = false;
+        $(this).parent().parent().attr('class', 'form-group has-error has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+    }else{
+        is_privatekey_legal = true;
+        $(this).parent().parent().attr('class', 'form-group has-success has-feedback');
+        $(this).parent().children('span').remove();
+        $(this).parent().append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
+    }
+});
+
+$('#hasAccountInput').change(function(){
+    if($(this).prop('checked')){
+        $('#systemInitRepswBox').hide();
+        $('#systemInitValiBtn').text('登录');
+        is_reinitpsw_legal = true;
+    }else{
+        $('#systemInitRepswBox').show();
+        $('#systemInitValiBtn').text('创建并登录');
+    }
+})
+$('#systemInitValiBtn').click(function(){
+    var Btn = this;
+    if(is_initpsw_legal && is_reinitpsw_legal && is_privatekey_legal){ 
+        changeBtnStyle(Btn, '创建并登录');       
+        var transData = {
+            'PrivateKey': $('#privateKeyInput').val(),
+            'UserID': $('#systemInitUserIDInput').val(),
+            'Password': $('#systemInitPswInput').val(),
+            'HasAccount': $('#hasAccountInput').prop('checked')
+        };
+        $.ajax({ 
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(transData),
+            url: '',           //url待改
+            success: function(result){
+                if(result.Status == 'error'){
+                    alert('验证失败..');
+                }
+                else{
+                    alert('验证成功！');
+                    for(let p in result.Workcell)           //绑定工作部门
+                        $('#systemInitDelWorkcellInput').append('<option value="' + result.Workcell[p] + '">' + result.Workcell[p] + '</option>')
+                    $('#systemInitOperBox').show();
+                    $('#systemInitValiBox').hide();
+                }
+                changeBtnStyle(Btn, '创建并登录');
+            },
+            error: function(){
+                alert('验证失败..');
+                changeBtnStyle(Btn, '创建并登录');
+            }
+        });
+    }
+})
+$('#addWorkcellBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '添加'); 
+    $.ajax({ 
+        type: 'GET',
+        contentType: 'application/json',
+        url: '' + $('#systemInitAddWorkcellInput').val(),           //url后附添加的工作部门名
+        success: function(result){
+            if(result.Status == 'error'){
+                alert('添加失败..');
+            }
+            else{
+                alert('添加成功！');
+            }
+            changeBtnStyle(Btn, '添加');
+        },
+        error: function(){
+            alert('添加失败..');
+            changeBtnStyle(Btn, '添加');
+        }
+    });
+})
+$('#delWorkcellBtn').click(function(){
+    var Btn = this;
+    changeBtnStyle(Btn, '删除'); 
+    $.ajax({ 
+        type: 'GET',
+        contentType: 'application/json',
+        url: '' + $('#systemInitDelWorkcellInput').val(),           //url后附删除的工作部门名
+        success: function(result){
+            if(result.Status == 'error'){
+                alert('删除失败..');
+            }
+            else{
+                alert('删除成功！');
+            }
+            changeBtnStyle(Btn, '删除');
+        },
+        error: function(){
+            alert('删除失败..');
+            changeBtnStyle(Btn, '删除');
+        }
+    });
+})
+//#endregion

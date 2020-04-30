@@ -15,8 +15,6 @@
         "State": "同意",
         "FIID": "2019001",
         "FIName": "Zhou Wei",
-        "LIID": "2019002",
-        "LIName": "Cai ji",
         "ApplicationTime": "2019/3/2"
     },
     {
@@ -31,6 +29,16 @@
     },
     {
         "OrderID": "0004",
+        "Type": "报修",
+        "State": "待审核",
+        "FIID": "2019001",
+        "FIName": "Zhou Wei",
+        "LIID": "2019002",
+        "LIName": "Cai ji",
+        "ApplicationTime": "2020/4/30"
+    },
+    {
+        "OrderID": "0005",
         "Type": "出库",
         "State": "驳回",
         "FIID": "2019001",

@@ -28,7 +28,7 @@
     
 }
 @media(max-width: 768px){
-    #getNum{
+    #getNum, #addWorkcellBtn, #delWorkcellBtn{
         margin-top: 12px;
         float: right;
         margin-right: 15px;

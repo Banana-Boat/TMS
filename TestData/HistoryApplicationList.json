@@ -2,35 +2,35 @@
     "Repair":[
         {
             "OrderID": "0001",
-            "State": "待复审",
+            "State": "通过",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/2"
         },
         {
             "OrderID": "0002",
-            "State": "待审核",
+            "State": "通过",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
             "ApplicationTime": "2019/3/2"
         },
         {
             "OrderID": "0003",
-            "State": "待审核",
+            "State": "通过",
             "ApplicantID": "2019005",
             "ApplicantName": "You Shang",
             "ApplicationTime": "2019/3/2"
         },
         {
             "OrderID": "0004",
-            "State": "待复审",
+            "State": "通过",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/2"
         },
         {
             "OrderID": "0005",
-            "State": "待初审",
+            "State": "驳回",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
             "ApplicationTime": "2019/3/2"
@@ -39,14 +39,14 @@
     "Scrap":[
         {
             "OrderID": "0010",
-            "State": "待复审",
+            "State": "通过",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/2"
         },
         {
             "OrderID": "0011",
-            "State": "待初审",
+            "State": "驳回",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
             "ApplicationTime": "2019/3/2"
@@ -57,7 +57,7 @@
         {
             "Code": "EF0789",
             "SeqID": "2",
-            "State": "待审核",
+            "State": "通过",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
             "ApplicationTime": "2019/3/2"
@@ -65,7 +65,7 @@
         {
             "Code": "EF0790",
             "SeqID": "1",
-            "State": "待初审",
+            "State": "驳回",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
             "ApplicationTime": "2019/3/2"

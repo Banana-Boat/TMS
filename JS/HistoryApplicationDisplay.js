@@ -1,5 +1,4 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-var selectedApplication = [];   //已选择的申请
 var displayType = 'Repair';                //当前展示的申请类型
 var initData = {};
 var pageSize = 20;              //一页最多显示16条信息
@@ -9,12 +8,12 @@ function refreshTable(){
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/ApplicationList.json',  //后端Url待改
+        url: '../TestData/HistoryApplicationList.json',  //后端Url待改
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
             }else{
-                for(let p in result){
+                for(let p in result){                    //将实体数据按照状态排序
                     initData[p] = result[p]
                 }
                 displayTable(initData[displayType], displayType);
@@ -53,10 +52,7 @@ function displayTable(data, displayType){
                         + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
                         + '</td><td>' + data[i].ApplicationTime
                         + '</td><td><button class="btn act-btn" onclick="getPurchaseInfo(this);">查看详情</button>'
-                        + '<button class="btn act-btn" onclick="purchasAeccept(this);">同意</button>'
-                        + '<button class="btn act-btn" onclick="purchasReject(this);">驳回</button>'
                         + '</td></tr>';
-                        
                     $('#purchaseTbody').append(appendData);
                     n++;   //当前页面序号
                 }
@@ -80,16 +76,12 @@ function displayTable(data, displayType){
                 var begin = (num - 1) * pageSize;
                 for(var i = begin; i < data.length && i < begin + pageSize; i++){
                     let appendData = 
-                        '<tr><td><input class="checkbox" onchange="selectOne(this);" type="checkbox">'
-                        + '</td><td>' + data[i].OrderID
+                        '<tr><td>' + data[i].OrderID
                         + '</td><td>' + data[i].State
                         + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
                         + '</td><td>' + data[i].ApplicationTime
                         + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
-                        + '<button class="btn act-btn" onclick="accept(this);">同意</button>'
-                        + '<button class="btn act-btn" onclick="reject(this);">驳回</button>'
                         + '</td></tr>';
-                    
                     $('#commonTbody').append(appendData);
                 }
             }
@@ -158,24 +150,6 @@ function getInfo(e){
         }
     });
 }
-function acceptInModal(e){
-    var transData = {
-        'Type': 'accept',
-        'OrderID': [
-            $(e).parent().parent().children().eq(0).children().eq(1).text()
-        ]
-    }
-    //SubmitByAjax(transData, '');
-}
-function rejectInModal(e){
-    var transData = {
-        'Type': 'reject',
-        'OrderID': [
-            $(e).parent().parent().children().eq(0).children().eq(1).text()
-        ]
-    }
-    //SubmitByAjax(transData, '');
-}
 //采购入库申请操作
 function getPurchaseInfo(e){
     var Code = $(e).parent().parent().children().eq(1).text();
@@ -208,157 +182,6 @@ function getPurchaseInfo(e){
         }
     });
 }
-function purchaseAcceptInModal(e){
-    var Code = $(e).parent().parent().children().eq(0).children().eq(1).text()
-    var SeqID = $(e).parent().parent().children().eq(1).children().eq(1).text()
-    var Type = 'accept';            
-    var url = '.....?Code=' + Code + '&SeqID=' + SeqID + '&Type' + Type
-    //SubmitWithUrl(url)
-}
-function purchaseRejectInModal(e){
-    var Code = $(e).parent().parent().children().eq(0).children().eq(1).text()
-    var SeqID = $(e).parent().parent().children().eq(1).children().eq(1).text()
-    var Type = 'accept';            
-    var url = '.....?Code=' + Code + '&SeqID=' + SeqID + '&Type' + Type
-    //SubmitWithUrl(url)
-}
-//#endregion
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region checkbox
-$('#selectAll').change(function(){
-    if($(this).prop('checked')){
-        for(let i = 0; i < $('tbody').children().length; i++){
-            $('tbody').children().eq(i).children().eq(0).children().eq(0).prop('checked', true);
-            $('tbody').children().eq(i).addClass('tr-selected');
-        }
-    }else{
-        for(let i = 0; i < $('tbody').children().length; i++){
-            $('tbody').children().eq(i).children().eq(0).children().eq(0).prop('checked', false);
-            $('tbody').children().eq(i).removeClass('tr-selected');
-        }
-    }
-})
-function selectOne(e){
-    if(!$(e).prop('checked')){
-        $(e).prop('checked', false);
-        $(e).parent().parent().removeClass('tr-selected');
-    }else{
-        $(e).prop('checked', true);
-        $(e).parent().parent().addClass('tr-selected');
-    }
-}
-//#endregion
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 单个同意、驳回
-function SubmitByAjax(data, url){
-    $.ajax({
-        type: 'POST',
-        dataType: 'JSON',
-        contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify(data),
-        url: url,  
-        success: function(result){
-            if(result.Status == 'error'){
-                alert('提交失败，请稍后重试...');
-            }else{
-                alert('提交成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure);
-                refreshTable();
-            }
-        },
-        error: function(){
-            alert('提交失败，请稍后重试...');
-        }
-    });
-}
-function accept(e){
-    var transData = {
-        'Type': 'accept',
-        'OrderID': [
-            $(e).parent().parent().children().eq(1).text()
-        ]
-    }
-    //SubmitByAjax(transData, '');
-}
-function reject(e){
-    var transData = {
-        'Type': 'reject',
-        'OrderID': [
-            $(e).parent().parent().children().eq(1).text()
-        ]
-    }
-    //SubmitByAjax(transData, '');
-}
-//采购入库申请操作
-function SubmitWithUrl(url){
-    $.ajax({
-        type: 'GET',
-        dataType: 'JSON',
-        url: url,                   
-        success: function(result){
-            if(result.Status == 'error'){
-                alert('提交失败，请稍后重试...');
-            }else{
-                alert('提交成功！');
-                refreshTable();
-            }
-        },
-        error: function(){
-            alert('提交失败，请稍后重试...');
-        } 
-    });
-}
-function purchasAeccept(e){
-    var Code = $(e).parent().parent().children().eq(1).text();
-    var SeqID = $(e).parent().parent().children().eq(2).text();
-    var Type = 'accept';            
-    var url = '.....?Code=' + Code + '&SeqID=' + SeqID + '&Type' + Type
-    //SubmitWithUrl(url)
-}
-function purchasReject(e){
-    var Code = $(e).parent().parent().children().eq(1).text();
-    var SeqID = $(e).parent().parent().children().eq(2).text();
-    var Type = 'reject';            
-    var url = '.....?Code=' + Code + '&SeqID=' + SeqID + '&Type' + Type
-    //SubmitWithUrl(url)
-}
-//#endregion
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region 批量同意、驳回 （采购入库无该操作）
-function AddToSelectedApplication(){
-    selectedApplication = [];
-    for(let i = 0; i < $('tbody').children().length; i++){    //将选中的夹具添加入变量数组
-        if($('tbody').children().eq(i).children().eq(0).children().eq(0).prop('checked')){
-            selectedApplication.push($('tbody').children().eq(i).children().eq(1).text());
-        }
-    }
-}
-$('#bulkAccept').click(function(){
-    AddToSelectedApplication();
-    if(selectedApplication.length == 0){
-        alert('您当前还未选择任何夹具！');
-    }else{
-        var transData = {
-            'Type': 'accept',
-            'OrderID': selectedApplication
-        }
-        //SubmitByAjax(transData, '');
-    }
-});
-$('#bulkReject').click(function(){
-    AddToSelectedApplication();
-    if(selectedApplication.length == 0){
-        alert('您当前还未选择任何夹具！');
-    }else{
-        var transData = {
-            'Type': 'reject',
-            'OrderID': selectedApplication
-        }
-        //SubmitByAjax(transData, '');
-    }
-});
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

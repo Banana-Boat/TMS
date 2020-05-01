@@ -88,8 +88,8 @@ function changeBtnStyle(Btn, BtnText){
     }
 }
 //普通登录
-$('#loginBtn').click(function(){
-    var Btn = this;
+function commonLogin(){
+    var Btn = $('#loginBtn');
     if(validate()){
         changeBtnStyle(Btn, '登录');
         var transData = {
@@ -131,8 +131,12 @@ $('#loginBtn').click(function(){
             }
         }) */
     }
+}
+$('#loginBtn').click(commonLogin)
+$(window).keypress(function(event){
+    if(event.which == 13)
+        commonLogin();
 })
-
 //选择工作部门后登录
 $('#workcellSubmitBtn').click(function(){    
     var Btn = this;  

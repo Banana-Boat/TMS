@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 填充字典
-$(window).on('load', function(){
+function refreshDictionary(){
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -25,7 +25,8 @@ $(window).on('load', function(){
             alert('获取信息失败，请稍后重试...');
         }
     });
-})
+}
+$(window).on('load', refreshDictionary)
 //#endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,11 +80,9 @@ function ThreeEvent(type, zhongwen){
             success: function(result){
                 if (result.Status == 'error') {
                     alert('添加失败，请稍后重试...');
-                }else if (result.Status == 'success') {
+                }else {
                     alert('添加成功！')
-                }
-                else {
-                    alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
+                    refreshDictionary();
                 }
                 changeBtnStyle(btn, '添加' + zhongwen);
             },
@@ -111,6 +110,7 @@ function ThreeEvent(type, zhongwen){
                     alert('删除失败，请稍后重试...');
                 }else{
                     alert('删除成功！');
+                    refreshDictionary();
                 }
                 changeBtnStyle(btn, '删除' + zhongwen);
             },
@@ -147,11 +147,9 @@ $('#addStoreHouseBtn').click(function(){
             success: function(result){
                 if (result.Status == 'error') {
                     alert('添加失败，请稍后重试...');
-                }else if (result.Status == 'success') {
-                    alert('添加成功！')
-                }
-                else {
+                }else {
                     alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
+                    refreshDictionary();
                 }
                 changeBtnStyle(btn, '添加库位');
             },
@@ -180,6 +178,7 @@ $('#delStoreHouseBtn').click(function(){
                 alert('删除失败，请稍后重试...');
             }else{
                 alert('删除成功！');
+                refreshDictionary();
             }
             changeBtnStyle(btn, '删除库位');
         },

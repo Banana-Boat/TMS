@@ -26,10 +26,12 @@ function refleshData(){
             }else{
                 $('#UserID').text(result.UserID);
                 $('#Name').text(result.Name);
-                $('#Email').text(result.Email);
+                if(result.Email != null)
+                    $('#Email').text(result.Email);
                 $('#Privilege').text(result.Privilege);
                 $('#Workcell').text(result.Workcell);
-                $('#LastLogin').text(result.LastLogin);
+                if(result.LastLogin != null)
+                    $('#LastLogin').text(result.LastLogin);
             }
         },
         error: function(){

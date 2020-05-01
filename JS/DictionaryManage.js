@@ -15,6 +15,7 @@ $(window).on('load', function(){
                 }
                 addToDataList('StoreHouse');
                 addToDataList('PMContent');
+                addToDataList('Line');
                 addToDataList('Family');
                 addToDataList('Model');
                 addToDataList('PartNo');
@@ -123,6 +124,7 @@ function ThreeEvent(type, zhongwen){
 
 //第三个参数为url       接口可不同
 ThreeEvent('PMContent', '点检')
+ThreeEvent('Line', '产线')
 ThreeEvent('Family', '大类')
 ThreeEvent('Model', '模组')
 ThreeEvent('PartNo', '料号')

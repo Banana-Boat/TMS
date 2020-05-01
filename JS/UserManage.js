@@ -19,15 +19,26 @@ function displayTable(data){
         onPageChange: function(num){
             var begin = (num - 1) * pageSize;
             for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                $('tbody').append('<tr><td>' + data[i]['UserID']
-                + '</td><td>' + data[i]['Name']
-                + '</td><td>' + data[i]['Email']
-                + '</td><td>' + data[i]['Privilege']
-                + '</td><td>' + data[i]['Workcell']
-                + '</td><td>' + data[i]['LastLogin']
-                + '</td><td><button class="btn act-btn" onclick="showEditModal(this);">修改</button>'
-                + '<button class="btn act-btn" onclick="delUser(this);">删除</button>'
-                + '</td></tr>');
+                let tempStr = '<tr><td>' + data[i]['UserID']
+                    + '</td><td>' + data[i]['Name'];
+
+                if(data[i]['Email'] != null)                    //邮箱可能为null
+                    tempStr += '</td><td>' + data[i]['Email']
+                else
+                    tempStr += '</td><td>' + '/'
+                
+                tempStr += '</td><td>' + data[i]['Privilege']
+                    + '</td><td>' + data[i]['Workcell']
+
+                if(data[i]['LastLogin'] != null)                //最后登录时间可能为null
+                    tempStr += '</td><td>' + data[i]['LastLogin']
+                else
+                    tempStr += '</td><td>' + '/'
+
+                tempStr += '</td><td><button class="btn act-btn" onclick="showEditModal(this);">修改</button>'
+                    + '<button class="btn act-btn" onclick="delUser(this);">删除</button>'
+                    + '</td></tr>'
+                $('tbody').append(tempStr);
             }
         }
     });

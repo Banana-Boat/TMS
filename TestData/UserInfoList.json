@@ -2,7 +2,7 @@
     {
         "UserID": "2019001",
         "Name": "Zhou hang",
-        "Email": "12345678@qq.com",
+        "Email": null,
         "Privilege": "系统管理员",
         "Workcell": "XXX",
         "LastLogin": "2020/3/1"
@@ -13,7 +13,7 @@
         "Email": "12345678@qq.com",
         "Privilege": "系统管理员",
         "Workcell": "XXX",
-        "LastLogin": "2020/3/1"
+        "LastLogin": null
     },
     {
         "UserID": "2019001",

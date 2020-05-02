@@ -148,58 +148,70 @@
                     <div id="systemInitValiBox">
                         <div class="form-group">
                             <label class="control-label col-md-3" for="privateKeyInput">私钥</label>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <input class="form-control" id="privateKeyInput" type="text" placeholder="请填写系统私钥">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="hasAccountInput">是否已有账户</label>
-                            <input id="hasAccountInput" type="checkbox" style="zoom: 1.3;margin: 0.7rem 1.2rem;">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="systemInitUserIDInput">工号</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="systemInitUserIDInput" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="systemInitPswInput">密码</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="systemInitPswInput" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group" id="systemInitRepswBox">
-                            <label class="control-label col-md-3" for="systemInitRepswInput">确认密码</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="systemInitRepswInput" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary center-block" id="systemInitValiBtn">创建并登录</button>
+                            <button class="btn" id="systemInitValiBtn">验证</button>
                         </div>
                     </div>
                     <!-- 实现操作 -->
                     <div id="systemInitOperBox" style="display: none;">
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="systemInitAddWorkcellInput">添加工作部门</label>
-                            <div class="col-md-7">
-                                <input class="form-control" id="systemInitAddWorkcellInput" type="text">
+                        <div class="add-workcell-box">
+                            <p class="systeminit-title">添加工作部门并绑定账户</p>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="systemInitAddWorkcellInput">工作部门名称</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="systemInitAddWorkcellInput" type="text">
+                                </div>
                             </div>
-                            <button class="btn" id="addWorkcellBtn" type="button">添加</button>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="hasAccountInput">是否已有账户</label>
+                                <input id="hasAccountInput" type="checkbox" style="zoom: 1.3;margin: 0.7rem 1.2rem;">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="systemInitUserIDInput">工号</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="systemInitUserIDInput" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="systemInitPswInput">密码</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="systemInitPswInput" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group" id="systemInitRepswBox">
+                                <label class="control-label col-md-3" for="systemInitRepswInput">确认密码</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="systemInitRepswInput" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary center-block" id="addWorkcellBtn" type="button" style="width: 15%;">添加</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="systemInitDelWorkcellInput">删除工作部门</label>
-                            <div class="col-md-7">
-                                <select class="form-control" id="systemInitDelWorkcellInput">
-                                    <option value='0'>请选择工作部门</option>
-                                </select>
+                        <div class="del-workcell-box">
+                            <p class="systeminit-title">删除工作部门</p>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="systemInitDelWorkcellInput">工作部门名称</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="systemInitDelWorkcellInput">
+                                        <option value='0'>请选择工作部门</option>
+                                    </select>
+                                </div>
                             </div>
-                            <button class="btn" id="delWorkcellBtn" type="button">删除</button>
+                            <div class="form-group">
+                                <button class="btn btn-primary center-block" id="delWorkcellBtn" type="button" style="width: 15%;">删除</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 网站备案信息 -->
+    <div id="Copyright">
+        Copyright © 湘ICP备19020319号-1
     </div>
 </body>
 

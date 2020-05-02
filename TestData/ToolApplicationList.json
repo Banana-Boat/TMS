@@ -5,8 +5,6 @@
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/1",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
             "UserID": "2019003",
             "UserName": "Zhao Xiang",
             "Remarks": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -16,8 +14,6 @@
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/3",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
             "UserID": "2019003",
             "UserName": "Zhao Xiang",
             "Remarks": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -27,8 +23,6 @@
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/5",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
             "UserID": "2019003",
             "UserName": "Zhao Xiang",
             "Remarks": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -38,8 +32,6 @@
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/7",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
             "UserID": "2019003",
             "UserName": "Zhao Xiang",
             "Remarks": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -51,8 +43,6 @@
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
             "ApplicationTime": "2019/3/2",
-            "ReviewerID": "2019002",
-            "ReviewerName": "Hu Han",
             "Remarks": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         }
     ],

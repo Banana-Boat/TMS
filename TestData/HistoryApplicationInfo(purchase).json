@@ -3,5 +3,7 @@
     "SeqID": "1",
     "Buyoff": "001",
     "BillNo": "BO19070500000002",
-    "StoreHouse": "库位名"
+    "StoreHouse": "库位名",
+    "Reviewer": "Zhang Wei",
+    "ReviewerID": "2019001"
 }

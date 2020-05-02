@@ -29,55 +29,69 @@ function refreshTable(url){
 }
 function displayTable(data, displayType){
     $('#' + displayType + 'Tbody').empty();
-    switch(displayType){
-        case 'Out':
-            for(let i = 0; i < data.length; i++){
-                $('#' + displayType + 'Tbody').append(
-                    '<tr><td>' + data[i].OrderID
-                    + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                    + '</td><td>' + data[i].ApplicationTime
-                    + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
-                    + '</td><td>' + data[i].UserID + '&nbsp&nbsp&nbsp' + data[i].UserName
-                    + '</td><td>' + data[i].Remarks
-                    + '</td></tr>');
-            }
-            break;
-        case 'In':
-            for(let i = 0; i < data.length; i++){
-                $('#' + displayType + 'Tbody').append(
-                    '<tr><td>' + data[i].OrderID
-                    + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                    + '</td><td>' + data[i].ApplicationTime
-                    + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
-                    + '</td><td>' + data[i].Remarks
-                    + '</td></tr>');
-            }
-            break;
-        case 'Repair':
-            for(let i = 0; i < data.length; i++){
-                $('#' + displayType + 'Tbody').append(
-                    '<tr><td>' + data[i].OrderID
-                    + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                    + '</td><td>' + data[i].ApplicationTime
-                    + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
-                    + '</td><td>' + data[i].PMContent
-                    + '</td><td>' + data[i].Reason
-                    + '</td></tr>');
-            }
-            break;
-        case 'Check':
-            for(let i = 0; i < data.length; i++){
-                $('#' + displayType + 'Tbody').append(
-                    '<tr><th>' + (i + 1).toString()
-                    + '</th><td>' + data[i].ExaminerID + '&nbsp&nbsp&nbsp' + data[i].ExaminerName
-                    + '</td><td>' + data[i].ApplicationTime
-                    + '</td></tr>');
-            }
-            break;
+    if(data.length > 0){
+        switch(displayType){
+            case 'Out':
+                for(let i = 0; i < data.length; i++){
+                    $('#' + displayType + 'Tbody').append(
+                        '<tr><td>' + data[i].OrderID
+                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                        + '</td><td>' + data[i].ApplicationTime
+                        + '</td><td>' + data[i].UserID + '&nbsp&nbsp&nbsp' + data[i].UserName
+                        + '</td><td>' + data[i].Remarks
+                        + '</td></tr>');
+                }
+                break;
+            case 'In':
+                for(let i = 0; i < data.length; i++){
+                    $('#' + displayType + 'Tbody').append(
+                        '<tr><td>' + data[i].OrderID
+                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                        + '</td><td>' + data[i].ApplicationTime
+                        + '</td><td>' + data[i].Remarks
+                        + '</td></tr>');
+                }
+                break;
+            case 'Repair':
+                for(let i = 0; i < data.length; i++){
+                    $('#' + displayType + 'Tbody').append(
+                        '<tr><td>' + data[i].OrderID
+                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                        + '</td><td>' + data[i].ApplicationTime
+                        + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
+                        + '</td><td>' + data[i].PMContent
+                        + '</td><td>' + data[i].Reason
+                        + '</td></tr>');
+                }
+                break;
+            case 'Check':
+                for(let i = 0; i < data.length; i++){
+                    $('#' + displayType + 'Tbody').append(
+                        '<tr><th>' + (i + 1).toString()
+                        + '</th><td>' + data[i].ExaminerID + '&nbsp&nbsp&nbsp' + data[i].ExaminerName
+                        + '</td><td>' + data[i].ApplicationTime
+                        + '</td></tr>');
+                }
+                break;
+        }
     }
 }
 
-$(window).on('load', refreshTable('../TestData/ToolApplicationList.json'));
+$(window).on('load', function(){
+    if($.cookie('code_toolapplication')){                           //如果是从实体展示页面跳转来。则直接读取cookie中的code与seqid并查询
+        let Code = $.cookie('code_toolapplication');
+        let SeqID = $.cookie('seqid_toolapplication');
+
+        $('#CodeInput').val(Code);
+        $('#SeqIDInput').val(SeqID);
+
+        refreshTable('../TestData/ToolApplicationList.json')        //后附code和seqid
+
+        $.removeCookie('code_toolapplication');                     //清除cookie
+        $.removeCookie('seqid_toolapplication');
+    }
+    
+});
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,8 +111,7 @@ function changeTab(e, type){
 $('#searchBtn').click(function(){
     let Code = $('#CodeInput').val();
     let SeqID = $('#SeqIDInput').val();
-    let url = '.....?Code=' + Code + '&SeqID=' + SeqID
-    refreshTable(url)
+    refreshTable('')
 })
 //#endregion
 

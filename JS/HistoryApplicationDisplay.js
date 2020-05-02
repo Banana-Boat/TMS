@@ -13,8 +13,8 @@ function refreshTable(){
             if(result.Status == 'error'){
                 alert('获取数据失败，请稍后重试..');
             }else{
-                for(let p in result){                    //将实体数据按照状态排序
-                    initData[p] = result[p]
+                for(let p in result){
+                    initData[p] = result[p].reverse()       //初始数据按时间顺序
                 }
                 displayTable(initData[displayType], displayType);
             }
@@ -29,63 +29,65 @@ function displayTable(data, displayType){
     if(displayType == 'Purchase'){              //采购入库申请
         $('#commonTable').hide();
         $('#purchaseTable').show();
-
-        $('#paginationApplication').jqPaginator({
-            first: '<li class="first"><a href="javascript:;">首页</a></li>',
-            prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
-            next: '<li class="next"><a href="javascript:;">>></a></li>',
-            last: '<li class="last"><a href="javascript:;">末页</a></li>',
-            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-            totalPages: Math.ceil(data.length / pageSize),
-            totalCounts: data.length,
-            pageSize: pageSize,
-            onPageChange: function(num){
-                $('#purchaseTbody').empty();
-                var begin = (num - 1) * pageSize;
-                var n = 1;
-                for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                    let appendData = 
-                        '<tr><th>' + n
-                        + '</th><td>' + data[i].Code
-                        + '</td><td>' + data[i].SeqID
-                        + '</td><td>' + data[i].State
-                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td><td><button class="btn act-btn" onclick="getPurchaseInfo(this);">查看详情</button>'
-                        + '</td></tr>';
-                    $('#purchaseTbody').append(appendData);
-                    n++;   //当前页面序号
+        if(data.length > 0){
+            $('#paginationApplication').jqPaginator({
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
+                next: '<li class="next"><a href="javascript:;">>></a></li>',
+                last: '<li class="last"><a href="javascript:;">末页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                totalPages: Math.ceil(data.length / pageSize),
+                totalCounts: data.length,
+                pageSize: pageSize,
+                onPageChange: function(num){
+                    $('#purchaseTbody').empty();
+                    var begin = (num - 1) * pageSize;
+                    var n = 1;
+                    for(var i = begin; i < data.length && i < begin + pageSize; i++){
+                        let appendData = 
+                            '<tr><th>' + n
+                            + '</th><td>' + data[i].Code
+                            + '</td><td>' + data[i].SeqID
+                            + '</td><td>' + data[i].State
+                            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td><td><button class="btn act-btn" onclick="getPurchaseInfo(this);">查看详情</button>'
+                            + '</td></tr>';
+                        $('#purchaseTbody').append(appendData);
+                        n++;   //当前页面序号
+                    }
                 }
-            }
-        });
+            });
+        }
     }else{                                      //其余四类申请
         $('#commonTable').show();
         $('#purchaseTable').hide();
-
-        $('#paginationApplication').jqPaginator({
-            first: '<li class="first"><a href="javascript:;">首页</a></li>',
-            prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
-            next: '<li class="next"><a href="javascript:;">>></a></li>',
-            last: '<li class="last"><a href="javascript:;">末页</a></li>',
-            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-            totalPages: Math.ceil(data.length / pageSize),
-            totalCounts: data.length,
-            pageSize: pageSize,
-            onPageChange: function(num){
-                $('#commonTbody').empty();
-                var begin = (num - 1) * pageSize;
-                for(var i = begin; i < data.length && i < begin + pageSize; i++){
-                    let appendData = 
-                        '<tr><td>' + data[i].OrderID
-                        + '</td><td>' + data[i].State
-                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
-                        + '</td></tr>';
-                    $('#commonTbody').append(appendData);
+        if(data.length > 0){
+            $('#paginationApplication').jqPaginator({
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
+                next: '<li class="next"><a href="javascript:;">>></a></li>',
+                last: '<li class="last"><a href="javascript:;">末页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                totalPages: Math.ceil(data.length / pageSize),
+                totalCounts: data.length,
+                pageSize: pageSize,
+                onPageChange: function(num){
+                    $('#commonTbody').empty();
+                    var begin = (num - 1) * pageSize;
+                    for(var i = begin; i < data.length && i < begin + pageSize; i++){
+                        let appendData = 
+                            '<tr><td>' + data[i].OrderID
+                            + '</td><td>' + data[i].State
+                            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看详情</button>'
+                            + '</td></tr>';
+                        $('#commonTbody').append(appendData);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 
@@ -106,15 +108,15 @@ function changeTab(e, type){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 点击查看详情、模态窗显示、模态窗提交
 function getInfo(e){
-    var OrderID = $(e).parent().parent().children().eq(1).text()
+    var OrderID = $(e).parent().parent().children().eq(0).text()
     $('#OrderID').text(OrderID);
-    $('#State').text($(e).parent().parent().children().eq(2).text());
-    $('#Applicant').text($(e).parent().parent().children().eq(3).text());
-    $('#ApplicationTime').text($(e).parent().parent().children().eq(4).text());
+    $('#State').text($(e).parent().parent().children().eq(1).text());
+    $('#Applicant').text($(e).parent().parent().children().eq(2).text());
+    $('#ApplicationTime').text($(e).parent().parent().children().eq(3).text());
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '../TestData/ApplicationInfo.json'/*  + '?OrderID=' + OrderID */,      //url待改 后附OrderID参数
+        url: '../TestData/HistoryApplicationInfo.json'/*  + '?OrderID=' + OrderID */,      //url待改 后附OrderID参数
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取信息失败，请稍后重试...');
@@ -135,6 +137,8 @@ function getInfo(e){
                         $('#scrapBox').show();
                         break;
                 }
+                $('#Reviewer').empty();
+                $('#Reviewer').append(result.ReviewerID + '&nbsp;&nbsp;&nbsp;' + result.Reviewer);
                 $('#ToolList').text('');                       //清空富文本框显示夹具  
                 for(let i = 0; i < result.ToolList.length; i++){          //刷新富文本框显示夹具
                     let temp = $('#ToolList').text();
@@ -162,7 +166,7 @@ function getPurchaseInfo(e){
     $.ajax({
         type: 'GET',
         contentType: 'application/json;charset=UTF-8',
-        url: '../TestData/ApplicationInfo(purchase).json'/*  + '?Code=' + OrderID + '&SeqID=' + SeqID */,      //url待改 后附参数
+        url: '../TestData/HistoryApplicationInfo(purchase).json'/*  + '?Code=' + OrderID + '&SeqID=' + SeqID */,      //url待改 后附参数
         success: function(result){
             if(result.Status == 'error'){
                 alert('获取信息失败，请稍后重试...');
@@ -172,7 +176,8 @@ function getPurchaseInfo(e){
                 $('#Buyoff').text(result.Buyoff);
                 $('#BillNo').text(result.BillNo);
                 $('#StoreHouse').text(result.StoreHouse);
-                $('#Image').attr('src', result.Image);
+                $('#purchaseReviewer').empty();
+                $('#purchaseReviewer').append(result.ReviewerID + '&nbsp;&nbsp;&nbsp;' + result.Reviewer);
 
                 $('#purchaseInfoModal').modal('show');
             }

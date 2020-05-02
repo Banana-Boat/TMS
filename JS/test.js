@@ -8,7 +8,4 @@ var arr = [
         gender: "female"
     }
 ]
-
-arr.forEach(item => {
-    console.log(item)
-})
+arr.reverse()

@@ -35,7 +35,7 @@ function getAndParseData(url, type){
                                         {value: result.Yes, name: '已出库', itemStyle: {color: '#d66464'}},
                                         {value: result.No, name: '未出库', itemStyle: {color: '#87bd71'}}
                                     ].sort(function (a, b) { return a.value - b.value; }),
-                                    roseType: 'radius',
+                                    /* roseType: 'radius', */       //半径大小也变化
                                     label: {
                                         color: 'rgba(0, 0, 0, 0.6)',
                                         fontSize: 17
@@ -104,7 +104,7 @@ function getAndParseData(url, type){
                             case 'OverviewMonth':
                                 xArray = ['Month'];
                                 for(let i = 1; i < result.Out.length + 1; i++)
-                                    xArray.push(i + '号');
+                                    xArray.push(i.toString());
                                 break;
                             case 'OverviewWeek':
                                 xArray = ['Week', '周一', '周二', '周三', '周四', '周五', '周六', '周日', ]
@@ -258,7 +258,7 @@ $(window).on('load', function(){
     });
     /* 预先初始化发送请求获取统计数据 */        //第一个参数url待改，初始为当前年份月份
     getAndParseData('/TestData/OverviewStatisticInfo(year).json?year=' + date.getFullYear(), 'OverviewYear');
-    getAndParseData('/TestData/OverviewStatisticInfo(month).json?year=' + date.getFullYear() + '&month=' + date.getMonth(), 'OverviewMonth');                                     
+    getAndParseData('/TestData/OverviewStatisticInfo(month).json?year=' + date.getFullYear() + '&month=' + (date.getMonth() + 1), 'OverviewMonth');                                     
     getAndParseData('/TestData/OverviewStatisticInfo(week).json', 'OverviewWeek');
     getAndParseData('/TestData/SingleStatisticInfo.json', 'Single');
     /* 展示当前选项卡的数据图表 */ 

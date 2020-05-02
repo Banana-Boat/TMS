@@ -249,7 +249,6 @@ function getInfo(e){
 
                 $('#Code').text(result.Code);
                 $('#SeqID').text(result.SeqID);
-                $('#ToolApplication').attr('href', '../HTML/AdminToolApplicationDisplay.html'); /* ?Code=' + result.Code + '&SeqID=' + result.SeqID */
                 $('#Buyoff').text(result.Buyoff);
                 $('#RegDate').text(result.RegDate);
                 $('#UsedCount').text(result.UsedCount);
@@ -308,6 +307,16 @@ $('#EditBtn').click(function(){
         }
     });
 })
+//#endregion
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 查看夹具的申请记录（通过查看详情中的链接跳转）
+function redirectToToolApplication(){
+    $.cookie('code_toolapplication', $('#Code').text());        //将code和seqid存入cookie
+    $.cookie('seqid_toolapplication', $('#SeqID').text());
+
+    window.location = '../HTML/AdminToolApplicationDisplay.html';
+}
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -566,7 +575,6 @@ $('#danglingShow').click(function(){
                         {value: getSum(initData, '报废锁定'), name: '报废锁定', itemStyle: {color: '#f83232'}},
                         {value: getSum(initData, '待点检'), name: '待点检', itemStyle: {color: '#f83232'}}
                     ].sort(function (a, b) { return a.value - b.value; }),
-                    roseType: 'radius',
                     label: {
                         color: 'rgba(0, 0, 0, 0.6)',
                         fontSize: 17

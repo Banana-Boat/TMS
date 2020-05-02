@@ -10,6 +10,7 @@ function refreshDictionary(){
                 alert('获取数据失败，请稍后重试..');
             }else{
                 function addToDataList(type){
+                    $('#' + type + 'Del').empty();
                     for(let p in result[type])
                         $('#' + type + 'Del').append('<option value="' + result[type][p] + '">' + result[type][p] + '</option>')
                 }

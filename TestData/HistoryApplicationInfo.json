@@ -1,0 +1,21 @@
+{
+    "ToolList": [
+        {
+            "Code": "EF0790",
+            "SeqID": "1"
+        },
+        {
+            "Code": "EF0788",
+            "SeqID": "2"
+        },
+        {
+            "Code": "EF0790",
+            "SeqID": "3"
+        }
+    ],
+    "ServiceLife": "20",
+    "PMContent": "",
+    "Reason": "(报修报废同)",
+    "Reviewer": "Zhang Wei",
+    "ReviewerID": "2019001"
+}

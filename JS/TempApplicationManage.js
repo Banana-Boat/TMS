@@ -268,6 +268,7 @@ function SubmitByAjax(data, url, Btn){
             if(result.Status == 'error'){
                 alert('提交失败，请稍后重试...');
             }else{
+                $('#fillInModal').modal('hide');
                 alert('提交成功！');
                 refreshTable();
             }

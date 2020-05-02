@@ -5,35 +5,35 @@
             "State": "待复审",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/2 13:00:00"
         },
         {
             "OrderID": "0002",
             "State": "待审核",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/3 13:00:00"
         },
         {
             "OrderID": "0003",
             "State": "待审核",
             "ApplicantID": "2019005",
             "ApplicantName": "You Shang",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/4 13:00:00"
         },
         {
             "OrderID": "0004",
             "State": "待复审",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/5 13:00:00"
         },
         {
             "OrderID": "0005",
             "State": "待初审",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/6 13:00:00"
         }
     ],
     "Scrap":[
@@ -42,14 +42,14 @@
             "State": "待复审",
             "ApplicantID": "2019001",
             "ApplicantName": "Zhou Wei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/2 13:00:00"
         },
         {
             "OrderID": "0011",
             "State": "待初审",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/6 13:00:00"
         }
     ],
     "Purchase":[
@@ -60,7 +60,7 @@
             "State": "待审核",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/7 13:00:00"
         },
         {
             "Code": "EF0790",
@@ -68,7 +68,7 @@
             "State": "待初审",
             "ApplicantID": "2019002",
             "ApplicantName": "Yang Lei",
-            "ApplicationTime": "2019/3/2"
+            "ApplicationTime": "2019/3/9 13:00:00"
         }
     ]
 }

@@ -28,7 +28,7 @@
     
 }
 @media(max-width: 768px){
-    #getNum, #addWorkcellBtn, #delWorkcellBtn{
+    #getNum, #systemInitValiBtn{
         margin-top: 12px;
         float: right;
         margin-right: 15px;
@@ -140,4 +140,22 @@ html, body{
     margin-top: 1rem;
     width: 100%;
     position: relative;
+}
+/* copyright */
+#Copyright{
+    color: #e6e6e6;
+    bottom: 2rem;
+    left: 2rem;
+    position: absolute;
+}
+/* 系统初始化弹窗 */
+.add-workcell-box{
+    border-bottom: 3px dotted grey;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+.systeminit-title{
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 0.5rem 0 2rem 0;
 }

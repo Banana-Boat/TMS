@@ -59,19 +59,14 @@ body{
 	margin: 0 -1em 0;     			/* 抵消掉menu的padding */
 	position: absolute;
 	width: 100%;
-	bottom: 8rem;
+	bottom: 6.5rem;
 	display: flex;
 	flex-direction: row;			/* 两个button横向顺序排列 */
 	justify-content: center;
 }
 #AboutBtn{
-	margin-right: 2.5rem;
+	margin-right: 2.8rem;
 }
-
-
-
-
-
 
 @media screen and (min-width:992px){
 	#logo{
@@ -103,7 +98,7 @@ body{
 
 	}
 	.menu{
-		padding: 3em 1em 0;
+		padding: 2.5rem 1.5rem 0;
 	}
 	.menu-button, .close-button, .morph-shape{
 		display: none;

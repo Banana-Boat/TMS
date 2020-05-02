@@ -39,7 +39,7 @@ function refreshTable(){
                             + '</td><td>' + result[i].ApplicationTime
                             + '</td><td><button class="btn act-btn" onclick="getInfo(this);">查看包含夹具</button>';
                         let date = new Date();
-                        if(result[i].ApplicationTime == date.getFullYear() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getDate())
+                        if(result[i].ApplicationTime.split(' ')[0] == date.getFullYear() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getDate())
                             tempStr += '<button class="btn act-btn" onclick="revoke(this);">撤销</button></td></tr>';
                         else
                             tempStr += '</td></tr>';

@@ -164,7 +164,6 @@ function showChart(){
                         {value: getSum(initToolData.Repair), name: '报修', itemStyle: {color: '#58aece'}},
                         {value: getSum(initToolData.Purchase), name: '采购入库', itemStyle: {color: '#f83232'}}
                     ].sort(function (a, b) { return a.value - b.value; }),
-                    roseType: 'radius',
                     label: {
                         color: 'rgba(0, 0, 0, 0.6)',
                         fontSize: 17

@@ -71,9 +71,9 @@ body{
     border-left: 3px dotted rgb(196, 196, 196);
     padding-left: 1.5rem;
 }
-.table>tbody>tr>td, .table>tbody>tr>th, .table>thead:first-child>tr:first-child>th{
-    vertical-align: middle;
-    text-align: center;
+td, th{
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 /* 滚动条 */
 .panel-body::-webkit-scrollbar {/*滚动条整体样式*/

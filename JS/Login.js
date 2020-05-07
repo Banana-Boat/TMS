@@ -14,16 +14,20 @@ $(window).on('load', function(){
         url: '../TestData/WorkcellList.json',                        //url待改
         success: function(result){
             if(result.Status == 'error'){
-                $('#Workcell').replaceWith('<input class="form-control" type="text" id="Workcell">')
+                $('#Workcell').replaceWith('<input class="form-control" type="text" id="Workcell">');
+                $('#systemInitDelWorkcellInput').replaceWith('<input class="form-control" type="text" id="systemInitDelWorkcellInput">')
             }else{
                 for(let i = 0; i < result.length; i++){
                     $('#Workcell').append('<option value="' + result[i]
+                        + '">' + result[i] + '</option>');
+                    $('#systemInitDelWorkcellInput').append('<option value="' + result[i]
                         + '">' + result[i] + '</option>');
                 }
             }
         },
         error: function(){
             $('#Workcell').replaceWith('<input class="form-control" type="text" id="Workcell">')
+            $('#systemInitDelWorkcellInput').replaceWith('<input class="form-control" type="text" id="systemInitDelWorkcellInput">')
         }
     });
 })
@@ -133,7 +137,7 @@ function commonLogin(){
     }
 }
 $('#loginBtn').click(commonLogin)
-$(window).keypress(function(event){
+$(window).keypress(function(event){     //回车直接登录
     if(event.which == 13)
         commonLogin();
 })
@@ -141,7 +145,7 @@ $(window).keypress(function(event){
 $('#workcellSubmitBtn').click(function(){    
     var Btn = this;  
     changeBtnStyle(Btn, '登录'); 
-    if(is_visitor){
+    if(is_visitor){                     //游客登录
         let transData = {
             'Workcell': $('#Workcell').val()
         };
@@ -165,7 +169,7 @@ $('#workcellSubmitBtn').click(function(){
                 changeBtnStyle(Btn, '登录');
             }
         }); */
-    }else{
+    }else{                              //非游客登录
         let transData = {
             'UserID': $('#UserID').val(),
             'Password': $('#Password').val(),
@@ -402,7 +406,6 @@ $(window).keypress(function(event){
         $('#systemInitUserIDInput').val('');
         $('#systemInitPswInput').val('');
         $('#systemInitRepswInput').val('');
-        $('#systemInitDelWorkcellInput').empty();
         is_privatekey_legal = false
         is_initpsw_legal = false;
         is_reinitpsw_legal = false;
@@ -443,8 +446,6 @@ $('#systemInitValiBtn').click(function(){                   //验证私钥
                 }
                 else{
                     alert('验证成功！');
-                    for(let p in result.Workcell)           //绑定工作部门
-                        $('#systemInitDelWorkcellInput').append('<option value="' + result.Workcell[p] + '">' + result.Workcell[p] + '</option>')
                     $('#systemInitOperBox').show();
                     $('#systemInitValiBox').hide();
                 }

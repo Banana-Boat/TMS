@@ -345,6 +345,8 @@ function addToRepair(e){
     var seqID = $(e).parent().parent().children().eq(2).text();
     $('#repairCode').val(code);
     $('#repairSeqID').val(seqID);
+    $('#repairImageInput').val('');
+    $('#repairImage').attr('src', '');
     $('#RepairModal').modal('show');
 }
 

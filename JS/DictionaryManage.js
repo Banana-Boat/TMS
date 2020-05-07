@@ -83,6 +83,7 @@ function ThreeEvent(type, zhongwen){
                     alert('添加失败，请稍后重试...');
                 }else {
                     alert('添加成功！')
+                    $('#' + type + 'Add').val('');
                     refreshDictionary();
                 }
                 changeBtnStyle(btn, '添加' + zhongwen);
@@ -150,6 +151,7 @@ $('#addStoreHouseBtn').click(function(){
                     alert('添加失败，请稍后重试...');
                 }else {
                     alert('添加成功！ 成功个数：' + result.Success + ' 失败个数：' + result.Failure + ' 重复个数：' + result.Repetition);
+                    $('#StoreHouseAdd').val('');
                     refreshDictionary();
                 }
                 changeBtnStyle(btn, '添加库位');

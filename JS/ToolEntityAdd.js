@@ -88,6 +88,10 @@ $("#SubmitBtn").click(function(){
                     alert('操作失败，请稍后重试...');
                 }else{
                     alert('操作成功！');
+                    $('#Buyoff').val('');
+                    $('#BillNo').val('');
+                    $('#Image').val('');
+                    $('#displayImage').attr('src', '');
                 }
                 changeBtnStyle(Btn, '确认录入');
             },

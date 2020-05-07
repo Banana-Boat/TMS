@@ -40,11 +40,9 @@ body{
 .table-box{
     text-align: center;
 }
-.table>tbody>tr>td{
-    vertical-align: middle;
-}
-th{
-    text-align: center;
+td, th{
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 .act-btn{
     margin-right: 2px;

@@ -123,29 +123,44 @@ function getInfo(e){
             }else{
                 $('#repairBox').hide();
                 $('#scrapBox').hide();
+
+                $('#ToolList').text('');                     //清空富文本框显示夹具
+                let temp = '';
                 switch(displayType){                         //更改模态窗内容
                     case 'Repair':
                         $('#modalTitle').text('报修申请单详情');
                         $('#PMContent').text(result.PMContent);
                         $('#RepairReason').text(result.Reason);
+                        temp = '\t\t代码\t\t序列号\n';
+                        for(let i = 0; i < result.ToolList.length; i++){
+                            temp += 'No.' + (i + 1) + '\t' 
+                                + result.ToolList[i].Code + '\t\t' 
+                                + result.ToolList[i].SeqID + '\n';
+                        }
+                        $('#ToolList').text(temp);
+
                         $('#repairBox').show();
                         break;
                     case 'Scrap':
                         $('#modalTitle').text('报废申请单详情');
-                        $('#ServiceLife').text(result.ServiceLife);
                         $('#ScrapReason').text(result.Reason);
+                        temp = '\t\t代码\t\t序列号\t使用寿命\n';
+                        for(let i = 0; i < result.ToolList.length; i++){
+                            temp += 'No.' + (i + 1) + '\t' 
+                                + result.ToolList[i].Code + '\t\t' 
+                                + result.ToolList[i].SeqID + '\t\t'
+                                + result.ToolList[i].ServiceLife + '\n';
+                        }
+                        $('#ToolList').text(temp);
+
                         $('#scrapBox').show();
                         break;
                 }
                 $('#Reviewer').empty();
                 $('#Reviewer').append(result.ReviewerID + '&nbsp;&nbsp;&nbsp;' + result.Reviewer);
-                $('#ToolList').text('');                       //清空富文本框显示夹具  
-                for(let i = 0; i < result.ToolList.length; i++){          //刷新富文本框显示夹具
-                    let temp = $('#ToolList').text();
-                    $('#ToolList').text(temp + 'No.' + (i + 1) + '    ' 
-                        + result.ToolList[i].Code + '    ' 
-                        + result.ToolList[i].SeqID + '\n');
-                }
+                
+                  
+                
                 $('#applicationInfoModal').modal('show');
             }
         },

@@ -2,18 +2,20 @@
     "ToolList": [
         {
             "Code": "EF0790",
-            "SeqID": "1"
+            "SeqID": "1",
+            "ServiceLife": "20"
         },
         {
             "Code": "EF0788",
-            "SeqID": "2"
+            "SeqID": "2",
+            "ServiceLife": "20"
         },
         {
             "Code": "EF0790",
-            "SeqID": "3"
+            "SeqID": "3",
+            "ServiceLife": "20"
         }
     ],
-    "ServiceLife": "20",
     "PMContent": "",
     "Reason": "(报修报废同)"
 }

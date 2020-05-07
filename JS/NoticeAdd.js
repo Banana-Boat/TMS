@@ -1,6 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 填充字典
-$(window).on('load', function(){
+function refreshData(){
+    $('#NoticeDel').empty();
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -17,7 +18,8 @@ $(window).on('load', function(){
             alert('获取信息失败，请稍后重试...');
         }
     });
-})
+}
+$(window).on('load', refreshData)
 //#endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +53,7 @@ $('#addNoticeBtn').click(function(){
                 alert('添加失败，请稍后重试...');
             }else {
                 alert('添加成功！')
+                refreshData();
             }
             changeBtnStyle(btn, '添加公告');
         },
@@ -73,6 +76,7 @@ $('#delNoticeBtn').click(function(){
                 alert('删除失败，请稍后重试...');
             }else{
                 alert('删除成功！');
+                refreshData();
             }
             changeBtnStyle(btn, '删除库位');
         },

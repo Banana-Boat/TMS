@@ -39,12 +39,9 @@ body{
 .table-responsive{
     overflow-x: auto;
 }
-.table>tbody>tr>td{
-    text-align: center;
-    vertical-align: middle;
-}
-th{
-    text-align: center;
+td, th{
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 .tr-selected{
     background-color:  rgb(185, 195, 210);

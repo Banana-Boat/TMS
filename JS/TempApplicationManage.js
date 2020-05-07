@@ -123,6 +123,7 @@ function remove(e){
                 alert('操作失败，请稍后重试...');
             }else{
                 alert('操作成功！');
+                refreshTable();
             }
         } 
     });

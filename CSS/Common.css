@@ -54,17 +54,21 @@ body{
 	height: 100%;
 	width: 100%;
 }
+.nav-ul{
+	height: 75%;
+	overflow-y: auto;
+}
 /* 导航栏滚动条 */
-.menu::-webkit-scrollbar {/*滚动条整体样式*/
+.nav-ul::-webkit-scrollbar {/*滚动条整体样式*/
     width: 9px;     /*高宽分别对应横竖滚动条的尺寸*/
     height: 1px;
 }
-.menu::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+.nav-ul::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 10px;
      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     background: #dcdcdc;
 }
-.menu::-webkit-scrollbar-track {/*滚动条里面轨道*/
+.nav-ul::-webkit-scrollbar-track {/*滚动条里面轨道*/
     border-radius: 10px;
     background: #f4f4f4;
 }

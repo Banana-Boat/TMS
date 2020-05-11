@@ -15,6 +15,7 @@
     <body>
         <!--悬浮按钮-->
         <div class="dangling-box">
+            <a id="danglingShow"><i class="dangling-icon fa fa-calendar-o" aria-hidden="true"></i></a>
             <a id="danglingBack" style="display: none;"><i class="dangling-icon fa fa-arrow-up" aria-hidden="true"></i></a>
         </div>
         <!-- 主体 -->
@@ -91,10 +92,42 @@
                 </table>
             </div>
         </div>
-        
+        <!-- 查看夹具的生命周期使用情况 -->
+        <div class="modal fade" id="lifecycleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalTitle">夹具生命周期追溯</h4>
+                    </div>
+                    <div class="modal-body" id="modal_body">
+                        <div class="modal-container">
+                            <div id="timelineContainer" class="timelineContainer">
+                                <div class="timelineToggle"><p><a class="expandAll">+ 全部展开</a></p></div>
+                                <div id="timelineContent">
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="../node_modules/jquery-cookie-v1.4.1/jquery.cookie.js"></script>
         <link href="../CSS/ApplicationReview.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/node_modules/timeliner/css/screen.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="/node_modules/timeliner/css/responsive.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="/node_modules/timeliner/inc/colorbox.css" type="text/css" media="screen">
         <script src="../JS/AdminToolApplicationDisplay.js"></script>
+        <script type="text/javascript" src="/node_modules/timeliner/inc/colorbox.js"></script>
+        <script type="text/javascript" src="/node_modules/timeliner/js/timeliner.js"></script>
+        <script>
+            $(document).ready(function() {
+                
+            });
+        </script>
     </body>
 </html>
 

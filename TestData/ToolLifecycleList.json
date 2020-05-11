@@ -1,0 +1,37 @@
+[
+    {
+        "YearMonth": "2020年4月",
+        "List": [
+            {
+                "Type": "Purchase",
+                "Date": "2020/4/1",
+                "Content": "采购单据号：XXXXX<br>存放库位:XXX"
+            },
+            {
+                "Type": "Out",
+                "Date": "2020/4/5",
+                "Content": "采购单据号：XXXXX<br>存放库位:XXX"
+            },
+            {
+                "Type": "In",
+                "Date": "2020/4/8",
+                "Content": "采购单据号：XXXXX<br>存放库位:XXX"
+            }
+        ]
+    },
+    {
+        "YearMonth": "2020年5月",
+        "List": [
+            {
+                "Type": "Repair",
+                "Date": "2020/5/22",
+                "Content": "采购单据号：XXXXX<br>存放库位:XXX"
+            },
+            {
+                "Type": "Scrap",
+                "Date": "2020/5/24",
+                "Content": "采购单据号：XXXXX<br>存放库位:XXX"
+            }
+        ]
+    }
+]

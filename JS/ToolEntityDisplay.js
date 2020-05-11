@@ -182,7 +182,7 @@ $('#bulkOperBtn').click(function(){
             throw '序号格式错误';
         switch(bulkOperType){
             case '出库':
-                for(let i = num1; i < num2; i++){
+                for(let i = num1; i <= num2; i++){
                     let state = displayedData.eq(i).children().eq(5).text();
                     if(state == '可用')
                         transData.push({
@@ -194,25 +194,25 @@ $('#bulkOperBtn').click(function(){
                 }
                 break;
             case '入库':
-                for(let i = num1; i < num2; i++){
+                for(let i = num1; i <= num2; i++){
                     let state = displayedData.eq(i).children().eq(5).text();
                     if(state == '待入库')
                         transData.push({
                             'Code': displayedData.eq(i).children().eq(1).text(),
                             'SeqID': displayedData.eq(i).children().eq(2).text(),
-                            'Type': 'Out'
+                            'Type': 'In'
                         });
                     else    throw '夹具选择错误';
                 }
                 break;
             case '报废':
-                for(let i = num1; i < num2; i++){
+                for(let i = num1; i <= num2; i++){
                     let state = displayedData.eq(i).children().eq(5).text();
                     if(state == '可用' || state == '待入库') 
                         transData.push({
                             'Code': displayedData.eq(i).children().eq(1).text(),
                             'SeqID': displayedData.eq(i).children().eq(2).text(),
-                            'Type': 'Out'
+                            'Type': 'Scrap'
                         });
                     else    throw '夹具选择错误';
                 }

@@ -1,12 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //全局变量
-var pageSize = 20;              //一页最多显示16条信息
+var pageSize = 20;              //一页最多显示20条信息
 var jData = [];
 var searchType = '';
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //#region 展示表格  
 function displayTable(data){
-    $('tbody').empty();
     $('#paginationUserInfoList').jqPaginator({
         first: '<li class="first"><a href="javascript:;">首页</a></li>',
         prev: '<li class="prev"><a href="javascript:;"><<</a></li>',
@@ -17,6 +16,7 @@ function displayTable(data){
         totalCounts: data.length,
         pageSize: pageSize,
         onPageChange: function(num){
+            $('tbody').empty();
             var begin = (num - 1) * pageSize;
             for(var i = begin; i < data.length && i < begin + pageSize; i++){
                 let tempStr = '<tr><td>' + data[i]['UserID']

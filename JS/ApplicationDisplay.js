@@ -10,7 +10,7 @@ function refreshTable(){
                 alert('获取数据失败，请稍后重试..');
             }else{
                 $('tbody').empty();
-                for(let i = 0; i < result.length; i++){
+                for(let i = result.length - 1; i >= 0; i--){
                     let tempStr = '<tr><td>' + result[i].OrderID + '</td><td>' + result[i].Type;
                     
                     if(result[i].FIID)

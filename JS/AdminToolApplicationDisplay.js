@@ -29,50 +29,52 @@ function refreshTable(url){
 }
 function displayTable(data, displayType){
     $('#' + displayType + 'Tbody').empty();
-    if(data.length > 0){
-        switch(displayType){
-            case 'Out':
-                for(let i = 0; i < data.length; i++){
-                    $('#' + displayType + 'Tbody').append(
-                        '<tr><td>' + data[i].OrderID
-                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td><td>' + data[i].UserID + '&nbsp&nbsp&nbsp' + data[i].UserName
-                        + '</td><td>' + data[i].Remarks
-                        + '</td></tr>');
-                }
-                break;
-            case 'In':
-                for(let i = 0; i < data.length; i++){
-                    $('#' + displayType + 'Tbody').append(
-                        '<tr><td>' + data[i].OrderID
-                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td><td>' + data[i].Remarks
-                        + '</td></tr>');
-                }
-                break;
-            case 'Repair':
-                for(let i = 0; i < data.length; i++){
-                    $('#' + displayType + 'Tbody').append(
-                        '<tr><td>' + data[i].OrderID
-                        + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
-                        + '</td><td>' + data[i].PMContent
-                        + '</td><td>' + data[i].Reason
-                        + '</td></tr>');
-                }
-                break;
-            case 'Check':
-                for(let i = 0; i < data.length; i++){
-                    $('#' + displayType + 'Tbody').append(
-                        '<tr><th>' + (i + 1).toString()
-                        + '</th><td>' + data[i].ExaminerID + '&nbsp&nbsp&nbsp' + data[i].ExaminerName
-                        + '</td><td>' + data[i].ApplicationTime
-                        + '</td></tr>');
-                }
-                break;
+    if(data != null){
+        if(data.length > 0){
+            switch(displayType){
+                case 'Out':
+                    for(let i = 0; i < data.length; i++){
+                        $('#' + displayType + 'Tbody').append(
+                            '<tr><td>' + data[i].OrderID
+                            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td><td>' + data[i].UserID + '&nbsp&nbsp&nbsp' + data[i].UserName
+                            + '</td><td>' + data[i].Remarks
+                            + '</td></tr>');
+                    }
+                    break;
+                case 'In':
+                    for(let i = 0; i < data.length; i++){
+                        $('#' + displayType + 'Tbody').append(
+                            '<tr><td>' + data[i].OrderID
+                            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td><td>' + data[i].Remarks
+                            + '</td></tr>');
+                    }
+                    break;
+                case 'Repair':
+                    for(let i = 0; i < data.length; i++){
+                        $('#' + displayType + 'Tbody').append(
+                            '<tr><td>' + data[i].OrderID
+                            + '</td><td>' + data[i].ApplicantID + '&nbsp&nbsp&nbsp' + data[i].ApplicantName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td><td>' + data[i].ReviewerID + '&nbsp&nbsp&nbsp' + data[i].ReviewerName
+                            + '</td><td>' + data[i].PMContent
+                            + '</td><td>' + data[i].Reason
+                            + '</td></tr>');
+                    }
+                    break;
+                case 'Check':
+                    for(let i = 0; i < data.length; i++){
+                        $('#' + displayType + 'Tbody').append(
+                            '<tr><th>' + (i + 1).toString()
+                            + '</th><td>' + data[i].ExaminerID + '&nbsp&nbsp&nbsp' + data[i].ExaminerName
+                            + '</td><td>' + data[i].ApplicationTime
+                            + '</td></tr>');
+                    }
+                    break;
+            }
         }
     }
 }
@@ -90,7 +92,11 @@ $(window).on('load', function(){
         $.removeCookie('code_toolapplication');                     //清除cookie
         $.removeCookie('seqid_toolapplication');
     }
-    
+
+    $.timeliner({
+        startOpen:[]
+    });
+    $(".CBmodal").colorbox({inline:true, initialWidth:100, maxWidth:682, initialHeight:100, transition:"elastic",speed:750});
 });
 //#endregion
 
@@ -104,6 +110,68 @@ function changeTab(e, type){
     displayType = type;
     displayTable(initData[displayType], displayType);
 }
+//#endregion
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region 模态窗查看夹具的生命周期使用情况
+$('#danglingShow').click(function(){
+    $('#timelineContent').empty();
+    let Code = $('#CodeInput').val();
+    let SeqID = $('#SeqIDInput').val();
+    if(Code != '' && SeqID != ''){
+        $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            url: '../TestData/ToolLifecycleList.json',  //Code与SeqID 附后端Url
+            success: function(result){
+                if(result.Status == 'error'){
+                    alert('获取数据失败，请稍后重试..');
+                }else{
+                    result.forEach(element => {
+                        let tempStr = '<div class="timelineMajor"><h2 class="timelineMajorMarker"><span>' + element.YearMonth + '</span></h2>'
+                        element.List.forEach(item => {
+                            let iconClass = ''
+                            let typeChinese = ''
+                            let item_id = item.Date.split('/')[0] + item.Date.split('/')[1] + item.Date.split('/')[2]
+                            switch (item.Type) {
+                                case 'Purchase':
+                                    iconClass = 'fa fa-shopping-cart'
+                                    typeChinese = '采购入库'
+                                    break;
+                                case 'Out':
+                                    iconClass = 'fa fa-sign-out'
+                                    typeChinese = '出库'
+                                    break;
+                                case 'In':
+                                    iconClass = 'fa fa-sign-in'
+                                    typeChinese = '入库'
+                                    break;
+                                case 'Repair':
+                                    iconClass = 'fa fa-wrench'
+                                    typeChinese = '报修'
+                                    break;
+                                case 'Scrap':
+                                    iconClass = 'fa fa-trash'
+                                    typeChinese = '报废'
+                                    break;
+                            }
+    
+                            tempStr += '<dl class="timelineMinor"><dt id="' + item_id + '"><a><i class="' + iconClass + '"></i>&nbsp;&nbsp;' + typeChinese
+                                + ' - ' + item.Date + '</a></dt><dd class="timelineEvent" id="' + item_id + 'EX" style="display:none;">'
+                                + item.Content + '</dd></dl>'
+                        })
+                        tempStr += '</div>'
+                        $('#timelineContent').append(tempStr)
+                    });
+                    $('#lifecycleModal').modal('show');
+                }
+            },
+            error: function(){
+                alert('获取数据失败，请稍后重试..');
+            }
+        });
+    }
+})
 //#endregion
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
